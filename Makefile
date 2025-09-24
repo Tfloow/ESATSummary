@@ -1,6 +1,11 @@
 # go over each folder and compile the markdown into pdf with pandoc
 
 compile : all_NEW
+# zip PDF
+	@printf "$(YELLOW)--> Zipping all PDFs into PDF.zip$(NC)\n"
+	@zip PDF.zip PDF/*.pdf > /dev/null
+	@printf "$(GREEN) ✔ Successfully created PDF.zip$(NC)\n"
+
 
 # Exclude PDF directory from subdirectories
 SUBDIRS := $(patsubst %/,%,$(wildcard */))
@@ -17,7 +22,7 @@ PANDOC_CMD = docker run --rm --volume "$(PWD)/$@:/data" pandoc/extra \
 	summary.md LICENSE.md \
 	-o $@.pdf \
 	--template eisvogel \
-	--syntax-highlighting=idiomatic \
+	--listings \
 	--number-sections
 
 
@@ -32,7 +37,7 @@ NC       = \033[0m
 	@cp $@/$@.pdf PDF/
 	@rm -f $@/$@.pdf
 	@chmod 664 PDF/$@.pdf
-	@printf "$(GREEN) ✔ Successfully created $(BLUE)%s.pdf$(NC)\n\n" "$@"
+	@printf "$(GREEN) ✔ Successfully created $(BLUE)%s.pdf$(NC)\n"
 
 %.pdf: %
 
@@ -45,7 +50,7 @@ create_summary :
 	@echo "Creating summary files..."
 	@if [ -z "$(TITLE)" ] || [ -z "$(AUTHOR)" ] || [ -z "$(DIR)" ] || [ -z "$(SEMESTER)" ]; then \
 		echo "Error: Please provide TITLE, AUTHOR, DIR, and SEMESTER variables."; \
-		echo "Usage: make create_summary TITLE='Course Title' AUTHOR='Author Name' DIR='course_dir' SEMESTER='M2Q1'"; \
+		echo "Usage: make create_summary TITLE='Course Title' AUTHOR='Author Name' DIR='course_dir' SEMESTER='M2S1'"; \
 		exit 1; \
 	fi
 	@echo "Creating directory $(SEMESTER)_$(DIR)..."
