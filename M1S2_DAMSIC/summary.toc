@@ -1,0 +1,57 @@
+\contentsline {section}{Sample \& Hold}{1}{section*.2}%
+\contentsline {subsection}{Introduction}{2}{section*.3}%
+\contentsline {paragraph}{Requirements}{2}{section*.4}%
+\contentsline {subsection}{Non-idealities}{2}{section*.5}%
+\contentsline {subsubsection}{Noise}{2}{section*.6}%
+\contentsline {subsubsection}{Jitter}{4}{section*.7}%
+\contentsline {subsubsection}{Non fundamental error - Implementation error}{4}{section*.8}%
+\contentsline {paragraph}{Pedestal}{4}{section*.9}%
+\contentsline {paragraph}{Droop}{4}{section*.10}%
+\contentsline {paragraph}{Feedthrough}{4}{section*.11}%
+\contentsline {paragraph}{Aperture Jitter}{4}{section*.12}%
+\contentsline {subsection}{Capacitor and switch implementations}{4}{section*.13}%
+\contentsline {subsubsection}{Capacitors}{4}{section*.14}%
+\contentsline {subsubsection}{Switches}{5}{section*.15}%
+\contentsline {paragraph}{Bootstrapping}{5}{section*.16}%
+\contentsline {subsection}{Circuit topologies}{5}{section*.17}%
+\contentsline {subsubsection}{General considerations}{5}{section*.18}%
+\contentsline {subsubsection}{Switched-capacitor T\& H circuits}{6}{section*.19}%
+\contentsline {subsubsection}{Flip-Around T\&H}{6}{section*.20}%
+\contentsline {subsubsection}{Correlated double sampling}{7}{section*.21}%
+\contentsline {section}{Digital-to-Analog Conversion}{7}{section*.22}%
+\contentsline {subsection}{Signal representations}{9}{section*.23}%
+\contentsline {subsubsection}{Typical {inl} of Unary Architectures}{9}{section*.24}%
+\contentsline {paragraph}{Segmented cells}{10}{figure.9}%
+\contentsline {subsection}{Digital-to-analog conversion}{11}{section*.26}%
+\contentsline {subsubsection}{Voltage domain}{11}{section*.27}%
+\contentsline {paragraph}{Resistor ladder}{11}{section*.28}%
+\contentsline {paragraph}{R-2R ladder}{11}{figure.10}%
+\contentsline {paragraph}{Segmented resistor ladder}{11}{figure.11}%
+\contentsline {subsubsection}{Current domain}{11}{section*.31}%
+\contentsline {paragraph}{Symmetrical Buffered current-DAC}{12}{figure.13}%
+\contentsline {paragraph}{Buffer-less current-DAC}{12}{figure.14}%
+\contentsline {paragraph}{Segment current DAC}{12}{section*.34}%
+\contentsline {paragraph}{Matrix decoding}{15}{section*.35}%
+\contentsline {paragraph}{Current cell implementation}{16}{section*.36}%
+\contentsline {paragraph}{Switch implementation}{17}{section*.37}%
+\contentsline {subsubsection}{Charge domain}{17}{section*.38}%
+\contentsline {subsubsection}{Time domain}{17}{section*.39}%
+\contentsline {subsection}{Accuracy improvement methods}{17}{section*.40}%
+\contentsline {section}{Nyquist ADC}{17}{section*.41}%
+\contentsline {subsection}{Comparator}{17}{section*.42}%
+\contentsline {subsection}{Comparator}{17}{section*.43}%
+\contentsline {subsubsection}{Requirements and operation principle}{17}{section*.44}%
+\contentsline {paragraph}{Limiting Amplifier}{18}{section*.45}%
+\contentsline {paragraph}{Latch behavior circuits}{18}{section*.46}%
+\contentsline {subsubsection}{Non-idealities}{18}{section*.47}%
+\contentsline {subsubsection}{Comparator circuit examples}{18}{section*.48}%
+\contentsline {subsection}{Analog-to-digital converter topologies}{18}{section*.49}%
+\contentsline {subsection}{Conclusions}{18}{section*.50}%
+\contentsline {section}{Delta Sigma {adc}}{18}{section*.51}%
+\contentsline {subsection}{Basic principles}{18}{section*.52}%
+\contentsline {subsubsection}{{fom}}{19}{section*.53}%
+\contentsline {paragraph}{Signal conditioning}{19}{section*.54}%
+\contentsline {subsubsection}{Resolution}{19}{section*.55}%
+\contentsline {subsubsection}{Second order Sigma Delta}{22}{section*.56}%
+\contentsline {subsubsection}{Stability and Limit Cycle}{23}{section*.57}%
+\contentsline {paragraph}{Pattern noise}{23}{section*.58}%

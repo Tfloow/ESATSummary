@@ -54,7 +54,7 @@ If you tend to forget pulling before commiting, you can create a new branch like
 First clone this repo. Then to create a new summary please run a this command:
 
 ```
-make create_summary SEMESTER=MXSX DIR=CLASS_FOLDER TITLE="CLASS TITLE" AUTHOR="AUTHOR OF THE SUMMARY"
+make create_summary DIR='os' SEMESTER='M1S2' TITLE='Operating Systems' AUTHOR='Your Name'
 ```
 
 And replace the placeholder with your given class and name.
