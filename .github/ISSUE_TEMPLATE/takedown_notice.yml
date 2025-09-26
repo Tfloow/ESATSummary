@@ -1,0 +1,72 @@
+name: "Take Down Notice"
+description: "For KU Leuven professors or TAs to request the removal of a summary."
+title: "[Takedown Request]: "
+labels: ["takedown-notice", "urgent"]
+assignees:
+  - Tfloow
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Official Takedown Request Form for KU Leuven Staff**
+
+        This form is the official channel for professors and teaching assistants at KU Leuven to request the removal of a course summary. 
+        
+        Please fill out all fields completely. We take these requests very seriously and will act on them promptly after verification.
+
+  - type: input
+    id: summary-path
+    attributes:
+      label: "Summary to be Removed"
+      description: "Please provide the full path to the summary file in the repository."
+      placeholder: "e.g., M1S2_Advanced_Algorithms/summary.md"
+    validations:
+      required: true
+
+  - type: input
+    id: requester-name
+    attributes:
+      label: "Your Full Name"
+      description: "Please provide your full name for our records."
+      placeholder: "e.g., Prof. Erik Demeulemeester"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: requester-role
+    attributes:
+      label: "Your Role at KU Leuven"
+      description: "Select your official position for the course in question."
+      options:
+        - "Professor"
+        - "Teaching Assistant (TA)"
+        - "Course Coordinator"
+        - "Faculty Administrator"
+    validations:
+      required: true
+
+  - type: input
+    id: requester-email
+    attributes:
+      label: "Official KU Leuven Email Address"
+      description: "For verification purposes. We will use this to contact you if needed. This will not be made public."
+      placeholder: "firstname.lastname@kuleuven.be"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: "Reason for Takedown Request"
+      description: "Please provide a brief reason for the takedown. All reasons are considered valid."
+      placeholder: "e.g., The summary contains copyrighted material from the official course slides that cannot be shared publicly."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: "Confirmation"
+      options:
+        - label: "I confirm that I am a professor or teaching assistant for the course in question at KU Leuven and am authorized to make this request. I declare that the information provided is accurate."
+          required: true

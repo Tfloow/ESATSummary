@@ -6,6 +6,7 @@ A summary tool for quick and clean summaries
   - [Compilation](#compilation)
     - [Pro tip](#pro-tip)
   - [Add a summary](#add-a-summary)
+  - [License](#license)
 
 ## What is this ?
 
@@ -58,3 +59,7 @@ make create_summary DIR='os' SEMESTER='M1S2' TITLE='Operating Systems' AUTHOR='Y
 ```
 
 And replace the placeholder with your given class and name.
+
+## License
+
+All summaries are based on class given by Professors at KU Leuven. If a professor or a TA desire to take offline a summary, they can do so by opening a new issue with the "Take down notice" template.
