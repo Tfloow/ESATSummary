@@ -56,10 +56,11 @@ create_summary :
 		exit 1; \
 	fi
 	@echo "Creating directory $(SEMESTER)_$(DIR)..."
-	mkdir $(SEMESTER)_$(DIR)
-	cp template/* $(SEMESTER)_$(DIR)
-	sed -i "s/TITLE NAME/$(TITLE)/g" $(SEMESTER)_$(DIR)/summary.md
-	sed -i "s/AUTHOR/$(AUTHOR)/g" $(SEMESTER)_$(DIR)/summary.md
+	@mkdir $(SEMESTER)_$(DIR)
+	@cp template/* $(SEMESTER)_$(DIR)
+	@sed -i "s/TITLE NAME/$(TITLE)/g" $(SEMESTER)_$(DIR)/summary.md
+	@sed -i "s/AUTHOR/$(AUTHOR)/g" $(SEMESTER)_$(DIR)/summary.md
+	@printf "$(GREEN) ✔ Successfully created summary directory $(BLUE)$(SEMESTER)_$(DIR)$(NC)\n"
 
 clean :
 	rm  -rf PDF/

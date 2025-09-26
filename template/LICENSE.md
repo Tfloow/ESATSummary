@@ -21,7 +21,7 @@ For the full legal text of the license, please visit:
 
 ## Modification
 
-To contribute to this work or any other one from this project please find more information at the [Github repository](https://github.com/Tfloow/Q8_KUL).
+To contribute to this work or any other one from this project please find more information at the [Github repository](https://github.com/Tfloow/ESATSummary).
 
 ---
 

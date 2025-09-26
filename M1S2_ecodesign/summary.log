@@ -3,12 +3,12 @@ entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/thomas/Q8_KUL/ecodesign/summary.tex
-(/home/thomas/Q8_KUL/ecodesign/summary.tex
+**/home/thomas/ESATSummary/ecodesign/summary.tex
+(/home/thomas/ESATSummary/ecodesign/summary.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:1: LaTeX Error: Missing \begin{document}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:1: LaTeX Error: Missing \begin{document}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -24,7 +24,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 1--1
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:2: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:2: Undefined control sequence.
 l.2 \tightlist
               
 The control sequence at the end of the top line
@@ -33,7 +33,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:4: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:4: Undefined control sequence.
 l.4   \protect\hyperlink
                         {life-cycle-assessment}{Life Cycle Assessment}
 The control sequence at the end of the top line
@@ -82,7 +82,7 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:7: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:7: Undefined control sequence.
 l.7   \tightlist
                 
 The control sequence at the end of the top line
@@ -91,7 +91,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:9: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:9: Undefined control sequence.
 l.9     \protect\hyperlink
                           {basics-of-life-cycle-assessment}{Basics of Life
 The control sequence at the end of the top line
@@ -158,7 +158,7 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:12: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:12: Undefined control sequence.
 l.12     \protect\hyperlink
                            {goal-and-scope-definition}{Goal and Scope
 The control sequence at the end of the top line
@@ -214,7 +214,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:16: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:16: Undefined control sequence.
 l.16     \tightlist
                    
 The control sequence at the end of the top line
@@ -223,7 +223,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:18: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:18: Undefined control sequence.
 l.18       \protect\hyperlink
                              {goal}{Goal}
 The control sequence at the end of the top line
@@ -240,7 +240,7 @@ Missing character: There is no G in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no l in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:20: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:20: Undefined control sequence.
 l.20       \protect\hyperlink
                              {scope}{Scope}
 The control sequence at the end of the top line
@@ -259,7 +259,7 @@ Missing character: There is no c in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no e in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:22: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:22: Undefined control sequence.
 l.22       \protect\hyperlink
                              {system-boundaries}{System Boundaries}
 The control sequence at the end of the top line
@@ -301,7 +301,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:25: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:25: Undefined control sequence.
 l.25     \protect\hyperlink
                            {the-basics-of-life-cycle-inventory}{The basics of
 The control sequence at the end of the top line
@@ -373,7 +373,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no y in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:29: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:29: Undefined control sequence.
 l.29     \tightlist
                    
 The control sequence at the end of the top line
@@ -382,7 +382,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:31: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:31: Undefined control sequence.
 l.31       \protect\hyperlink
                              {multi-functionality}{Multi-functionality}
 The control sequence at the end of the top line
@@ -429,7 +429,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no y in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:34: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:34: Undefined control sequence.
 l.34     \protect\hyperlink
                            {marginal-vs-average}{Marginal vs Average}
 The control sequence at the end of the top line
@@ -474,7 +474,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no g in font nullfont!
 Missing character: There is no e in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:36: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:36: Undefined control sequence.
 l.36     \protect\hyperlink
                            {2-modelling-approaches}{2 modelling approaches}
 The control sequence at the end of the top line
@@ -525,7 +525,7 @@ Missing character: There is no c in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:39: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:39: Undefined control sequence.
 l.39     \tightlist
                    
 The control sequence at the end of the top line
@@ -534,7 +534,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:41: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:41: Undefined control sequence.
 l.41       \protect\hyperlink
                              {modelling-context}{Modelling context}
 The control sequence at the end of the top line
@@ -576,7 +576,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no x in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:43: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:43: Undefined control sequence.
 l.43       \protect\hyperlink
                              {the-basics-of-life-cycle-impact-assessment}{The
 The control sequence at the end of the top line
@@ -663,7 +663,7 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:46: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:46: Undefined control sequence.
 l.46       \protect\hyperlink
                              {interpretation}{Interpretation}
 The control sequence at the end of the top line
@@ -700,7 +700,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:49: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:49: Undefined control sequence.
 l.49     \protect\hyperlink
                            {input-output-lca}{Input-output LCA}
 The control sequence at the end of the top line
@@ -740,7 +740,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no L in font nullfont!
 Missing character: There is no C in font nullfont!
 Missing character: There is no A in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:52: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:52: Undefined control sequence.
 l.52   \protect\hyperlink
                          {design-for-environment-dfe-methods-and-techniques}...
 The control sequence at the end of the top line
@@ -844,7 +844,7 @@ Missing character: There is no q in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:56: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:56: Undefined control sequence.
 l.56   \tightlist
                  
 The control sequence at the end of the top line
@@ -853,7 +853,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:58: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:58: Undefined control sequence.
 l.58     \protect\hyperlink
                            {product-concept-optimisation}{Product Concept
 The control sequence at the end of the top line
@@ -916,7 +916,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:61: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:61: Undefined control sequence.
 l.61     \protect\hyperlink
                            {material-selection}{Material Selection}
 The control sequence at the end of the top line
@@ -960,7 +960,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:65: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:65: Undefined control sequence.
 l.65 \hypertarget
                  {life-cycle-assessment}{%
 The control sequence at the end of the top line
@@ -990,7 +990,7 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:66: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:66: Undefined control sequence.
 l.66 \section
              {Life Cycle Assessment}\label{life-cycle-assessment}}
 The control sequence at the end of the top line
@@ -1023,7 +1023,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 65--67
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:68: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:68: Undefined control sequence.
 l.68 \hypertarget
                  {basics-of-life-cycle-assessment}{%
 The control sequence at the end of the top line
@@ -1063,7 +1063,7 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:69: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:69: Undefined control sequence.
 l.69 \subsection
                 {Basics of Life Cycle
 The control sequence at the end of the top line
@@ -1217,7 +1217,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 75--75
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:77: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:77: Undefined control sequence.
 l.77 \tightlist
                
 The control sequence at the end of the top line
@@ -1433,7 +1433,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 86--89
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:90: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:90: Undefined control sequence.
 l.90 \hypertarget
                  {goal-and-scope-definition}{%
 The control sequence at the end of the top line
@@ -1467,7 +1467,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:91: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:91: Undefined control sequence.
 l.91 \subsection
                 {Goal and Scope definition}\label{goal-and-scope-definition}}
 The control sequence at the end of the top line
@@ -1503,7 +1503,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 90--92
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:93: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:93: Undefined control sequence.
 l.93 \hypertarget
                  {goal}{%
 The control sequence at the end of the top line
@@ -1516,7 +1516,7 @@ Missing character: There is no g in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no l in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:94: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:94: Undefined control sequence.
 l.94 \subsubsection
                    {Goal}\label{goal}}
 The control sequence at the end of the top line
@@ -1787,7 +1787,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 96--101
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:102: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:102: Undefined control sequence.
 l.102 \hypertarget
                   {scope}{%
 The control sequence at the end of the top line
@@ -1801,7 +1801,7 @@ Missing character: There is no c in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no e in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:103: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:103: Undefined control sequence.
 l.103 \subsubsection
                     {Scope}\label{scope}}
 The control sequence at the end of the top line
@@ -2134,7 +2134,7 @@ Overfull \hbox (54.68854pt too wide) in paragraph at lines 109--113
 \OT1/cmr/m/it/10 functionality
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:114: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:114: Undefined control sequence.
 l.114 \hypertarget
                   {functional-unit}{%
 The control sequence at the end of the top line
@@ -2158,7 +2158,7 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:115: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:115: Undefined control sequence.
 l.115 \paragraph
                 {Functional Unit}\label{functional-unit}}
 The control sequence at the end of the top line
@@ -3373,7 +3373,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 138--142
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:143: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:143: Undefined control sequence.
 l.143 \hypertarget
                   {reference-flow}{%
 The control sequence at the end of the top line
@@ -3396,7 +3396,7 @@ Missing character: There is no f in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no w in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:144: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:144: Undefined control sequence.
 l.144 \paragraph
                 {Reference flow}\label{reference-flow}}
 The control sequence at the end of the top line
@@ -3751,7 +3751,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 150--152
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:153: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:153: Undefined control sequence.
 l.153 \hypertarget
                   {system-boundaries}{%
 The control sequence at the end of the top line
@@ -3777,7 +3777,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:154: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:154: Undefined control sequence.
 l.154 \subsubsection
                     {System Boundaries}\label{system-boundaries}}
 The control sequence at the end of the top line
@@ -4230,7 +4230,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 161--166
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:167: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:167: Undefined control sequence.
 l.167 \hypertarget
                   {rebound-effect}{%
 The control sequence at the end of the top line
@@ -4253,7 +4253,7 @@ Missing character: There is no f in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:168: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:168: Undefined control sequence.
 l.168 \paragraph
                 {Rebound effect}\label{rebound-effect}}
 The control sequence at the end of the top line
@@ -4958,7 +4958,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 184--184
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:185: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:185: Undefined control sequence.
 l.185 \tightlist
                 
 The control sequence at the end of the top line
@@ -5155,7 +5155,7 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:197: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:197: Undefined control sequence.
 l.197   \tightlist
                   
 The control sequence at the end of the top line
@@ -5287,7 +5287,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no y in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:206: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:206: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -5299,7 +5299,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:208: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:208: Undefined control sequence.
 l.208 \includegraphics
                       {image.png}
 The control sequence at the end of the top line
@@ -5318,7 +5318,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:209: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:209: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -5341,7 +5341,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no y in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:210: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:210: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -5353,7 +5353,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:212: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:212: Undefined control sequence.
 l.212 \hypertarget
                   {the-basics-of-life-cycle-inventory}{%
 The control sequence at the end of the top line
@@ -5396,7 +5396,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no y in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:213: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:213: Undefined control sequence.
 l.213 \subsection
                  {The basics of life cycle
 The control sequence at the end of the top line
@@ -5440,7 +5440,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 212--215
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:216: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:216: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -5452,7 +5452,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:218: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:218: Undefined control sequence.
 l.218 \includegraphics
                       {image-1.png}
 The control sequence at the end of the top line
@@ -5473,7 +5473,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:219: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:219: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -5505,7 +5505,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no y in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:220: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:220: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -5916,7 +5916,7 @@ Overfull \hbox (21.8263pt too wide) in paragraph at lines 229--230
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:231: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:231: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -5928,7 +5928,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:233: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:233: Undefined control sequence.
 l.233 \includegraphics
                       {image-2.png}
 The control sequence at the end of the top line
@@ -5949,7 +5949,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:234: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:234: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -5982,7 +5982,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no w in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:235: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:235: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -6029,7 +6029,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 239--239
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:240: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:240: Undefined control sequence.
 l.240 \tightlist
                 
 The control sequence at the end of the top line
@@ -6090,7 +6090,7 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no g in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:247: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:247: Undefined control sequence.
 l.247 \hypertarget
                   {multi-functionality}{%
 The control sequence at the end of the top line
@@ -6118,7 +6118,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no y in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:248: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:248: Undefined control sequence.
 l.248 \subsubsection
                     {Multi-functionality}\label{multi-functionality}}
 The control sequence at the end of the top line
@@ -6331,7 +6331,7 @@ Overfull \hbox (17.63322pt too wide) in paragraph at lines 250--254
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: LaTeX Error: The font size command \normalsize is not defined:
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: LaTeX Error: The font size command \normalsize is not defined:
                there is probably something wrong with the class file.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -6345,7 +6345,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 [1
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> ...bel{life-cycle-assessment}{{}{\thepage 
                                                   }{}{}{}}
 l.254 
@@ -6357,7 +6357,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{life-cycle-assessment}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> ...-of-life-cycle-assessment}{{}{\thepage 
                                                   }{}{}{}}
 l.254 
@@ -6369,7 +6369,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{basics-of-life-cycle-assessment}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> ...goal-and-scope-definition}{{}{\thepage 
                                                   }{}{}{}}
 l.254 
@@ -6381,7 +6381,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{goal-and-scope-definition}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> \newlabel{goal}{{}{\thepage 
                                     }{}{}{}}
 l.254 
@@ -6393,7 +6393,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{goal}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> \newlabel{scope}{{}{\thepage 
                                      }{}{}{}}
 l.254 
@@ -6406,7 +6406,7 @@ and I'll forget about whatever was undefined.
 
 \newlabel{scope}{{}{}{}{}{}}
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> \newlabel{functional-unit}{{}{\thepage 
                                                }{}{}{}}
 l.254 
@@ -6418,7 +6418,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{functional-unit}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> \newlabel{reference-flow}{{}{\thepage 
                                               }{}{}{}}
 l.254 
@@ -6430,7 +6430,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{reference-flow}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> \newlabel{system-boundaries}{{}{\thepage 
                                                  }{}{}{}}
 l.254 
@@ -6442,7 +6442,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{system-boundaries}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> \newlabel{rebound-effect}{{}{\thepage 
                                               }{}{}{}}
 l.254 
@@ -6454,7 +6454,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{rebound-effect}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> ...s-of-life-cycle-inventory}{{}{\thepage 
                                                   }{}{}{}}
 l.254 
@@ -6466,7 +6466,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 \newlabel{the-basics-of-life-cycle-inventory}{{}{}{}{}{}}
-/home/thomas/Q8_KUL/ecodesign/summary.tex:254: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:254: Undefined control sequence.
 <write> ...label{multi-functionality}{{}{\thepage 
                                                   }{}{}{}}
 l.254 
@@ -6483,7 +6483,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 255--255
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:257: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:257: Undefined control sequence.
 l.257 \tightlist
                 
 The control sequence at the end of the top line
@@ -6730,7 +6730,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 270--270
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:272: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:272: Undefined control sequence.
 l.272 \tightlist
                 
 The control sequence at the end of the top line
@@ -6810,7 +6810,7 @@ Missing character: There is no b in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no ) in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:278: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:278: Undefined control sequence.
 l.278   \tightlist
                   
 The control sequence at the end of the top line
@@ -6884,7 +6884,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no ) in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:286: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:286: Undefined control sequence.
 l.286   \tightlist
                   
 The control sequence at the end of the top line
@@ -7202,7 +7202,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:300: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:300: Undefined control sequence.
 l.300     \tightlist
                     
 The control sequence at the end of the top line
@@ -7586,7 +7586,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:318: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:318: Undefined control sequence.
 l.318   \tightlist
                   
 The control sequence at the end of the top line
@@ -7897,7 +7897,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:333: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:333: Undefined control sequence.
 l.333   \tightlist
                   
 The control sequence at the end of the top line
@@ -8075,7 +8075,7 @@ Overfull \hbox (11.75548pt too wide) in paragraph at lines 338--340
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:343: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:343: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -8087,7 +8087,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:345: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:345: Undefined control sequence.
 l.345 \includegraphics
                       {image-3.png}
 The control sequence at the end of the top line
@@ -8108,7 +8108,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:346: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:346: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -8132,7 +8132,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:347: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:347: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -8145,7 +8145,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:349: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:349: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -8157,7 +8157,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:351: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:351: Undefined control sequence.
 l.351 \includegraphics
                       {image-4.png}
 The control sequence at the end of the top line
@@ -8178,7 +8178,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:352: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:352: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -8227,7 +8227,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:353: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:353: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -8239,7 +8239,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:355: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:355: Undefined control sequence.
 l.355 \hypertarget
                   {allocation-at-point-of-substitution-apos}{%
 The control sequence at the end of the top line
@@ -8288,7 +8288,7 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:356: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:356: Undefined control sequence.
 l.356 \paragraph
                 {Allocation at point of substitution
 The control sequence at the end of the top line
@@ -8706,7 +8706,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 368--369
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:370: LaTeX Error: Environment longtable undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:370: LaTeX Error: Environment longtable undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -8724,7 +8724,7 @@ Missing character: There is no @ in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no @ in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:371: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:371: Undefined control sequence.
 l.371 \toprule
               \noalign{}
 The control sequence at the end of the top line
@@ -8733,13 +8733,13 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:371: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:371: Misplaced \noalign.
 l.371 \toprule\noalign
                       {}
 I expect to see \noalign only after the \cr of
 an alignment. Proceed, and I'll ignore this case.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:372: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:372: Misplaced alignment tab character &.
 l.372 &
         problem \\
 I can't figure out why you would want to use a tab mark
@@ -8756,7 +8756,7 @@ Missing character: There is no b in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no m in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:373: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:373: Undefined control sequence.
 <recently read> \midrule 
                          
 l.373 \midrule
@@ -8767,13 +8767,13 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:373: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:373: Misplaced \noalign.
 l.373 \midrule\noalign
                       {}
 I expect to see \noalign only after the \cr of
 an alignment. Proceed, and I'll ignore this case.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:374: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:374: Undefined control sequence.
 l.374 \endhead
               
 The control sequence at the end of the top line
@@ -8782,7 +8782,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:375: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:375: Undefined control sequence.
 l.375 \bottomrule
                  \noalign{}
 The control sequence at the end of the top line
@@ -8791,13 +8791,13 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:375: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:375: Misplaced \noalign.
 l.375 \bottomrule\noalign
                          {}
 I expect to see \noalign only after the \cr of
 an alignment. Proceed, and I'll ignore this case.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:376: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:376: Undefined control sequence.
 l.376 \endlastfoot
                   
 The control sequence at the end of the top line
@@ -8821,7 +8821,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:377: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:377: Misplaced alignment tab character &.
 l.377 system expansion &
                          you don't answer the question you started with \\
 I can't figure out why you would want to use a tab mark
@@ -8882,7 +8882,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:378: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:378: Misplaced alignment tab character &.
 l.378 substitution &
                      which processes are avoided? \\
 I can't figure out why you would want to use a tab mark
@@ -8929,7 +8929,7 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:379: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:379: Misplaced alignment tab character &.
 l.379 partitioning &
                      what are the allocation factors? \\
 I can't figure out why you would want to use a tab mark
@@ -8968,7 +8968,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no ? in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:380: LaTeX Error: \begin{document} ended by \end{longtable}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:380: LaTeX Error: \begin{document} ended by \end{longtable}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -9184,7 +9184,7 @@ Overfull \hbox (15.06795pt too wide) in paragraph at lines 382--385
 \OT1/cmr/m/it/10 ory 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:386: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:386: Undefined control sequence.
 l.386 \hypertarget
                   {marginal-vs-average}{%
 The control sequence at the end of the top line
@@ -9212,7 +9212,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no g in font nullfont!
 Missing character: There is no e in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:387: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:387: Undefined control sequence.
 l.387 \subsection
                  {Marginal vs Average}\label{marginal-vs-average}}
 The control sequence at the end of the top line
@@ -9488,7 +9488,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 393--395
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:396: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:396: Undefined control sequence.
 l.396 \hypertarget
                   {modelling-approaches}{%
 The control sequence at the end of the top line
@@ -9517,7 +9517,7 @@ Missing character: There is no c in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:397: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:397: Undefined control sequence.
 l.397 \subsection
                  {2 modelling approaches}\label{modelling-approaches}}
 The control sequence at the end of the top line
@@ -9552,7 +9552,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 396--398
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:399: LaTeX Error: Environment longtable undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:399: LaTeX Error: Environment longtable undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -9568,7 +9568,7 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no @ in font nullfont!
 Missing character: There is no > in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:400: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:400: Undefined control sequence.
 l.400   >{\centering\arraybackslash
                                    }p{(\columnwidth - 4\tabcolsep) * \real{0...
 The control sequence at the end of the top line
@@ -9581,7 +9581,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no ( in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no * in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:400: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:400: Undefined control sequence.
 l.400 ...sh}p{(\columnwidth - 4\tabcolsep) * \real
                                                   {0.1942}}
 The control sequence at the end of the top line
@@ -9597,7 +9597,7 @@ Missing character: There is no 9 in font nullfont!
 Missing character: There is no 4 in font nullfont!
 Missing character: There is no 2 in font nullfont!
 Missing character: There is no > in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:401: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:401: Undefined control sequence.
 l.401   >{\centering\arraybackslash
                                    }p{(\columnwidth - 4\tabcolsep) * \real{0...
 The control sequence at the end of the top line
@@ -9610,7 +9610,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no ( in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no * in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:401: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:401: Undefined control sequence.
 l.401 ...sh}p{(\columnwidth - 4\tabcolsep) * \real
                                                   {0.4317}}
 The control sequence at the end of the top line
@@ -9626,7 +9626,7 @@ Missing character: There is no 3 in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no 7 in font nullfont!
 Missing character: There is no > in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:402: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:402: Undefined control sequence.
 l.402   >{\centering\arraybackslash
                                    }p{(\columnwidth - 4\tabcolsep) * \real{0...
 The control sequence at the end of the top line
@@ -9639,7 +9639,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no ( in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no * in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:402: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:402: Undefined control sequence.
 l.402 ...sh}p{(\columnwidth - 4\tabcolsep) * \real
                                                   {0.3741}}@{}}
 The control sequence at the end of the top line
@@ -9655,7 +9655,7 @@ Missing character: There is no 7 in font nullfont!
 Missing character: There is no 4 in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no @ in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:403: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:403: Undefined control sequence.
 l.403 \toprule
               \noalign{}
 The control sequence at the end of the top line
@@ -9664,7 +9664,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:403: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:403: Misplaced \noalign.
 l.403 \toprule\noalign
                       {}
 I expect to see \noalign only after the \cr of
@@ -9684,7 +9684,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:406: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:406: Misplaced alignment tab character &.
 l.406 \end{minipage} &
                        \begin{minipage}[b]{\linewidth}\centering
 I can't figure out why you would want to use a tab mark
@@ -9715,7 +9715,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no h in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:408: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:408: Misplaced alignment tab character &.
 l.408 \end{minipage} &
                        \begin{minipage}[b]{\linewidth}\centering
 I can't figure out why you would want to use a tab mark
@@ -9746,7 +9746,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no h in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:411: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:411: Undefined control sequence.
 <recently read> \midrule 
                          
 l.411 \midrule
@@ -9757,13 +9757,13 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:411: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:411: Misplaced \noalign.
 l.411 \midrule\noalign
                       {}
 I expect to see \noalign only after the \cr of
 an alignment. Proceed, and I'll ignore this case.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:412: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:412: Undefined control sequence.
 l.412 \endhead
               
 The control sequence at the end of the top line
@@ -9772,7 +9772,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:413: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:413: Undefined control sequence.
 l.413 \bottomrule
                  \noalign{}
 The control sequence at the end of the top line
@@ -9781,13 +9781,13 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:413: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:413: Misplaced \noalign.
 l.413 \bottomrule\noalign
                          {}
 I expect to see \noalign only after the \cr of
 an alignment. Proceed, and I'll ignore this case.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:414: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:414: Undefined control sequence.
 l.414 \endlastfoot
                   
 The control sequence at the end of the top line
@@ -9807,7 +9807,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:415: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:415: Misplaced alignment tab character &.
 l.415 Description &
                     Like book-keeping, we see the sum of impacts of all
 I can't figure out why you would want to use a tab mark
@@ -9867,7 +9867,7 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:416: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:416: Misplaced alignment tab character &.
 l.416 products &
                  Scenario analysis, calculated impacts reflect change \\
 I can't figure out why you would want to use a tab mark
@@ -9932,7 +9932,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no y in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no e in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:417: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:417: Misplaced alignment tab character &.
 l.417 Data type &
                   \textbf{average} & \textbf{marginal} \\
 I can't figure out why you would want to use a tab mark
@@ -9942,7 +9942,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:417: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:417: Misplaced alignment tab character &.
 l.417 Data type & \textbf{average} &
                                      \textbf{marginal} \\
 I can't figure out why you would want to use a tab mark
@@ -9977,7 +9977,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no y in font nullfont!
 Missing character: There is no ? in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:418: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:418: Misplaced alignment tab character &.
 l.418 Solve multi-functionality ? &
                                     Partitioning and allocation & Substitution
 I can't figure out why you would want to use a tab mark
@@ -10012,7 +10012,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:418: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:418: Misplaced alignment tab character &.
 l.418 ...onality ? & Partitioning and allocation &
                                                    Substitution
 I can't figure out why you would want to use a tab mark
@@ -10052,7 +10052,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no ) in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:420: LaTeX Error: \begin{document} ended by \end{longtable}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:420: LaTeX Error: \begin{document} ended by \end{longtable}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -10630,7 +10630,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 431--432
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:433: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:433: Undefined control sequence.
 l.433 \hypertarget
                   {modelling-context}{%
 The control sequence at the end of the top line
@@ -10656,7 +10656,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no x in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:434: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:434: Undefined control sequence.
 l.434 \subsubsection
                     {Modelling context}\label{modelling-context}}
 The control sequence at the end of the top line
@@ -10687,7 +10687,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 433--435
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:436: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:436: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -10699,7 +10699,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:438: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:438: Undefined control sequence.
 l.438 \includegraphics
                       {image-5.png}
 The control sequence at the end of the top line
@@ -10720,7 +10720,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:439: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:439: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -10749,7 +10749,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no x in font nullfont!
 Missing character: There is no t in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:440: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:440: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -10766,7 +10766,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 442--442
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:443: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:443: Undefined control sequence.
 l.443 \tightlist
                 
 The control sequence at the end of the top line
@@ -10806,7 +10806,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no l in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:448: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:448: Undefined control sequence.
 l.448   \tightlist
                   
 The control sequence at the end of the top line
@@ -11154,7 +11154,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no : in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:464: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:464: Undefined control sequence.
 l.464   \tightlist
                   
 The control sequence at the end of the top line
@@ -11309,7 +11309,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no ) in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:472: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:472: Undefined control sequence.
 l.472 \hypertarget
                   {the-basics-of-life-cycle-impact-assessment}{%
 The control sequence at the end of the top line
@@ -11360,7 +11360,7 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:473: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:473: Undefined control sequence.
 l.473 \subsubsection
                     {The basics of life cycle impact
 The control sequence at the end of the top line
@@ -11440,7 +11440,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 478--478
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:479: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:479: Undefined control sequence.
 l.479 \tightlist
                 
 The control sequence at the end of the top line
@@ -11479,7 +11479,7 @@ Overfull \hbox (66.25235pt too wide) in paragraph at lines 481--482
 \OT1/cmr/bx/n/10 Classification
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:484: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:484: Undefined control sequence.
 l.484   \tightlist
                   
 The control sequence at the end of the top line
@@ -11572,7 +11572,7 @@ Overfull \hbox (83.9023pt too wide) in paragraph at lines 489--490
 \OT1/cmr/bx/n/10 Characterization
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:492: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:492: Undefined control sequence.
 l.492   \tightlist
                   
 The control sequence at the end of the top line
@@ -11653,7 +11653,7 @@ Overfull \hbox (70.98013pt too wide) in paragraph at lines 497--498
 \OT1/cmr/bx/n/10 Normalisation
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:500: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:500: Undefined control sequence.
 l.500   \tightlist
                   
 The control sequence at the end of the top line
@@ -11750,7 +11750,7 @@ Overfull \hbox (51.02057pt too wide) in paragraph at lines 506--507
 \OT1/cmr/bx/n/10 Weighting
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:509: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:509: Undefined control sequence.
 l.509   \tightlist
                   
 The control sequence at the end of the top line
@@ -12447,7 +12447,7 @@ Overfull \hbox (15.17351pt too wide) in paragraph at lines 524--528
 \OT1/cmr/bx/n/10 ian 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:529: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:529: Undefined control sequence.
 l.529 \hypertarget
                   {interpretation}{%
 The control sequence at the end of the top line
@@ -12470,7 +12470,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:530: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:530: Undefined control sequence.
 l.530 \subsubsection
                     {Interpretation}\label{interpretation}}
 The control sequence at the end of the top line
@@ -12514,7 +12514,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 534--534
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:536: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:536: Undefined control sequence.
 l.536 \tightlist
                 
 The control sequence at the end of the top line
@@ -12597,7 +12597,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no w in font nullfont!
 Missing character: There is no ) in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:547: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:547: Undefined control sequence.
 l.547 \hypertarget
                   {input-output-lca}{%
 The control sequence at the end of the top line
@@ -12622,7 +12622,7 @@ Missing character: There is no - in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no a in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:548: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:548: Undefined control sequence.
 l.548 \subsection
                  {Input-output LCA}\label{input-output-lca}}
 The control sequence at the end of the top line
@@ -12713,7 +12713,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 550--551
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:552: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:552: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -12725,7 +12725,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:554: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:554: Undefined control sequence.
 l.554 \includegraphics
                       {image-6.png}
 The control sequence at the end of the top line
@@ -12746,7 +12746,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:555: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:555: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -12770,7 +12770,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:556: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:556: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -12945,7 +12945,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 562--562
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:563: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:563: Undefined control sequence.
 l.563 \tightlist
                 
 The control sequence at the end of the top line
@@ -13346,7 +13346,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 576--578
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:579: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:579: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -13358,7 +13358,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:581: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:581: Undefined control sequence.
 l.581 \includegraphics
                       {image-7.png}
 The control sequence at the end of the top line
@@ -13379,7 +13379,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:582: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:582: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -13406,7 +13406,7 @@ Missing character: There is no c in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:583: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:583: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -13419,7 +13419,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:585: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:585: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -13431,7 +13431,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:587: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:587: Undefined control sequence.
 l.587 \includegraphics
                       {image-8.png}
 The control sequence at the end of the top line
@@ -13452,7 +13452,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:588: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:588: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -13475,7 +13475,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no x in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:589: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:589: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -13488,7 +13488,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:591: LaTeX Error: Environment longtable undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:591: LaTeX Error: Environment longtable undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -13504,7 +13504,7 @@ Missing character: There is no [ in font nullfont!
 Missing character: There is no ] in font nullfont!
 Missing character: There is no @ in font nullfont!
 Missing character: There is no > in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:592: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:592: Undefined control sequence.
 l.592   >{\raggedright\arraybackslash
                                      }p{(\columnwidth - 8\tabcolsep) * \real...
 The control sequence at the end of the top line
@@ -13517,7 +13517,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no ( in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no * in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:592: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:592: Undefined control sequence.
 l.592 ...sh}p{(\columnwidth - 8\tabcolsep) * \real
                                                   {0.2366}}
 The control sequence at the end of the top line
@@ -13533,7 +13533,7 @@ Missing character: There is no 3 in font nullfont!
 Missing character: There is no 6 in font nullfont!
 Missing character: There is no 6 in font nullfont!
 Missing character: There is no > in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:593: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:593: Undefined control sequence.
 l.593   >{\raggedright\arraybackslash
                                      }p{(\columnwidth - 8\tabcolsep) * \real...
 The control sequence at the end of the top line
@@ -13546,7 +13546,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no ( in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no * in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:593: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:593: Undefined control sequence.
 l.593 ...sh}p{(\columnwidth - 8\tabcolsep) * \real
                                                   {0.1720}}
 The control sequence at the end of the top line
@@ -13562,7 +13562,7 @@ Missing character: There is no 7 in font nullfont!
 Missing character: There is no 2 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no > in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:594: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:594: Undefined control sequence.
 l.594   >{\raggedright\arraybackslash
                                      }p{(\columnwidth - 8\tabcolsep) * \real...
 The control sequence at the end of the top line
@@ -13575,7 +13575,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no ( in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no * in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:594: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:594: Undefined control sequence.
 l.594 ...sh}p{(\columnwidth - 8\tabcolsep) * \real
                                                   {0.2473}}
 The control sequence at the end of the top line
@@ -13591,7 +13591,7 @@ Missing character: There is no 4 in font nullfont!
 Missing character: There is no 7 in font nullfont!
 Missing character: There is no 3 in font nullfont!
 Missing character: There is no > in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:595: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:595: Undefined control sequence.
 l.595   >{\raggedright\arraybackslash
                                      }p{(\columnwidth - 8\tabcolsep) * \real...
 The control sequence at the end of the top line
@@ -13604,7 +13604,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no ( in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no * in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:595: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:595: Undefined control sequence.
 l.595 ...sh}p{(\columnwidth - 8\tabcolsep) * \real
                                                   {0.1720}}
 The control sequence at the end of the top line
@@ -13620,7 +13620,7 @@ Missing character: There is no 7 in font nullfont!
 Missing character: There is no 2 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no > in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:596: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:596: Undefined control sequence.
 l.596   >{\raggedright\arraybackslash
                                      }p{(\columnwidth - 8\tabcolsep) * \real...
 The control sequence at the end of the top line
@@ -13633,7 +13633,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no ( in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no * in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:596: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:596: Undefined control sequence.
 l.596 ...sh}p{(\columnwidth - 8\tabcolsep) * \real
                                                   {0.1720}}@{}}
 The control sequence at the end of the top line
@@ -13649,7 +13649,7 @@ Missing character: There is no 7 in font nullfont!
 Missing character: There is no 2 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no @ in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:597: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:597: Undefined control sequence.
 l.597 \toprule
               \noalign{}
 The control sequence at the end of the top line
@@ -13658,7 +13658,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:597: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:597: Misplaced \noalign.
 l.597 \toprule\noalign
                       {}
 I expect to see \noalign only after the \cr of
@@ -13681,7 +13681,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:600: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:600: Misplaced alignment tab character &.
 l.600 \end{minipage} &
                        \begin{minipage}[b]{\linewidth}\raggedright
 I can't figure out why you would want to use a tab mark
@@ -13705,7 +13705,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:602: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:602: Misplaced alignment tab character &.
 l.602 \end{minipage} &
                        \begin{minipage}[b]{\linewidth}\raggedright
 I can't figure out why you would want to use a tab mark
@@ -13738,7 +13738,7 @@ Overfull \hbox (7.90555pt too wide) in paragraph at lines 603--604
 \OML/cmm/m/it/10 O$  
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:604: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:604: Misplaced alignment tab character &.
 l.604 \end{minipage} &
                        \begin{minipage}[b]{\linewidth}\raggedright
 I can't figure out why you would want to use a tab mark
@@ -13764,7 +13764,7 @@ Overfull \hbox (7.81946pt too wide) in paragraph at lines 605--606
 \OML/cmm/m/it/10 F$  
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:606: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:606: Misplaced alignment tab character &.
 l.606 \end{minipage} &
                        \begin{minipage}[b]{\linewidth}\raggedright
 I can't figure out why you would want to use a tab mark
@@ -13790,7 +13790,7 @@ Overfull \hbox (9.06943pt too wide) in paragraph at lines 607--608
 \OML/cmm/m/it/10 X$  
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:609: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:609: Undefined control sequence.
 <recently read> \midrule 
                          
 l.609 \midrule
@@ -13801,13 +13801,13 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:609: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:609: Misplaced \noalign.
 l.609 \midrule\noalign
                       {}
 I expect to see \noalign only after the \cr of
 an alignment. Proceed, and I'll ignore this case.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:610: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:610: Undefined control sequence.
 l.610 \endhead
               
 The control sequence at the end of the top line
@@ -13816,7 +13816,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:611: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:611: Undefined control sequence.
 l.611 \bottomrule
                  \noalign{}
 The control sequence at the end of the top line
@@ -13825,13 +13825,13 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:611: Misplaced \noalign.
+/home/thomas/ESATSummary/ecodesign/summary.tex:611: Misplaced \noalign.
 l.611 \bottomrule\noalign
                          {}
 I expect to see \noalign only after the \cr of
 an alignment. Proceed, and I'll ignore this case.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:612: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:612: Undefined control sequence.
 l.612 \endlastfoot
                   
 The control sequence at the end of the top line
@@ -13840,7 +13840,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:613: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:613: Misplaced alignment tab character &.
 l.613 &
         1 & 2 & 3 & n \\
 I can't figure out why you would want to use a tab mark
@@ -13851,7 +13851,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 Missing character: There is no 1 in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:613: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:613: Misplaced alignment tab character &.
 l.613 & 1 &
             2 & 3 & n \\
 I can't figure out why you would want to use a tab mark
@@ -13862,7 +13862,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 Missing character: There is no 2 in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:613: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:613: Misplaced alignment tab character &.
 l.613 & 1 & 2 &
                 3 & n \\
 I can't figure out why you would want to use a tab mark
@@ -13873,7 +13873,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 Missing character: There is no 3 in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:613: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:613: Misplaced alignment tab character &.
 l.613 & 1 & 2 & 3 &
                     n \\
 I can't figure out why you would want to use a tab mark
@@ -13885,7 +13885,7 @@ might try typing `S' now just to see what is salvageable.
 
 Missing character: There is no n in font nullfont!
 Missing character: There is no 1 in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:614: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:614: Misplaced alignment tab character &.
 l.614 1 &
           \(X_{11}\) & \(X_{12}\) & \(X_{13}\) & \(X_{1n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13895,7 +13895,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:614: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:614: Misplaced alignment tab character &.
 l.614 1 & \(X_{11}\) &
                        \(X_{12}\) & \(X_{13}\) & \(X_{1n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13905,7 +13905,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:614: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:614: Misplaced alignment tab character &.
 l.614 1 & \(X_{11}\) & \(X_{12}\) &
                                     \(X_{13}\) & \(X_{1n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13915,7 +13915,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:614: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:614: Misplaced alignment tab character &.
 l.614 1 & \(X_{11}\) & \(X_{12}\) & \(X_{13}\) &
                                                  \(X_{1n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13926,7 +13926,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 Missing character: There is no 2 in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:615: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:615: Misplaced alignment tab character &.
 l.615 2 &
           \(X_{21}\) & \(X_{22}\) & \(X_{23}\) & \(X_{2n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13936,7 +13936,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:615: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:615: Misplaced alignment tab character &.
 l.615 2 & \(X_{21}\) &
                        \(X_{22}\) & \(X_{23}\) & \(X_{2n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13946,7 +13946,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:615: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:615: Misplaced alignment tab character &.
 l.615 2 & \(X_{21}\) & \(X_{22}\) &
                                     \(X_{23}\) & \(X_{2n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13956,7 +13956,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:615: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:615: Misplaced alignment tab character &.
 l.615 2 & \(X_{21}\) & \(X_{22}\) & \(X_{23}\) &
                                                  \(X_{2n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13967,7 +13967,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 Missing character: There is no 3 in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:616: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:616: Misplaced alignment tab character &.
 l.616 3 &
           \(X_{31}\) & \(X_{32}\) & \(X_{33}\) & \(X_{3n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13977,7 +13977,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:616: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:616: Misplaced alignment tab character &.
 l.616 3 & \(X_{31}\) &
                        \(X_{32}\) & \(X_{33}\) & \(X_{3n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13987,7 +13987,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:616: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:616: Misplaced alignment tab character &.
 l.616 3 & \(X_{31}\) & \(X_{32}\) &
                                     \(X_{33}\) & \(X_{3n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -13997,7 +13997,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:616: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:616: Misplaced alignment tab character &.
 l.616 3 & \(X_{31}\) & \(X_{32}\) & \(X_{33}\) &
                                                  \(X_{3n}\) \\
 I can't figure out why you would want to use a tab mark
@@ -14008,7 +14008,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:617: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:617: Misplaced alignment tab character &.
 l.617 n &
           \(X_{n1}\) & \(X_{n2}\) & \(X_{n3}\) & \(X_{nn}\) \\
 I can't figure out why you would want to use a tab mark
@@ -14018,7 +14018,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:617: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:617: Misplaced alignment tab character &.
 l.617 n & \(X_{n1}\) &
                        \(X_{n2}\) & \(X_{n3}\) & \(X_{nn}\) \\
 I can't figure out why you would want to use a tab mark
@@ -14028,7 +14028,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:617: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:617: Misplaced alignment tab character &.
 l.617 n & \(X_{n1}\) & \(X_{n2}\) &
                                     \(X_{n3}\) & \(X_{nn}\) \\
 I can't figure out why you would want to use a tab mark
@@ -14038,7 +14038,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:617: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:617: Misplaced alignment tab character &.
 l.617 n & \(X_{n1}\) & \(X_{n2}\) & \(X_{n3}\) &
                                                  \(X_{nn}\) \\
 I can't figure out why you would want to use a tab mark
@@ -14065,7 +14065,7 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:618: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:618: Misplaced alignment tab character &.
 l.618 Intermediate input \(I\) &
                                  \(I_1\) & \(I_2\) & \(I_3\) & \(I_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14075,7 +14075,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:618: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:618: Misplaced alignment tab character &.
 l.618 Intermediate input \(I\) & \(I_1\) &
                                            \(I_2\) & \(I_3\) & \(I_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14085,7 +14085,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:618: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:618: Misplaced alignment tab character &.
 l.618 ...mediate input \(I\) & \(I_1\) & \(I_2\) &
                                                    \(I_3\) & \(I_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14095,7 +14095,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:618: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:618: Misplaced alignment tab character &.
 l.618 ...put \(I\) & \(I_1\) & \(I_2\) & \(I_3\) &
                                                    \(I_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14115,7 +14115,7 @@ Missing character: There is no d in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:619: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:619: Misplaced alignment tab character &.
 l.619 Value added \(V\) &
                           \(V_1\) & \(V_2\) & \(V_3\) & \(V_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14125,7 +14125,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:619: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:619: Misplaced alignment tab character &.
 l.619 Value added \(V\) & \(V_1\) &
                                     \(V_2\) & \(V_3\) & \(V_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14135,7 +14135,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:619: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:619: Misplaced alignment tab character &.
 l.619 Value added \(V\) & \(V_1\) & \(V_2\) &
                                               \(V_3\) & \(V_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14145,7 +14145,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:619: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:619: Misplaced alignment tab character &.
 l.619 ...ded \(V\) & \(V_1\) & \(V_2\) & \(V_3\) &
                                                    \(V_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14165,7 +14165,7 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no t in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:620: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:620: Misplaced alignment tab character &.
 l.620 Total input \(X\) &
                           \(X_1\) & \(X_2\) & \(X_3\) & \(X_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14175,7 +14175,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:620: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:620: Misplaced alignment tab character &.
 l.620 Total input \(X\) & \(X_1\) &
                                     \(X_2\) & \(X_3\) & \(X_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14185,7 +14185,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:620: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:620: Misplaced alignment tab character &.
 l.620 Total input \(X\) & \(X_1\) & \(X_2\) &
                                               \(X_3\) & \(X_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14195,7 +14195,7 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:620: Misplaced alignment tab character &.
+/home/thomas/ESATSummary/ecodesign/summary.tex:620: Misplaced alignment tab character &.
 l.620 ...put \(X\) & \(X_1\) & \(X_2\) & \(X_3\) &
                                                    \(X_n\) \\
 I can't figure out why you would want to use a tab mark
@@ -14206,7 +14206,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:621: LaTeX Error: \begin{document} ended by \end{longtable}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:621: LaTeX Error: \begin{document} ended by \end{longtable}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -14383,7 +14383,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 623--623
 [][] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:624: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:624: Undefined control sequence.
 l.624 \sum X_{ij} + F_i = X_i \qquad \text
                                           {with } X_i = X_j \text{ and } A_{...
 The control sequence at the end of the top line
@@ -14392,7 +14392,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:624: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:624: Undefined control sequence.
 l.624 ...= X_i \qquad \text{with } X_i = X_j \text
                                                   { and } A_{ij} = X_{ij}/X_j\\
 The control sequence at the end of the top line
@@ -14663,7 +14663,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 629--634
 
 
 Overfull \hbox (7.77588pt too wide) in paragraph at lines 629--634
-\TS1/cmr/m/n/10 ¿
+\TS1/cmr/m/n/10 ï¿½
  []
 
 
@@ -14672,7 +14672,7 @@ Overfull \hbox (9.06943pt too wide) in paragraph at lines 629--634
  []
 
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:635: LaTeX Error: Environment figure undefined.
+/home/thomas/ESATSummary/ecodesign/summary.tex:635: LaTeX Error: Environment figure undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -14684,7 +14684,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:637: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:637: Undefined control sequence.
 l.637 \includegraphics
                       {image-9.png}
 The control sequence at the end of the top line
@@ -14705,7 +14705,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:638: LaTeX Error: \caption outside float.
+/home/thomas/ESATSummary/ecodesign/summary.tex:638: LaTeX Error: \caption outside float.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -14726,7 +14726,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no s in font nullfont!
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:639: LaTeX Error: \begin{document} ended by \end{figure}.
+/home/thomas/ESATSummary/ecodesign/summary.tex:639: LaTeX Error: \begin{document} ended by \end{figure}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -14738,7 +14738,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:641: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:641: Undefined control sequence.
 l.641 \hypertarget
                   {design-for-environment-dfe-methods-and-techniques}{%
 The control sequence at the end of the top line
@@ -14796,7 +14796,7 @@ Missing character: There is no q in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:642: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:642: Undefined control sequence.
 l.642 \section
               {Design for environment (DfE): Methods and
 The control sequence at the end of the top line
@@ -14999,7 +14999,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 645--648
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:649: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:649: Undefined control sequence.
 l.649 \hypertarget
                   {guidelines}{%
 The control sequence at the end of the top line
@@ -15018,7 +15018,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:650: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:650: Undefined control sequence.
 l.650 \paragraph
                 {Guidelines}\label{guidelines}}
 The control sequence at the end of the top line
@@ -15152,7 +15152,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 655--655
 [] 
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:657: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:657: Undefined control sequence.
 l.657 \tightlist
                 
 The control sequence at the end of the top line
@@ -15292,7 +15292,7 @@ Overfull \hbox (34.18037pt too wide) in paragraph at lines 659--662
 \OT1/cmr/bx/n/10 Cyclic:
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:664: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:664: Undefined control sequence.
 l.664 \hypertarget
                   {product-concept-optimisation}{%
 The control sequence at the end of the top line
@@ -15329,7 +15329,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:665: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:665: Undefined control sequence.
 l.665 \subsection
                  {Product Concept
 The control sequence at the end of the top line
@@ -15369,7 +15369,7 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 664--667
 []
  []
 
-/home/thomas/Q8_KUL/ecodesign/summary.tex:668: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:668: Undefined control sequence.
 l.668 \hypertarget
                   {material-selection}{%
 The control sequence at the end of the top line
@@ -15396,7 +15396,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
-/home/thomas/Q8_KUL/ecodesign/summary.tex:669: Undefined control sequence.
+/home/thomas/ESATSummary/ecodesign/summary.tex:669: Undefined control sequence.
 l.669 \subsection
                  {Material Selection}\label{material-selection}}
 The control sequence at the end of the top line
@@ -15424,7 +15424,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 )
 ! Emergency stop.
-<*> /home/thomas/Q8_KUL/ecodesign/summary.tex
+<*> /home/thomas/ESATSummary/ecodesign/summary.tex
                                              
 *** (job aborted, no legal \end found)
 

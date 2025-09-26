@@ -40,10 +40,10 @@ You can also simply grabbed the already compiled pdf that gets compiled each tim
 Each pdf's are located at:
 
 ```
-https://raw.githubusercontent.com/Tfloow/Q8_KUL/main/FOLDER_NAME.pdf
+https://raw.githubusercontent.com/Tfloow/ESATSummary/main/PDF/FOLDER_NAME.pdf
 ```
 
-Like this https://raw.githubusercontent.com/Tfloow/Q8_KUL/main/template.pdf .
+Like this https://raw.githubusercontent.com/Tfloow/ESATSummary/main/PDF/M2S1_ComputeAI.pdf.
 
 ### Pro tip
 

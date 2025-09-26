@@ -14,7 +14,7 @@ toc-depth: 3
 titlepage: true
 titlepage-logo: KULlogo.png
 template: eisvogel
-subtitle: "[An Open-Source Summary](https://github.com/Tfloow/Q8_KUL)"
+subtitle: "[An Open-Source Summary](https://github.com/Tfloow/ESATSummary)"
 copyright-link: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
 output: pdf_document
 ---

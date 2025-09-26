@@ -1,9 +1,9 @@
-PWD /home/thomas/Q8_KUL/ecodesign
+PWD /home/thomas/ESATSummary/ecodesign
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/thomas/Q8_KUL/ecodesign/summary.tex
+INPUT /home/thomas/ESATSummary/ecodesign/summary.tex
 OUTPUT summary.log
 INPUT /usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
