@@ -28,7 +28,7 @@ body:
     attributes:
       label: "Your Full Name"
       description: "Please provide your full name for our records."
-      placeholder: "e.g., Prof. Erik Demeulemeester"
+      placeholder: "e.g., Prof. John Doe"
     validations:
       required: true
 
