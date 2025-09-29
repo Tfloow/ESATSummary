@@ -62,4 +62,4 @@ And replace the placeholder with your given class and name.
 
 ## License
 
-All summaries are based on class given by Professors at KU Leuven. If a professor or a TA desire to take offline a summary, they can do so by opening a new issue with the "Take down notice" template.
+All summaries are based on class given by Professors at KU Leuven. If a professor or a TA desire to take offline a summary, they can do so by opening a [new issue](https://github.com/Tfloow/ESATSummary/issues/new?template=takedown_notice.yml) with the "Take down notice" template.
