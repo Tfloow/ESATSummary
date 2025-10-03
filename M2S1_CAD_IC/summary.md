@@ -73,12 +73,12 @@ We can summarize the process of solving such system numerically as 3 nested loop
 First thing is to discretize the derivative by replacing them with a finite difference approximation.
 
 
-| Characteristics |        Backward Euler (BE)         |                         Trapezoidal                         |                       Gear-Shichman                        |
-| :-------------- | :--------------------------------: | :---------------------------------------------------------: | :--------------------------------------------------------: |
-| Next value      |    $x_{t+h} = x_t + hx_{t+h}'$     |           $x_{t+h} = x_t + h/2 (x_{t+h}'+ x_t')$            |      $x_{t+h} = 4/3 x_t - 1/3 x_{t-h}+ 2h/3 x_{t+h}'$      |
+| Characteristics |        Backward Euler (BE)        |                         Trapezoidal                         |                       Gear-Shichman                        |
+| :-------------- | :-------------------------------: | :---------------------------------------------------------: | :--------------------------------------------------------: |
+| Next value      |    $x_{t+h} = x_t + hx_{t+h}'$    |           $x_{t+h} = x_t + h/2 (x_{t+h}'+ x_t')$            |      $x_{t+h} = 4/3 x_t - 1/3 x_{t-h}+ 2h/3 x_{t+h}'$      |
 | Next derivative | $x_{t+h}' = 1/h(x_{t+h} - x_{t})$ |          $x_{t+h}' = 2/h(x_{t+h} - x_{t})- x_{t}'$          |    $x_{t+h}' = -2/h x_t + 1/2h x_{t-h}- 2/3h x_{t+h}'$     |
-| LTE             |                 /                  | $- h^3/12 x_{t+h}''' + \mathcal{O}(h^4) = \mathcal{O}(h^3)$ | $2 h^3/9 x_{t+h}''' + \mathcal{O}(h^4) = \mathcal{O}(h^3)$ |
-| A-stable        |               **V**                |                            **V**                            |             **V** if $h_n/h_{n-1} \leqslant 1$             |
+| LTE             |                 /                 | $- h^3/12 x_{t+h}''' + \mathcal{O}(h^4) = \mathcal{O}(h^3)$ | $2 h^3/9 x_{t+h}''' + \mathcal{O}(h^4) = \mathcal{O}(h^3)$ |
+| A-stable        |               **V**               |                            **V**                            |             **V** if $h_n/h_{n-1} \leqslant 1$             |
 :Various integration techniques
 
 If the Local Truncation Error (LTE) is too large, we can implement some simple feedback pattern that will adjust the timestep to obtain an error below a certain threshold.
@@ -111,6 +111,54 @@ The system looks like $Ax=B$ and since it will be sparse we can use some LU-fact
 If the magnitude of the pivot is too small, near-singularity of the coefficient matrix results in non-convergence.
 
 ## RF simulation techniques
+
+Sadly, we cannot use transient analysis for RF circuit. This would take too much time due to the small timestep needed until it reaches the steady-state. But, we  often are just interested in the steady-state of the circuit. If we use classic `.TRAN` analysis and we want to check the frequency response, we must use the proper FFT.
+
+$$
+N_{FFT}= 2^n \geqslant \frac{2f_{max}}{\Delta f} \qquad h = \frac{n_{periods}}{N_{FFT} \cdot F_{osc}}
+$$
+
+So to perform relevant analysis we must know in advance some characteristics on the circuit. Which is not always possible  if they get more and more complex.
+
+So instead of simulating the transient behavior, let's focus on the steady-state behavior.
+
+### Direct steady-state solution
+
+> **Definition**
+>
+> solution that is asymptotically approached when the effect of the initial condition dies out.
+>
+> may not exist or there may be several; can be periodic - quasi-periodic
+
+| Method           | Type      |                                                                                              Description                                                                                              |                                                  Use case                                                  |
+| :--------------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
+| Shooting methods | Temporal  |                                                                   From the initial condition, tries to find $T$ where $x(T) = X(0)$                                                                   |                                   good for non-linear circuits, uses N-R                                   |
+| Harmonic balance | Frequency | Based on the fact that any signal can be seen as a **truncated Fourier series** like $x(t)=\sum_{k=-K}^{k=K} X[k] e^{j2\pi f_k t}$ So for each node,  we will have $2K +  1$ coefficients to balance. | Good for (quasi-)periodic and linear circuits. There are pre-conditioner  for  such sparse matrix problem. |
+:Comparing the two main methods in RF simulation
+
+
+### Periodic small-signal analysis (PAC)
+
+We **linearize** around the periodic operating point and compute the PAC response. It will have  different  tone for one excitation. It is a **time varying linear** analysis.  This doesn't reflect harmonic or non-linear effects.
+
+#### PNOISE
+
+From this type of analysis, we can  do some noise analysis where the noise sources get modulated  by the operating point. The transfer function (TF) is also time-varying. 
+
+This is the reason we have pink, $1/f$ noise.
+
+### Envelope calculation
+
+Sometimes, we are 
+
+### Recap
+
+| Method       |                                                                                  Use case |
+| :----------- | ----------------------------------------------------------------------------------------: |
+| TRAN         |                                      to see the startup behavior  and exact signal, slow. |
+| Steady-State | Steady-state analysis with shooting or harmonic balance methods  according to the circuit |
+| PAC          |                                         Analysis of multiple time varying operating point |
+:Recap table of RF analysis techniques
 
 ## Multi-level analog modeling
 
