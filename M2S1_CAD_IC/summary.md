@@ -149,7 +149,11 @@ This is the reason we have pink, $1/f$ noise.
 
 ### Envelope calculation
 
-Sometimes, we are 
+Sometimes, we are only interested in the enveloppe to quickly analyse start up behavior. We also refer to this as the *slow dynamic*. We compute this with the slow time-varying integration of DAE:
+
+$$
+x(t) = \sum_{k=-K}^{k=K} X_k (t) e^{j2\pi f_k t}
+$$
 
 ### Recap
 
@@ -160,6 +164,63 @@ Sometimes, we are
 | PAC          |                                         Analysis of multiple time varying operating point |
 :Recap table of RF analysis techniques
 
+A last note about RF simulation is the need for RF models. Those are different than the classic SPICE models and higher order parasitic elements could interfer more than the "regular" one in classic analog design.
+
 ## Multi-level analog modeling
+
+Some circuits work only at higher frequencies. Typically pll, $\Sigma-\Delta$, ... run at higher frequency than their output result. Moreover, modern circuits are quite complex and mixed-signal is common.
+
+This all leads to really poor performance in term of simulation. We must add layer of abstraction and simplification if we want to keep simulation time acceptable. It is a performance-error tradeoff. It is even more important knowing that we cannot simulate faster due to mathematical constraints.
+
+This is why we must use **higher-level models**. By using this approach we can do some **top-down** design where we refine at each step the details and characteristics.
+
+- System concept:
+- System: mixed-signal architectural design 
+- Circuit: analog cell synthesis
+- Cells: analog cell layout
+- Layout: mixed-signal system layout
+
+### IP
+
+This also opens the door for **IP-reuse** where specialized company can produce circuits and send "*compiled*" version to the customer thanks to the **Virtual Socket Interface (VSI)**.
+
+Moreover, the company also provides some more accurate modelling and informations about the placement, isolation and tests.
+
+The model is the **extracted ADHL** model that was produced after the design phase.
+
+Finally, we can verify all of this with a bottom-up verification phase.
+
+### Abstraction levels
+
+| Level      | Accuracy |   Speed-up |
+| :--------- | -------: | ---------: |
+| System     |       -- | 10.000.000 |
+| Behavioral |       -- |  1.000.000 |
+| RTL        |        - |    100.000 |
+| Gate       |        ~ |     10.000 |
+| Switch     |        + |      1.000 |
+| Circuit    |       ++ |          1 |
+:Digital abstraction levels
+
+
+| LEVEL      |                                                              MODELING PRIMITIVES |                                                                        IMPLICATIONS |
+| :--------- | -------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------: |
+| functional | mathematical signal flow description per block; connected in signal flow diagram |        no internal block structure; conservation laws need not be satisfied on pins |
+| behavioral |                       mathematical description (equations, procedures) per block |             no internal block structure;conservation laws must be satisfied on pins |
+| macromodel |                                       simplified circuit with controlled sources |          spatially unrelated to actual circuit; conservation laws must be satisfied |
+| circuit    |                                                   connection of SPICE primitives | spatially one-to-one related to actual circuit; conservation laws must be satisfied |
+:Analog abstraction levels
+
+- **Macromodel**: we try to replace everything with a much simpler electrical component (cap, resistor, ...) but it can be quite tricky to model each and every components
+- **Behavorial**: it is a *mathematical description*. It models the DAE. Models the first-order behavior and also major nonidealities.
+
+#### Behavorial modeling
+
+We can even include some statistical variations using normal distribution. For this, we can accelerate by doing some singular value decomposition. This is quite an effective method if the errors are highly correlated which makes the rank lower and thus the space simpler to decompose.
+
+It is also possible to model dynamic error such as settling error, ... by using the appropriate functions.
+
+We can even go further by using a neural network approach to train the model on a training dataset and a testset to validate the results.
+
 
 ## Analog behavioral description languages
