@@ -146,3 +146,132 @@ Accuracy is important and the Effective Number of Bits or ENOB is a crucial metr
 $$
 ENOB = \frac{SNDR - 1.76 dB}{6.02 dB}
 $$
+
+So in summary, building a physical models is a good step in the right direction to be able to better filter and analyze measurements.
+
+# Characterization of measurements
+
+## Measurement Errors
+
+In any system, there will be error which will reduce its accuracy. The error is added after each operation in our model but it is important to understand how it **propagates** and its **origin**.
+
+| Characteristics |                Absolute error |                             Relative error |
+| :-------------- | ----------------------------: | -----------------------------------------: |
+| Math            |                    $e=x_m -x$ |      $e_r = \frac{e}{x} = \frac{x_m-x}{x}$ |
+| Unit            |         Same unit as variable |                             Unitless - ppm |
+| Estimation      | Over-estimation, $e\propto G$ | Under-estimation, $e_r \cancel{\propto} G$ |
+:Comparing the two type of errors
+
+\begin{align}
+    x_m &= S(s)G(s)x+G(s)\bar{e_s} + \bar{e_c} &  &\text{Output measurement} & \bar{e_m} &= G(s) \bar{e_s} + \bar{e_c} & &\text{Error of this measurement}\\
+    y &= \frac{x_m}{S(0)G(0)} &  &\text{Transfer function} &
+    \bar{e_in} &= \frac{\bar{e_s}}{S(s)} + \frac{e_c}{S(s)G(s)} &  &\text{Input referred noise}
+\end{align}
+
+| Type        |                     Effect |                                  Example |
+| :---------- | -------------------------: | ---------------------------------------: |
+| Interfering |     Additive to the signal |                   Magnetic interferences |
+| Modifying   | Modifies transfer function | Pressure sensor changes over deformation |
+:Type and difference of errors
+
+By understanding the nature of an error, we can reduce it or even make it disappear. Example, EM interference can disrupt ESG signals. Solution, add an extra probe (right leg) to also capture this interference and connect it to the $V_{ref}$. Now, $V_{in}$ and $V_{ref}$ in the ADC will have the same error which will cancel out.
+
+## Error Propagation
+
+We must understand how an error propagates in a system. We can build a simple model like:
+
+$$
+x_m = ax+by
+$$
+
+Where $x$ is the true value that will be measured $x_m$, but also possible interferance such as $y$. The error is:
+
+$$
+e_m = a\Delta x + b \Delta y
+$$
+
+We can also conduct some statistical analysis:
+
+$$
+\begin{align}
+    Var(x_m) &= \mathbb{E}\left[ (ax+by) - (\mathbb{E}(ax+by))^2 \right]\\
+    &= ...\\
+    \sigma_m^2&= a^2 \sigma_x^2 + b^2 \sigma_y^2 + 2 ab \sigma_{xy}
+\end{align}
+$$
+
+The last term is often forgotten because a lot of person assume $\perp$ between $x$ and $y$ which is not always the case. The covariance is null only if uncorrelated. So typically, if the errors are due to the same source, their covariance is most likely correlated.
+
+### Non-linear functions
+
+For more advance transfer function that are non-linear, we can rewrite it using the Taylor series:
+
+$$
+f(x,y) = f(x_1, y_1) + \frac{\partial f}{\partial x}(x-x_1) + \frac{\partial f}{\partial y}(y-y_1) + ...
+$$
+
+Assuming a small error we can simplify our function and say that
+
+$$
+ \sigma_m^2 \approx  \frac{\partial f}{\partial x}^2 \sigma_x^2 + \frac{\partial f}{\partial y}^2 \sigma_y^2 +  2 \frac{\partial f}{\partial x}\frac{\partial f}{\partial y} \sigma_{xy}
+$$
+
+### Static Characteristics
+
+- **Range \& Span**: range is the min and max while the span is the delta between the two
+  - Those values should reflect where the system is still meeting its specifications
+
+#### Linearizing the reading
+
+Knowing the range, we could force a simple linearization using:
+
+$$
+O-O_{min} = \frac{O_{max} - O_{min}}{I_{max} - I_{min}} (I-I_{min})
+$$
+
+But this is far from ideal, a better solution is the least square solution:
+
+$$
+\begin{align}
+    K &= \frac{Cov(X_1,Y_1)}{Var(X_1)}\\
+    &= \frac{X_1 Y_1-n\overline{X_1 Y_1}}{X_1 Y_1-n\overline{X_1}^2}
+\end{align}
+$$
+
+| Metric    |                                                                   Description |                                                           Issue |
+| :-------- | ----------------------------------------------------------------------------: | --------------------------------------------------------------: |
+| Max error |                                            Maximum error from ideal and model |                                     Doesn't give a real insight |
+| DNL       | Difference between width of the step and ideal LSB step. <1LSB or problematic |                                    Watch out for sign inversion |
+| INL       |                                                  Maximum deviation (max(DNL)) |                                                    Less insight |
+| THD       |         Each non-linearity causes distortion, highlight the distortion nature | Doesn't give information about the non-linearity characteristic |
+:Quick overview of the metrics
+
+It is important to understand the error of the non-linearity. Because compensating for it is costly as we will use a polynomial to cancel it. The order of the polynomial will require $n+1$ calibration measurements.
+
+#### Resolution
+
+> **Definition**
+>
+> Resolution is the smallest discrete step a system can take
+>
+> $$resolution = \frac{\Delta I_R}{I_{max} - I_{min}} \cdot 100 \%$$
+
+The resolution isn't the accuracy as we could add dummy 0 which won't improve the accuracy but the resolution.
+
+#### Hysteresis
+
+It is a truly physical phenomena that depicts how when changing the input and reducing it will not lead to the same output path due to various reasons.
+
+#### Dynamical errors
+
+When measuring something, we often think we are in the steady state which is not really the case. Most of the time we will wait $x$ amount of time until it is "*good enough*".
+
+This is all linked with the **memory elements** that is present in mechanical, electrical, ... systems. The more **independent** memory elements we have the higher is the order of the system. We talk here about settling time which models the *exponential* behavior of such event;
+
+$$
+\varepsilon = \Delta I expt\left( -\frac{t}{\tau}\right)
+$$
+
+Of course, Taylor series can be used for small amplitude: $TF(s) = \frac{\partial O}{\partial I}\large|_{I=I^*} 1/(1+s\tau)$
+
+## Measurement Characteristics
