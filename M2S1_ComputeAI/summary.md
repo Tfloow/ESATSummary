@@ -102,6 +102,102 @@ This idea is heavily used in embedded devices like smartphone and is starting to
 
 We are now facing the utilization wall. More and more silicon must be dim or dark, we must use the extra transistors for something. Here comes accelerators which are custom ASIC blocks for specific function.
 
+# Lecture 2: ISP's, GPU's and AI Workloads
+
+## ISP’s & GPU’s for graphics/images
+
+### ISP applications, architecture and operation
+
+To take a picture, many steps are required: calibration, RGB conversion, encoding, post-processing, ... Image Signal Processor is one of the earliest example of ASIC. The operations are fixed and easily paralleziable. 
+
+Initially, it was mostly hardwired but more recently introduction of more flexibility. It gained popularity in commercially available ISP as people demanded more from their smartphones and cameras.
+
+#### IPU
+
+This is becoming more and more like an Image Processing Unit where we want the best of both world:
+
+![IPU](image-1.png){ width=50% }
+
+This is the idea introduced in the google pixel family with their Pixel Visual Core that allows data processing alongside the CPU. They use multiple small ASIP and use their locality on the die to exchange information between each other. It is a fast paced processing where data is consumed and sent to the next processor.
+
+They arange multiple Processing Elements (PE) next to each other and hardwired them all together. They are composed of ALU's and MAC units and can be programmed and sent to the next PE. The dawn of NPU...
+
+In short, the goal is to exploit **parallelism** and functional pipelining. We try to provide more programmability without losing in efficiency.
+
+### GPU applications, architecture and operation
+
+> Repeat of Computer Architecture, [Summary here](https://github.com/Tfloow/ESATSummary/raw/main/PDF/M1S2_Computer_Architecture.pdf).
+
+#### Mobile
+
+Here we will try to maximize throughput under power and area limitation. We will also use extensively lower precision data types that can relieve stress and increase throughput while minimizing its impact on the output quality.
+
+We will more and more see tight integration with the CPU and GPU with shared coherent memory space. More and more programmability with CUDA or openCL. Anything that can be parallelized is interesting to run on a GPU.
+
+## Deep learning algorithms
+
+> **Definition of AI**
+>
+> Any program that mimics human intelligence. A program that can sense, reason, act and adapt
+
+### What is deep learning?
+
+- **Machine learning**: is a subset of AI and it is an *algorithm that is able to learn from data*.
+  - **Deep learning**: a representational machine-learning using multi-layered neural networks (NN)
+
+The idea of a deep-learning network is one that has many layers and the computer truly learns on its own without much human interaction or tuning. It learns its own representation of the world or task he must accomplish.
+
+### From neural nets to deep neural nets
+
+A basic neural network is composed of many **nodes** which forms a **layer**. They are often *fully-connected* to the next layer. The NN will adjust its weight based on algorithm during the training phase. Weight represents how much the information of one node will be forwarded to the next one. The AI can also tweak the **bias** to adjust its performance. Finally, to reduce the "*fuzziness*" we use some **activation functions**.
+
+$$o_n^l = \sigma \left( \sum_{m} w_{m,n}^l \cdot o_m^{l-1} + b_n^l\right)$$
+
+| Name       | Function                              | Good in math | Easy in HW |
+| :--------- | :------------------------------------ | -----------: | ---------: |
+| Sigmoid    | $\frac{1}{1+e^{-x}}$                  |        **V** |      **X** |
+| Tanh       | $tanh(x)$                             |        **V** |      **X** |
+| ReLU       | $max(0,x)$                            |        **X** |      **V** |
+| Leaky ReLU | $max(0.1x,x)$                         |        **X** |      **V** |
+| Maxout     | $max(w_1^T x + b_1, w_2^Tx+b_2)$      |        **X** |      **V** |
+| ELU        | $x\geqslant0;x$ else $\alpha (e^x-1)$ |        **X** |      **V** |
+:Various $\sigma$ activation function
+
+By using labeled data, we can train the AI to accomplish a task. Using the AI to do for example pattern recognition is called *inference*.
+
+### Classes of deep neural networks:
+
+#### DNN
+
+In the simple example of NN, we had a vector as an input. But, we can also have an image (matrix) as the input which we can apply the same pattern. This time, we will use a matrix notation to realize 2D-2D operations; a fully connected layer looks like:
+
+$$o_{nx,ny}^l = \sigma \left( \sum_{mx,my}^{M,M} w_{mx,my,nx,ny}^l \cdot o_{mx,my}^{l-1} + b_n^l\right)$$
+
+The matrices are quite large and this can be detrimental sometimes as one result is based on the full image.
+
+#### CNN
+
+We are no longer fully connected, it is a sparse matrix. It has better convergence and faster training.
+
+$$o_{nx,ny}^l = \sigma \left( \sum_{fx,fy}^{FX,FY} w_{kx,ky}^l \cdot o_{xn+kx,ny+ky}^{l-1} + b_n^l\right)$$
+
+This will avoid to have a $M$ matrix but rather a small kernel that is sliding over the matrix and of size $Fx \cdot Fy$. We can go further and perform some tensor kernel to apply the same or different kernel on multiple inputs. Each inputs can influence the same output. A kernel is of size $Fx\cdot Fy\cdot C$.
+
+$$o_{nx,ny,k}^l = \sigma \left( \sum_{fx,fy,c}^{FX,FY,C} w_{kx,ky,c}^l \cdot o_{xn+kx,ny+ky,c}^{l-1} + b_n^l\right)$$
+
+This operation requires 7 nested for loops. Bad news for software engineer, good news for hardware engineer has it opens the door for massive parallelism.
+
+To avoid the size to get too big, we often finish by a **Pool and normalization** layer to "compress" the info. Finally we inject it in a classic fully connected NN to output a scalar result.
+
+There are many architectures and flavor of CNN, each with their pros and cons, trying to solve different problems.
+
+**DO THE DEPTHWISE POINTWISE CONV EXPLANATION**
+
+#### Transformer and LLM
+#### Modern neural networks: a zoo of topologies
+
+
+
 # Questions
 
 ## Lecture 1

@@ -159,7 +159,7 @@ In any system, there will be error which will reduce its accuracy. The error is 
 | :-------------- | ----------------------------: | -----------------------------------------: |
 | Math            |                    $e=x_m -x$ |      $e_r = \frac{e}{x} = \frac{x_m-x}{x}$ |
 | Unit            |         Same unit as variable |                             Unitless - ppm |
-| Estimation      | Over-estimation, $e\propto G$ | Under-estimation, $e_r \cancel{\propto} G$ |
+| Estimation      | Over-estimation, $e\propto G$ | Under-estimation, $e_r !\propto G$ |
 :Comparing the two type of errors
 
 \begin{align}
@@ -192,13 +192,11 @@ $$
 
 We can also conduct some statistical analysis:
 
-$$
 \begin{align}
     Var(x_m) &= \mathbb{E}\left[ (ax+by) - (\mathbb{E}(ax+by))^2 \right]\\
     &= ...\\
     \sigma_m^2&= a^2 \sigma_x^2 + b^2 \sigma_y^2 + 2 ab \sigma_{xy}
 \end{align}
-$$
 
 The last term is often forgotten because a lot of person assume $\perp$ between $x$ and $y$ which is not always the case. The covariance is null only if uncorrelated. So typically, if the errors are due to the same source, their covariance is most likely correlated.
 
@@ -231,12 +229,11 @@ $$
 
 But this is far from ideal, a better solution is the least square solution:
 
-$$
+
 \begin{align}
     K &= \frac{Cov(X_1,Y_1)}{Var(X_1)}\\
     &= \frac{X_1 Y_1-n\overline{X_1 Y_1}}{X_1 Y_1-n\overline{X_1}^2}
 \end{align}
-$$
 
 | Metric    |                                                                   Description |                                                           Issue |
 | :-------- | ----------------------------------------------------------------------------: | --------------------------------------------------------------: |
