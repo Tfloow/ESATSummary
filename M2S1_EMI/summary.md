@@ -16,26 +16,25 @@ output: pdf_document
 ---
 
 
-# Welcome
+# Terminology
 
-Please use { width=50% } in line with your image so Latex doesn't go crazy.
+- **Electromagnetic Compatibility (EMC):** the fact that devices can work normally in the neighborhood of other. apability of a device, apparatus or system to function properly (with a pre-defined margin) in its electromagnetic environment (given in advance) without generating intolerable disturbing signals in this environment
+  - **EMEmission:** emission; to disturb. within and between systems
+  - **EMSusceptibility:** to be disturbed. within and between systems
+  - Everything is a probability and we must take margins to ensure the proper function of a circuit.
+- **Electromagnetic Interference (EMI):** the fact that device can be influenced by other. Degradation of the functioning of a device, apparatus or system as a consequence of a disturbing signal; degradation = intolerable behavior, hard to define.
+  - This is more and more problematic as:
+    - Density increase; speed increase
+    - More broadband 
+    - Small and High amplitude
 
-![Logo of KULeuven](KULlogo.pdf){ width=50% }
+This course is all about understanding the fundamental of what makes a circuit and electricity flow. We ground for safety and no current flows in GND in a household. A coaxial is not shielded ! When nothing powers it, it doesn't act as a shielding, only after we power it it will look as shielded.
 
-Listings are enabled to make some clean and pretty code snippets.
+General rule for disturbance and interference:
 
-```c
-int a = 0;
-for(int i = 0; i < 10; i++){
-    // Simple snippet of code
-    printf("i = %d", i);
-}
-```
+- Disturbance: signal causing the problem
+- Interference: problem
 
-As usual, math mode is present.
+One thing to always consider is to also check for possible interferences outside the working band as external phenomena happening at higher or lower frequencies can be perceived in the circuit.
 
-$$
-i\hbar \frac{d}{dt}|\Psi (t)\rangle =\hat {H}|\Psi (t)\rangle
-$$
-
-And there is many more things you can do just with a simple Markdown file!
+## Basic Scheme
