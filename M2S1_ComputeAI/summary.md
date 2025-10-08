@@ -17,14 +17,6 @@ output: pdf_document
 
 # Lecture 1: Towards heterogeneous many-core processors
 
-> **Paper to read further**
-> 
-> *Paper1*: A New Golden Age for Computer Architecture J. Hennessy AND D. Patterson
-> 
-> *Paper2*: Apple M1: Ditching x86 A. Frumusanu
->
-> *Paper3*: Paper2: Apple M1 deep dive: Micro-architecture (pg2) Anandtech, Andrei Frumusanu; [*link related to the article*](https://www.tomshardware.com/news/apple-a14-cpu-details)
-
 ## Scaling
 
 In IC and chip design, there is two fondamental laws:
@@ -194,16 +186,176 @@ There are many architectures and flavor of CNN, each with their pros and cons, t
 **DO THE DEPTHWISE POINTWISE CONV EXPLANATION**
 
 #### Transformer and LLM
-#### Modern neural networks: a zoo of topologies
+
+The secret sauce of current LLM's is the use of the **attention** mechanism. It is an algorithmic representation of linguistic property of words and sentences. It will connect words between each other regarding the context which allows to not only process one word but also its context surrounding it. The maximum path length is only $\mathcal{O}(n)$ as the information is already embedded in the word after the attention process.
+
+![Transformers encoder](image-2.png){ width=75% }
+
+The query is for one word we want to inspect, the keys are the result of the query. This form a linear transformation which will tweak the high-dimensional embedding space to "distort" and bring words that are alike closer together. Finally we use the value matrix that will realize a linear transformation to help and find the next most probable word.
+
+$$
+softmax(\frac{\underbar{x} Q_w * XK_w^T}{\sqrt{100}}) * XV_w
+$$
+
+Multiplication can be quite annoying but with efficient hardware, it can be accelerated. The real bummer here is the $softmax$ function:
+
+$$
+softmax = \frac{e^{x_i}}{\sum_{j=1}^K e^{x_i}}
+$$
+
+Where $x_i$ are values. The issue is that it can only be computed after processing all of the data. It is also a non-linear function that cannot be realized in one single pass. This means that we must re-access value from the cache which is slow and **not** energy efficient. Same story for the $norm = \frac{value_{original} - \mu}{\sigma}$.
+
+After doing this pre-fill and encoding, we want to generate some new tokens. This is handled by the decoder block.
+
+![Full architecture](image-3.png){ width=75% }
+
+Those matrix multiplications are quite repetitive, we can thus save the result in what we call **KV cache**. We only append the new token and perform some vector matrix computation instead of the full matrix matrix computation. 
+
+- Prefill: compute limited
+- Decode: memory limited
+
+On a side note, most LLM's are now *decoder-only* but we still have this prefill stage.
+
+# Lecture 3: Efficient Deep Inference: Hardware Bottlenecks & Parallelization
+
+## Baseline and hardware challenges
+
+The two main efficiency metrics are:
+
+- Latency: time per inference, time to get the first token
+- Throughput: inferences per second
+
+We often represent operations per second as TOPs - $10^{12}$ operations per second. When batching (running multiple queries at once) we gain in efficiency and it provides better throughput as we can reuse the weight of layers loaded in RAM for other users at the same time.
+
+We also look at the energy and power. Where, TOPs/W (or TOP/J) matters  depending of the scenario (cooling, embedded, infrastructure, ... constrained)
+
+With Moore's law, we should get twice the efficiency roughly every 2 years. The issue is that AI's complexity is getting more and more complex at a higher rate leading to a massive gap between computation abilities and needs. 
+
+We can fight at multiple font:
+
+- TP/Latency: $time/op \cdot 1/utilization \cdot ops/inf$
+- Energy: $energy/op \cdot 1/utilization \cdot ops/inf$
+
+### Metrics for execution efficiency
+
+Matrix multiplications are needed in prefill stage. We call this operation a General Matrix Multiplication or GeMM. This type of optimized operations are implemented in the BLAS library that ensure fast and smart computation. A CPU has small **Processing Element (PE)** with specific datapath to accelerate such calculations.
+
+The main drawback is the recurrent movements of data from on-chip to off-chip.
+
+### MatMul mapping on xPU and hardware bottleneck analysis
+### A tale of two rooflines
+## xPU processor enhancements for AI
+### Parallelization (spatial unrolling optimization)
+### Stationarity (temporal unrolling optimization)
+### Operator fusion
+### Quantization
+### Sparsity
 
 
+
+\newpage
+
+# Paper to Read
+
+## Lecture 1
+
+> **Paper to read**
+> 
+> *Paper1*: A New Golden Age for Computer Architecture J. Hennessy AND D. Patterson
+> 
+> *Paper2*: Apple M1: Ditching x86 A. Frumusanu
+>
+> *Paper3*: Paper2: Apple M1 deep dive: Micro-architecture (pg2) Anandtech, Andrei Frumusanu; [*link related to the article*](https://www.tomshardware.com/news/apple-a14-cpu-details)
+
+## Lecture 2
+
+> **Paper to read**
+>
+> *Paper 1*: Attention is all you need sec. 1-5
 
 # Questions
 
 ## Lecture 1
 
 1. *What is Dennard’s law and how is it linked to the evolution of computer architectures over the last 30 years? Describe the different phases we see in this evolution, and the architectural consequences. Illustrate this with examples from processors discussed in class and the papers to be read.*
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
 2. *Why do Henessey and Patterson say it is a New Golden Age for computer architectures, and which opportunities should be exploited in this Golden Age, according to them? (See L1_Turing.pdf)*
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
 3. *Discuss the different types of processors present in a modern embedded system (like iPhone’s, smart glasses, Tesla cars, or...). In what sense do they differ? Why are they all there? How do they exploit area for efficiency? (after L8: How would they exchange data and processing jobs?)*
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
 4. *Apply the different concepts from this class to the Apple M1 processor. Which “area for efficiency” techniques do they exploit and why? What is unique about the FireStorm cores. (See also paper L1_Apple.pdf)*
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
 5. *What are the reasons for the going to multi-core CPU’s, first homogeneous and later heterogeneous? How are the micro-architectures of the CPU’s different/similar, and how are they exploited? Does this offer energy efficiency and/or carbon footprint benefits?*
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+
+## Lecture 2
+
+6. What are ISP’s and IPU’s? Explain the evolution in their architecture, using example processors to illustrate the trends. What are the main characteristics that distinguish the Google Pixel IPU from a CPU and from the Hexagon processor?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+7. Explain the workload of embedded rendering tasks and how this leads to new GPU processing architectures beyond CPU’s. What are the main characteristics that distinguish GPU’s from CPU’s? How do mobile GPU’s differ from cloud GPU’s?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+8. What is the difference between a fully connected, a convolutional neural network layer and a depthwise separable layer. Which one is considered more hardware efficient, and why?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+9.  What is the attention mechanism in transformers, and what operations does it require in prefill and decode? what are its benefits and downsides compared to convolutional networks. (Also use L2_Attention.pdf)
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+10. (After having studied L3-5) How can certain types of neural network layers be more efficient from an algorithmic point of view and at the same time be more inefficient from a HW point of view?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
