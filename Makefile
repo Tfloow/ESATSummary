@@ -1,6 +1,6 @@
 # go over each folder and compile the markdown into pdf with pandoc
 
-compile : all_NEW zip
+compile : all_NEW 
 
 # Exclude PDF directory from subdirectories
 SUBDIRS := $(patsubst %/,%,$(wildcard */))
