@@ -266,10 +266,54 @@ Every trick here will try to push some limits (AI, BW, ...) to further improve t
 
 ### Parallelization (spatial unrolling optimization)
 
+#### Parallelization in CPU and GPU cores
+
 Sadly, simply parallelizing work won't reduce the AI or increase it. We need to also push the peak performance or else no gain.
 
 This is why we are interested in SIMD (parallel MAC in FP), Super-scalar (parallel load/store and compute) and also multi-core parallelism.
 
+A good solution that is often employed is **fused multiply add** to avoid the extra load/store. Multiple inputs for one output, we almost divide memory access by 2.
+
+Basic GPU's do not have this fused MAC in the classic CUDA cores, only massive parallelized MAC.
+
+#### Advanced spatial data reuse in NPU's & Tensor Cores
+
+![The goal is to reuse data to reduce AI](image-5.png){ width=70% }
+
+Of course, if we could unroll and reuse everything it would be ideal but the values are getting quickly out of hand. For example, with $B=9;C=4;K=8$ where $B \times C$ and $C \times K$ are the inputs and weights dimensions respectfully. We thus need $B \cdot C \cdot K = 288$ MAC to do all the computations all at once. For the amount of access we have $K\cdot C + B \cdot C + B \cdot K= 8\cdot 4 + 9\cdot 4 + 9\cdot 8=$.
+
+But we can't have such high number of mac even for those simple architectures. We often have only $100-1000$'s MAC in an accelerator. We will smartly fold convolutions on multiplier array. The main optimization criterion will be to optimize towards minimal memory access.
+
+A good way is to mix spatial and temporal unrolling. For example do sub-vector sub-vector multiplication. The compiler can also optimize the loops and re-organize (tiling, ...), this is **dataflow optimization**.
+
+```c
+for (b = 0 to B-1); // for each image in the batch
+  for (k = 0 to K-1); // for each output channel
+    for (c = 0 to C-1); // for each input channel
+      o[b][k] += i[b][c] * w[c][k];
+
+// Compiler optimization - tiling + spatial optimization
+for (b2 = 0 to B/S-1); // for each image in the batch
+  for (k = 0 to K-1); // for each output channel
+    for (c = 0 to C-1); // for each input channel
+      parfor (b1 = 0 to S-1); // for each image in the batch
+        o[b2*S+b1][k] += i[b2*S+b1][c] * w[c][k];
+```
+
+In this code example, we are dong *weight reuse* as we the weight are reused (the indices are not impacted by a parfor loop so only 1 will be loaded at a time). If we insert the parfor in any other lines we will do some input or output reuse.
+
+
+| &nbsp;    | Weight reuse | Input reuse | Output reuse $\rightarrow$ FMA |
+| :-------- | :----------: | :---------: | :----------------------------: |
+| Weight BW |     $1$      |     $S$     |              $S$               |
+| Input BW  |     $S$      |     $1$     |              $S$               |
+| Output BW |    $S+S$     |    $S+S$    |             $1+1$              |
+| AI        | $2S/(3S+1)$  | $2S/(3S+1)$ |          $2S/(2S+2)$           |
+:Comparison of techniques, $S=$ spatial reuse factor 
+
+#### State of the Art examples
+
+The real magic sauce of NVIDIA is their tensor cores...
 
 ### Stationarity (temporal unrolling optimization)
 ### Operator fusion
