@@ -240,12 +240,37 @@ We can fight at multiple font:
 
 Matrix multiplications are needed in prefill stage. We call this operation a General Matrix Multiplication or GeMM. This type of optimized operations are implemented in the BLAS library that ensure fast and smart computation. A CPU has small **Processing Element (PE)** with specific datapath to accelerate such calculations.
 
-The main drawback is the recurrent movements of data from on-chip to off-chip.
+The main drawback is the recurrent movements of data from on-chip to off-chip. A typical NPU will try to optimize those steps. Sadly, we will hit the memory wall which will lead to unavoidable latency and energy constraints. 
 
-### MatMul mapping on xPU and hardware bottleneck analysis
+One solution is to use lower precision operations to reduce the energy cost. Thankfully, energy savings is linear with the precision but the quality of the LLM isn't, especially if we use smart algorithm.
+
 ### A tale of two rooflines
+
+The roofline diagram we are familiar with is the $AI-TOPs$ one. Where we plot the Arithmetic Intensity as Operations per bytes of memory access. We have one horizontal line where there is the maximum compute in TOPs $N_{op}$ and a diagonal line that is $AI\cdot BW$ depicting the bottleneck of the memory access. The ideal operating point is where those two line crosses as we are using the maximum of memory and compute. Otherwise the maximum attainable performance is $min(AI\cdot BW, N_{op})$.
+
+But we can also have the **energy roofline**. We wil have the horizontal line being the minimum for an operation (without the transfer and other operations) and the the energy per DRAM access that is $AI/E_{DRAM}$ access. We have the attainable efficiency as
+
+$$
+\text{Attainable efficiency} = \frac{1}{E_{comp} + E_{mem}/AI}
+$$
+
+![The rooflines diagram](image-4.png){ width=70% }
+
+We can see that the optimal performance point may not be the most energy efficient one! It all depends on our goals and seeing the large scale AI infrastructure we prefer to be slightly compute bound to avoid excess energy overhead.
+
 ## xPU processor enhancements for AI
+
+As explained earlier, the extra transistors we are gaining thanks to Moore's law need to be used to something. That's why we choose to do specific ASICS block or xPU. They all rely on one of the 5 tricks explained in the coming subsections.
+
+Every trick here will try to push some limits (AI, BW, ...) to further improve the performances.
+
 ### Parallelization (spatial unrolling optimization)
+
+Sadly, simply parallelizing work won't reduce the AI or increase it. We need to also push the peak performance or else no gain.
+
+This is why we are interested in SIMD (parallel MAC in FP), Super-scalar (parallel load/store and compute) and also multi-core parallelism.
+
+
 ### Stationarity (temporal unrolling optimization)
 ### Operator fusion
 ### Quantization
@@ -272,6 +297,12 @@ The main drawback is the recurrent movements of data from on-chip to off-chip.
 > **Paper to read**
 >
 > *Paper 1*: Attention is all you need sec. 1-5
+
+## Lecture 3
+
+> **Paper to read**
+>
+> *Paper 1*: How to keep pushing ML accelerator performance? Know your rooflines!
 
 # Questions
 
