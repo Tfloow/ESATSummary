@@ -176,3 +176,131 @@ If we do not take care of this, we have lots of problem especially at higher fre
 
 # Multi-conductor Transmission Lines
 
+This is a generalization of the two conductors case where we witness some C and L coupling between conductors of length $>> \lambda$. This could be applied to shorter wires but this theory will be equal to circuit theory but with extra work and computation.
+
+If we look transversal, the cross section is much smaller which leads to quasi-static (quasi TEM) and so possible to introduce L and C for correction.
+
+![L and C coupling](image-4.png){ width=50% }
+
+If we look in telecommunication cables such as telephone line or ethernet cable, we will see twister pairs, shielding, ... this is a first hint to answer the question "how to reduce coupling". This same principle is also found in microstrip line. The strongest coupling is the horizontal one between the microstrip but also some with the ground plate.
+
+![Transmission line equation (frequency domain)](image-5.png){ width=70% }
+
+Each components model the effects within a TL and with the other TL. Distributed ($dx$) components determined via electrostatics and magnetostatics in cross section. On small $dx$ we could use KCL. This models is **only valid if cross-section $<<\lambda$**. (*why?*)
+
+![More explicit model](image-6.png){ width=70% }
+
+If we lump everything in one single vector component, we can obtain a matrix representation with:
+
+
+\begin{align}
+  Rdx + j\omega L dx &= Zdx & Gdx+j\omega C dx &= Y dx
+\end{align}
+
+and
+
+$$
+\begin{cases}
+  \frac{dV(x)}{dx} &= -\boldsymbol{Z}I(x) \\
+  \frac{dI(x)}{dx} &= -\boldsymbol{Y}V(x)
+\end{cases}
+$$
+
+If the matrix becomes of dimension 1, we are in the well-known case of a transmission line. This approach is simply a generalization of it. The matrices are like:
+
+\begin{align}
+  \boldsymbol{Z} &= \begin{bmatrix}
+    Z_{11} &Z_{12} & ... & Z_{1n}\\
+    Z_{21} &Z_{22} & ... & Z_{2n}\\
+    \vdots &\vdots & \ddots & \vdots\\
+    Z_{n1} &Z_{n2} & ... & Z_{nn}\\ 
+  \end{bmatrix} & \boldsymbol{Y} &= \begin{bmatrix}
+    \sum_{i=1}^n Y_{1i} &-Y_{12} & ... & -Y_{1n}\\
+    -Y_{21} &\sum_{i=1}^n Y_{2i} & ... & -Y_{2n}\\
+    \vdots &\vdots & \ddots & \vdots\\
+    -Y_{n1} &-Y_{n2} & ... & \sum_{i=1}^n Y_{ni}\\ 
+  \end{bmatrix}
+\end{align}
+
+If we assume $V(x) = V^+ e^{- \gamma x}$ and $I(x) = I^+ e^{- \gamma x}$, if we use the second derivate of the equation, we get:
+
+$$
+(\gamma^2 U - ZY)V^+ = 0 \qquad (\gamma^2 U - YZ)I^+ = 0
+$$
+
+Where $U$ is the modal transformation matrix related. The solution is thus given by the eigenvalues $\gamma_i$ and the eigenmodes $V_i^+;I_i^+$. If we look at the column of the current and voltage, they each represent 1 mode-1 base of the system. The matrix is full rank so each mode is orthogonal to the others.
+
+$$
+I_m = \left[ I_{m1} \quad I_{m2} \quad ... \quad I_{mn} \right] \qquad V_m = \left[ V_{m1} \quad V_{m2} \quad ... \quad V_{mn} \right]
+$$
+
+
+## Characteristic impedance matrix
+
+We can derivate the equations we found and injecting the new notation of current and voltage which yield:
+
+$$
+V_{mi} = \gamma_i^{-1} Z I_{mi} \qquad V_{mi} = \gamma_i Y^{-1} I_{mi}
+$$
+
+We can the repeat for every entry of the matrix and by sorting the terms properly for $\gamma$ which will become a diagonal matrix $[\gamma]$:
+
+$$
+V_m = (ZI_m) [\gamma]^{-1}= (Y^{-1}I_m)[\gamma] \qquad I_m = Z^{-1}I_m [\gamma]= YV_m[\gamma]^{-1}
+$$
+
+![Characteristic impedance matrix](image-7.png){width=50%}
+
+## Crosstalk
+
+> **Definition**
+>
+> Crosstalk is any phenomenon by which a signal transmitted on one circuit or channel of a transmission system creates an undesired effect in another circuit or channel. Crosstalk is usually caused by undesired capacitive, inductive, or conductive coupling from one circuit or channel to another
+
+So if we end the multi conductor TL with the impedance matrix it can remove the crosstalk.
+
+The main takeaway from this is that, L and C coupling are unavoidable and it is a **physical** phenomena. But cross-talk is a result of this but **can be avoided** if we are putting data on one mode only.
+
+### Special case: homogenous
+
+If the medium is homogeneous, like in power distribution line for example, $\gamma_i \equiv \gamma_{\text{medium}}$. This means that:
+
+$$
+Z = \gamma_{\text{medium}}^2 Y^{-1} 
+$$
+
+This yields that:
+
+$$
+j\omega L = \left( j \omega \sqrt{\mu_{\text{medium}} \varepsilon_{\text{medium}}} \right)^2 (j\omega C)^{-1} \qquad \qquad L = (\mu_{\text{medium}} \varepsilon_{\text{medium}})C^{-1}
+$$
+
+This makes matching possible as it will create a real-valued $Y_c = \sqrt{\mu_{\text{medium}} \varepsilon_{\text{medium}}}^{-1}C$. And so each components is a real valued resistor.
+
+### Transfer impedance
+
+This concept indicates us how signal on the outside will influence the signal inside. Basic insight is to make the cable as short as possible and the connection as good as possible to avoid excess inductive coupling.
+
+![Transfer impedance](image-8.png){ width=50% }
+
+#### Low frequencies
+
+![At low frequencies](image-9.png){ width=70% }
+
+On the left we have the sources, then the cable itself with $R_i$ and finally the load that is not active. Finally, we have the return path on the outer conductor. The extra loop at the bottom represents the common mode that is disturbing th signal, this will create a signal inside.
+
+We have then the inner and outer loop equations. The L and M represents the self-inductance and mutual inductance between the loops. It appears due to reciprocity of Maxwell's equation and causes L coupling.
+
+We are interested in the effects of the cable not the connections. For this, we will split the inner loop into the source, load and cable.
+
+![Splitting of cable](image-10.png){width=60%}
+
+#### High frequencies
+
+Cause of the skin depth effect, an exponential decay of exterior signal will be witnessed in the outer conductor. Ideally the characteristic impedance should be $0$ if the shielding is thick enough.
+
+But if we look inside standard commercial coax cable, we will see a *woven metal* which will allow for flexibility. This will reduce its performance as depicted here:
+
+![Plot of the performance of various shielding](image-11.png){width=50%}
+
+For high frequencies, the woven metal will have holes and so no skin-depth. Full copper will increase the skin-depth effect as the frequency increases. On the graph, the *mu-metal* is nickel/iron alloys with the permeability $\mu$.
