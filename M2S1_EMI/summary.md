@@ -304,3 +304,42 @@ But if we look inside standard commercial coax cable, we will see a *woven metal
 ![Plot of the performance of various shielding](image-11.png){width=50%}
 
 For high frequencies, the woven metal will have holes and so no skin-depth. Full copper will increase the skin-depth effect as the frequency increases. On the graph, the *mu-metal* is nickel/iron alloys with the permeability $\mu$.
+
+
+# Shielding
+
+**TODO** The other first part of the course that is still on my computer
+
+## Shielding by general shields
+
+Like in antenna, we are going to apply the same reflection and idea but to shield. A shield is nothing but a scatterer. This time, we don't want to create more total field but we want to reduce the electromagnetic field at a certain spot in space. The main equation that governs:
+
+$$
+J^{ind} = \sigma E^{tot} = \sigma \left( E^{inc} + E^{scatt} (J^{ind}) \right)
+$$
+
+The induced current satisfies the impedance boundary condition on the shield. We will consider a conductor with conductivity σ. For a conductor the current is proportional to the total field. The proportionality factor is the conductivity. The scattered field is only depending on the induced current flowing in the shield.
+
+### Solution
+
+We can see the $E^{scatt} (J^{ind})$ as a vector operator and not just as a function. This relaxes the problem and allow to write $(U - \sigma E^{scatt}) (J^{ind}) = \sigma E^{inc}$. The $U$ is the unit operator. Finally, using the inverse we can find the total electromagnetic field like this:
+
+$$
+E^{tot} = E^{inc} + \left( \frac{1}{\sigma} U - E^{scatt}\right)^{-1} E^{inc}
+$$
+
+![Further development](image-12.png){ width=50% }
+
+Which means that for PEC, the total field is null. Which makes sense as we know PEC can make good shielding. The immediate neighborhood of the conductor can be seen as shielding.
+
+If we move away from that conductor, the field becomes normal. But this change is depending on the **electrical size** of the shield (always expressed in $\lambda$). By combining conductor, we can find a solution using computer!
+
+## Shielding broken down in 3 different mechanisms
+
+By basic wave theory, we know that a wave can go through a screen (full or woven) but also *around* it using diffraction. The first one is often less impactful than the second one. An intuitive idea for this is the fact that modern base station relies on diffraction to cover all areas of a city yet our cellphones still work perfectly. In other words, diffraction reduces the signal but not enough to be considered as shielding. Thus must be taken care of. This is also an incentive to develop other methods not just the plane wave one.
+
+> **Reading**
+>
+> G. A. E. Vandenbosch, “The Basic Concepts Determining Electromagnetic Shielding”, American Journal of Physics, Vol. 90, No. 9, pp. , Sep. 2022, 10.1119/5.0087295.
+
+### Shielding by a wire
