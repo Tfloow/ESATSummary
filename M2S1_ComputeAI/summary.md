@@ -313,13 +313,80 @@ In this code example, we are dong *weight reuse* as we the weight are reused (th
 
 #### State of the Art examples
 
-The real magic sauce of NVIDIA is their tensor cores...
+The real magic sauce of NVIDIA is their tensor cores. The major speed up comes from complex instructions such as HMMA and IMMA (Matrix Multiply Accumulate). It allows us to work with tensor and realize such operation efficiently. According to NVIDIA, such operation only has a $16-22$% of overheard compared with scalar or vector mac which can have up to $2000$% of overhead.
 
-### Stationarity (temporal unrolling optimization)
-### Operator fusion
-### Quantization
-### Sparsity
+Most of tensor cores in a NVIDIA chip are quite "small" they realize operation on 4x4 tiles to increase utilization.
 
+For a 4x4 we have 128 operations and 16 input, weight access and 16 output read and access totaling at 64 memory access. The arithmetic intensity is $128/64 = 2$. Of course, we have to do tiling for bigger matrices, the code can look like:
+
+```c
+for (b2 = 0 to B/PB-1);
+  for (k2 = 0 to K/PK-1);
+    for (c2 = 0 to C/PC-1);
+      parfor (c1 = 0 to PC-1);
+      parfor (k1 = 0 to PK-1);
+      parfor (b1 = 0 to PB-1);
+        o[b2*PB+b1][k2*PK+k1] += i[b2*P+b1][c]*w[c][k2*PK+k1];
+```
+
+Tensor cores give a 10x boost to operations. Other improvements are such as larger kernel, support for other data type. Flexibility and shared architecture for FP16 and INT4.
+
+#### Tesla NPU
+
+Instead of a 3D approach, they do a classic GeMM operation:
+
+```c
+for (c = 0 to C-1);
+  parfor (k = 0 to 95);
+  parfor (b = 0 to 95);
+    o[b][k] += i[b][c] * w[c] [k];
+```
+
+We must have a large bandwidth to process all of this together. This is quite large and only a vertical company can choose this solution. Since NVIDIA must support multiple form of workload, they cannot bet that everyone will use 96x96 matrix multiplication but Tesla can make this and reduce underutilization.
+
+#### Huawei DaVinci
+
+```c
+for (b1 = 0 to B/16-1); //for each image/pixel in the batch
+  for (k1 = 0 to K/16-1); //for each output channel
+    for (c1 = 0 to C/16-1); //for each input channel
+      parfor (b2 = 0 to 15); //for each image in the batch
+      parfor (k2 = 0 to 15); //for each output channel
+      parfor (c2 = 0 to 15); //for each input channel
+        o[b][k]+= i[b][c] * w[k][c];
+```
+
+But which is better for 1024 MAC's ? 2D or 3D ?
+
+- 2D: we will have to re-access 32x32 output making the total access cost $32+32+2*32*32$ For $2*1024$ which results in a total AI of $2048/(2*32+2*1024) \approx 1$.
+- 3D: we will have 8x8x16 MACs with $2(8*16)+2*(8*8)$ memory access for the same amount of operations leading to $2048/(2*128 + 2*64) \approx 5.4$.
+
+In this case 3D is much better, but is it always ?
+
+#### Multi-core parallelism
+
+Use the `parfor` loops at a higher level not just the datapath! We must communicate between core and split data among core until gathering all the results. It is **sharding**.
+
+```c
+parfor (b = 0 to B-1); // Unrolling at the multi-core level
+  for (k = 0 to K-1);
+    parfor (c = 0 to C-1);
+    o[b][k] += i[b][c] * w[c][k]; // Spatial unrolling at the core level
+```
+
+| Options              |               Input                |          Weight           |                Output                 |                                                               Comment                                                               |
+| :------------------- | :--------------------------------: | :-----------------------: | :-----------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
+| Data parallelism     | User data split on different GPU's |        Replicated         |          No gathering needed          |                                   Everything is working in parallel no need to gather at the end                                    |
+| Tensor parallelism   |     Replicate the input across     |  Distributed (row-wise)   |               Gathering               |                          We slice the tensor and each GPU's realize part of the MMA and then recombine all                          |
+| Tensor parallelism   |     Replicate the input across     | Distributed (column-wise) |               Gathering               |                                         Like tensor parallelism but in the other dimension                                          |
+| Pipeline parallelism |   All input go to the same GPU's   |  Set of weight per GPU's  | Output are grouped together (unicast) | We distribute the weights across GPU's, can lead to underutilization as not every layer needs this much operation compared to other |
+:Distributing and parallelizing 
+
+There is not just one perfect technique, most of the time, we must combine different techniques depending on our need, architecture, FoM, ...
+
+SambaNova startup is also believing in parallelism with intelligent on chip data routing for efficient distribution of computations.
+
+At the end, we all try to raise the roof and tend to higher arithmetic intensity to gain in computing power.
 
 
 \newpage
@@ -434,3 +501,48 @@ The real magic sauce of NVIDIA is their tensor cores...
 > &nbsp;
 > 
 > &nbsp;
+
+## Lecture 3
+
+11. How can Rooflines be used to assess NPU performance? How do the techniques we discussed in L3-6 impact the rooflines themselves, or the position of a workload in the roofline. (also use paper L3_Rooflines).
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+12. [After L4:] What is the difference between spatial and temporal unrolling of for-loops, and how does it impact the arithmetic intensity? What sub-types of spatial and temporal unrolling can you distinguish?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+13. Explain the difference between the GeMM execution dataflows of:
+      1. Tesla’s NPU
+      2.  An Nvidia TensorCore
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+14. How can spatial unrolling be extended from the datapath to the core level? What sharding opportunities exist and what are their benefits or downsides?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+15. [After L4:] Given a nested (par)for loop representation (see examples in L4), explain me what the data parallelism and the stationarity is (spatial and temporal unrolling). Also derive the AI.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
