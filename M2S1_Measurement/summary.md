@@ -271,4 +271,125 @@ $$
 
 Of course, Taylor series can be used for small amplitude: $TF(s) = \frac{\partial O}{\partial I}\large|_{I=I^*} 1/(1+s\tau)$
 
+**Page 66**
+
 ## Measurement Characteristics
+
+**Page 99**
+
+### Quantization noise
+
+When measuring through an ADC, we can see the loss of precision due to limited bitwidth as noise. It is not physical noise but more like a mathematical tricks to model the impact of quantization on signal. For this to work we must use the postula that the input is a varying signal. If it is not a varying signal, the error will be constant and not looking like white noise aka spread equally. The mean value of this noise will be 0:
+
+$$
+\mathbb{E}(e_q) = \frac{1}{\Delta I_R} \int_{-\frac{\Delta I_R}{2}}^{\frac{\Delta I_R}{2}} e \text{ } de=0
+$$
+
+The power can be seen as:
+
+
+\begin{align}
+    \sigma^2_q &= \frac{1}{\Delta I_R} \mathbb{E} \left((e_q - \mathbb{E}(e_q))^2\right)\\
+    &= \frac{1}{\Delta I_R} \int_{-\frac{\Delta I_R}{2}}^{\frac{\Delta I_R}{2}} e^2 \text{ } de\\
+    &= \frac{\Delta^2 I_R}{12}
+\end{align}
+
+As used and explained earlier, the $\sigma^2$ is the power of the signal (total integrated noise). The spectrum is limited to $f_s/2$. So we can model an ADC with an extra white noise source with a noise power of $\frac{\Delta^2 I_R}{12}$ with a bw of $f_s/2$. 
+
+# Building a chain : reducing errors
+
+![Measurement chain](image-2.png){ widht=50% }
+
+each blocks add offset, gain error and noise. This is commonly represented as the chain above. 
+
+## Gain distribution
+
+A common way to summarize a chain is by using *input referred* value. This also showcases some basic idea in measurement chains.
+
+$$
+v_{in}^2 = \frac{v^2_{n1,o}}{A_1^2} + \frac{v^2_{n2,o}}{A_1^2A_2^2} \qquad I_{ADC} = (V_{in} + v_{off,1}) A_1A_2 + v_{off,2} A_2
+$$
+
+We have to maximize the first stage gain as it will reduce the impact of noise for later stage components. But we are limited by the offset in the ADC. 
+
+## Noise filtering
+
+Another way to reduce the noise by averaging it:
+
+$$
+\sigma_n^2 = \sum_{i}^N \frac{x_i - \bar x}{N-1}
+$$
+
+This corresponds to filtering in the frequency domain. We have to be careful with aliasing and this technique cannot refer the $1/f$ noise.
+
+## Chopping and modulation
+
+Offset and $1/f$ cannot be filtered sadly. We would need 0 bandwidth filter for this. Another solution would be to **shift** the noise to higher frequencies:
+
+$$
+sin(\omega t) sin(\omega_c t) = \frac{cos((\omega_c - \omega) t) + cos((\omega_c + \omega)t)}{2}
+$$
+
+![Chopping](image-3.png){width=50%}
+
+### Demodulation
+
+Using a sine, half of the energy is lost sadly. This is why actual chopping with a square wave is better.
+
+### Chopping
+
+![Chopping chain - with representation of the tones (no need to remember the math)](image-4.png){width=50%}
+
+This will retain the signal energy. The input signal is modulated with pulse train, offset + $1/f$ added by $A_2$. Then demodulated at higher frequencies. Thus, a low-pass filter will not take the high frequency $1/f$ and offset. We are using a 1 -1 square wave.
+
+We must have perfect reconstruction but amplifier has a finite bw. This cannot be easily realized as real components are not perfect. Chopping error.
+
+The square wave signal contains all of the frequency and some beyond the amplifier $A_2$. This result also in chopping spikes. The chopping error at $2\omega_c$ will be gone but still problems. Energy put at $2\omega_c$ is also lost at the 0 frequency. It is a gain error, if 0 at input, 0 at output no error. The stronger is the signal the larger is the error thus gain error. The error becomes:
+
+$$
+\frac{4\pi}{\sqrt{2}} \sqrt{\left( \frac{\tau}{T} \right)^2 \frac{1}{1+\frac{\tau}{T}}}
+$$
+
+## Feedback
+
+A good solution is feedback as it will remove distortion and improve settling.
+
+$$
+y = \frac{MG}{1+MGH}V_{in} + \frac{G}{1+MGH}\varepsilon\approx\frac{V_{in}}{H} + \frac{\varepsilon}{MH} = \frac{V_{in}}{H} \quad G\rightarrow\infty
+$$
+
+#### Example
+
+Measurement of current in electric car. Use a TMR system but has 2 issues:
+
+1. hysteresis
+2. temperature issue: modifying environment error
+
+We cannot directly measure on the path, add coils to counter-act the magnetic field which will linearize the reading by fighting an EM field effect with another EM field.
+
+## Calibration
+
+> **Definition**
+>
+> Calibration is a method to remove an error by measuring the signal with a better sensor and using this measurement to compensate errors (typically drift)
+
+Typically realize offset and gain calibration. This can be realized in the factory, online (using a switch that measure known value then compare. Can also be a random signal in more advanced system) or timed calibration.
+
+If we are measuring and calibrating with a worse system, we are increasing our error.
+
+#### Gain error example
+
+$$
+\begin{align}
+    V_{out,cal} &= (BS+V_{offset} - a)b & \hat a &= b(a-V_{offset})\\
+    V_{out,cal} &= B\hat b + \hat a & \hat b &= Sb
+\end{align}
+$$
+
+![The calibration is as good as the calibration equipment](image-5.png){width=50%}
+
+We need two measurements to be able to model the error. We can see in the math that our calibration will be as good as the accuracy and noise we have.
+
+Need long time to measure to average out the noise. Know the curve and what we should be expecting. Spread the points as wide as possible. A small error between two close points will result in large issues.
+
+## Compensation
