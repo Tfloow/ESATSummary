@@ -350,3 +350,152 @@ The usual way to solve such problem is to solve the boundary value problem. Inte
 #### Medium 1 $z<-d$
 
 
+
+# Shielding
+
+> **Definition**
+>
+> Shielding = to diminish the electromagnetic field at the location of the susceptor by placing a physical barrier, in most cases consisting of a conducting material, between emitter and susceptor
+
+We must shield from $\vec{E}$ and $\vec{H}$, those are 2 different cases. For plane wave, achieving one will achieve the other as their fields are orthogonal and their ratio equal to the medium constant. 
+
+We can either shield a device or shield the source of disruption. A general rule is that the higher the $\sigma$, the better is the shielding. BUT, the topology can impact it drastically.
+
+| Metal           | Conductivity - $\sigma$ | Permeability - $\mu$ |
+| :-------------- | :---------------------: | :------------------: |
+| Silver          |          1.05           |          1           |
+| Copper          |            1            |          1           |
+| Gold            |           0.7           |          1           |
+| Aluminum        |          0.61           |          1           |
+| Zinc            |          0.29           |          1           |
+| Brass           |          0.26           |          1           |
+| Nickel          |           0.2           |          1           |
+| Iron            |          0.17           |         1000         |
+| Tin             |          0.15           |          1           |
+| Steel           |           0.1           |         1000         |
+| Hypernick       |          0.06           |        80000         |
+| Monel           |          0.04           |          1           |
+| Mu-Metal        |          0.03           |        80000         |
+| Stainless Steel |          0.02           |         1000         |
+:Typical materials for shielding
+
+## Plane waves
+
+If we assume an infinite plane, it can be solved analytically.
+
+![Plane wave model](image-12.png){width=60%}
+
+The shielding effectiveness is $SE=-20 log_{10}(T_{eff})$. Demonstrated how much energy goes through the shield. 
+
+The usual way to solve such problem is to solve the boundary value problem. Integral equation with boundary value and in this case we have tangential field equal at the interface. Moreover, to respect basic fundamental law of physics, the sum of the transmissions and reflections should be equal to 0 at the interface.
+
+### Analytic solve
+
+![Plane wave behavior](image-13.png){width=60%}
+
+#### Medium 1 $z<-d$
+
+
+
+
+# Shielding
+
+**TODO** The other first part of the course that is still on my computer
+
+## Shielding by general shields
+
+Like in antenna, we are going to apply the same reflection and idea but to shield. A shield is nothing but a scatterer. This time, we don't want to create more total field but we want to reduce the electromagnetic field at a certain spot in space. The main equation that governs:
+
+$$
+J^{ind} = \sigma E^{tot} = \sigma \left( E^{inc} + E^{scatt} (J^{ind}) \right)
+$$
+
+The induced current satisfies the impedance boundary condition on the shield. We will consider a conductor with conductivity σ. For a conductor the current is proportional to the total field. The proportionality factor is the conductivity. The scattered field is only depending on the induced current flowing in the shield.
+
+### Solution
+
+We can see the $E^{scatt} (J^{ind})$ as a vector operator and not just as a function. This relaxes the problem and allow to write $(U - \sigma E^{scatt}) (J^{ind}) = \sigma E^{inc}$. The $U$ is the unit operator. Finally, using the inverse we can find the total electromagnetic field like this:
+
+$$
+E^{tot} = E^{inc} + \left( \frac{1}{\sigma} U - E^{scatt}\right)^{-1} E^{inc}
+$$
+
+![Further development](image-12.png){ width=50% }
+
+Which means that for PEC, the total field is null. Which makes sense as we know PEC can make good shielding. The immediate neighborhood of the conductor can be seen as shielding.
+
+If we move away from that conductor, the field becomes normal. But this change is depending on the **electrical size** of the shield (always expressed in $\lambda$). By combining conductor, we can find a solution using computer!
+
+## Shielding broken down in 3 different mechanisms
+
+By basic wave theory, we know that a wave can go through a screen (full or woven) but also *around* it using diffraction. The first one is often less impactful than the second one. An intuitive idea for this is the fact that modern base station relies on diffraction to cover all areas of a city yet our cellphones still work perfectly. In other words, diffraction reduces the signal but not enough to be considered as shielding. Thus must be taken care of. This is also an incentive to develop other methods not just the plane wave one.
+
+> **Reading**
+>
+> G. A. E. Vandenbosch, “The Basic Concepts Determining Electromagnetic Shielding”, American Journal of Physics, Vol. 90, No. 9, pp. , Sep. 2022, 10.1119/5.0087295.
+
+### Shielding by a wire
+
+![Parallel plane wave incoming to a wire](image-13.png){width=50%}
+
+Important note, the plane wave must be **parallel** to the wire to create an $\vec E$ difference which will result into a current in the wire. If we do it perpendicular, the effect will be close to non-existent.
+
+We can also witness a small area behind the wire where the intensity of the field is lower. This can be seen and considered as a form of shielding (bad nonetheless).
+
+Inside the wire, the $\vec E$ is 0 if it is a PEC and the wire acts as a **scatterer**. This problem can be analytically solved.
+
+### Shielding by a wire grid
+
+If we form a mesh of wire, and space them regularly at a certain distance, the effect of shielding will be better. The tighter they are ($\lambda$ wise) the better is the shielding.
+
+![Wire grid](image-14.png){width=50%}
+
+The last experiment has wire spaced at $\lambda / 32$ but has only a $-30dB$ shielding. This is far less than the $-100dB$ we could attain with a full screen. Also we can see the waves reflected are quasi-static (if we ignore the computer artifacts).
+
+### Shielding by a half-plate
+
+![Shielding by a half-plate experiments](image-15.png){width=50%}
+
+This can be solved analytically using cylindrical coordinate. Here we are seeing parallel and perpendicular polarization hitting the plane. We have slightly different results[^1].
+
+[^1]: The dimensions are with $k = \frac{2\pi}{\lambda}$
+
+Another takeaway here, is the fact we can only reach $-40dB$ which is quite a high figure for shielding. This really showcases how diffraction is more important that what goes through the screen magnitude wise.
+
+## Shields: $\vec H$ field
+
+[comment]: <> (need to check again this part because I think I am not really getting the subtlety)
+
+> Potential exam question:
+>
+> *Explain mesh of microwave + the metal pieces behind the door*
+>
+> Mesh has small holes which are large for light $400 - 700 nm$ but which are small for microwave lengths. Microwave operates around $0.3 - 300 GHz$ which corresponds to roughly $1m-1mm$ of $\lambda$.
+>
+> The metal piece around the back of the door is there to avoid small cavity to form when closing the door. If we let it open, we could have excess of waves so we need to close it with these metal pieces.
+
+A shield is a **scatterer with loop currents**.
+
+![Scatterer single loop](image-16.png){width=75%}
+
+We have to add this $L$ to take into account the physical loop and respect Maxwell's equation. The 3rd equation originates from the fact we will have an incident flux and a new flux due to the loop cause by the current in it. We can then do some series expansion $\frac{j\omega L}{R + j \omega L} = \frac{1}{1+\frac{R}{j\omega L}} \approx 1 -\frac{R}{j\omega L}+...$.
+
+$R$ and $L$ are defined by the loop and material itself. In the paper cited earlier, the professor found that this equation is $\approx 0$ for signal from $600$ Hz and more. Which means it is hard to shield against low frequencies signal.
+
+The shielded field is the normal component of the magnetic field. Shielding magnetic field with electric conductors does not work if no loop current can flow **OR** for very low frequencies (limited conductivity).
+
+A plate can be seen as having an infinite amount of loops so the *normal* component of the $\vec H$ can be shielded over the whole region. Same line of reasoning for a box.
+
+![Effect of shielding with a slit](image-17.png){width=50%}
+
+The first example is better shielded as the current loops see little to no obstacles while in the second case it's tougher to go around it.
+
+## Shielding boxes and shielding rooms
+
+Such box is made of very conductive material but we cannot just make a box, we must ventilate, ...
+
+This is why we must add aperture which are often designed for a specific wavelength. In other words, for a given $\lambda$ the mesh will be seen as having small holes so not too much of this frequency and higher will go through.
+
+But there must also be lab equipments and other connections with the other world which can create a parasitic effect like the coax effects. It can act as a scatterer (like an antenna) and introduce extra unwanted signal.
+
+Bad connection or assembly of the box will create worse shielding. Any details count if we want to achieve significant order of magnitude like $-100 dB$.
