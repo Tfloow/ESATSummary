@@ -410,7 +410,7 @@ $$
 J^{ind} = \sigma E^{tot} = \sigma \left( E^{inc} + E^{scatt} (J^{ind}) \right)
 $$
 
-The induced current satisfies the impedance boundary condition on the shield. We will consider a conductor with conductivity σ. For a conductor the current is proportional to the total field. The proportionality factor is the conductivity. The scattered field is only depending on the induced current flowing in the shield.
+The induced current satisfies the impedance boundary condition on the shield. We will consider a conductor with conductivity $\sigma$. For a conductor the current is proportional to the total field. The proportionality factor is the conductivity. The scattered field is only depending on the induced current flowing in the shield.
 
 ### Solution
 
@@ -420,7 +420,7 @@ $$
 E^{tot} = E^{inc} + \left( \frac{1}{\sigma} U - E^{scatt}\right)^{-1} E^{inc}
 $$
 
-![Further development](image-12.png){ width=50% }
+![Further development](image-12_1.png){ width=50% }
 
 Which means that for PEC, the total field is null. Which makes sense as we know PEC can make good shielding. The immediate neighborhood of the conductor can be seen as shielding.
 
@@ -436,7 +436,7 @@ By basic wave theory, we know that a wave can go through a screen (full or woven
 
 ### Shielding by a wire
 
-![Parallel plane wave incoming to a wire](image-13.png){width=50%}
+![Parallel plane wave incoming to a wire](image-13_1.png){width=50%}
 
 Important note, the plane wave must be **parallel** to the wire to create an $\vec E$ difference which will result into a current in the wire. If we do it perpendicular, the effect will be close to non-existent.
 
