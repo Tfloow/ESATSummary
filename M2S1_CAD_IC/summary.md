@@ -223,4 +223,36 @@ It is also possible to model dynamic error such as settling error, ... by using 
 We can even go further by using a neural network approach to train the model on a training dataset and a testset to validate the results.
 
 
-## Analog behavioral description languages
+## Analog behavioral description language
+
+
+**TODO the rest I didn't do between the two lectures lol**
+
+## Optimization
+
+We are operating in hyperspace where the set of parameters  are $x \in \mathbb{R}^n$ and we must satisfy all the constraints. This means that the optimal solution (according to the function we defined) may not be part of the solution due to constraint.
+
+Finding a solution isn't always straightforward and we often must use some non-linear, stochastic, etc. programming techniques. On top of this we can use some **Probilistic heuristic methods**.Those techniques can be proven to have superior results especially they can avoid local optima and  find the absolute best solution.
+
+### Simulated annealing
+
+The idea is like in metallurgy where we will warm up and cool down cyclically a metal to allow the atoms to take a nice crystal lattice.
+
+$$
+P(\Delta f) = e^{- \Delta f/T} > c \in [0;1] \qquad \text{Metropolis criterion}
+$$
+
+The idea here is to randomly do jumps in the solution space. We then evaluate the results and 2 things can happen. If the difference state $\Delta f = \phi_2 - \phi_1$:
+
+1. **Negative**: this means the new state is accepted as it  is better than the previous one
+2. **Positive**: the new state is worse than the previous. But according to the metropolis criterion it can be accepted. If $c$, the random variable, is inferior to the $P(\delta f)$ then the new *worse* state is accepted 
+
+This process is repeated multiple time each time with another $c$ and also with a lower temperature $T$ which will make it less likely to jump to worse state.
+
+**Add graph with better quality**
+
+One major setback with this algorithm is the fact that the next state is based on the current one. This make parallelism  hardly possible.
+
+### Genetic algorithm
+
+This is based on biology and how a population evolves.  ThT
