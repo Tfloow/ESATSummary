@@ -351,52 +351,6 @@ The usual way to solve such problem is to solve the boundary value problem. Inte
 
 
 
-# Shielding
-
-> **Definition**
->
-> Shielding = to diminish the electromagnetic field at the location of the susceptor by placing a physical barrier, in most cases consisting of a conducting material, between emitter and susceptor
-
-We must shield from $\vec{E}$ and $\vec{H}$, those are 2 different cases. For plane wave, achieving one will achieve the other as their fields are orthogonal and their ratio equal to the medium constant. 
-
-We can either shield a device or shield the source of disruption. A general rule is that the higher the $\sigma$, the better is the shielding. BUT, the topology can impact it drastically.
-
-| Metal           | Conductivity - $\sigma$ | Permeability - $\mu$ |
-| :-------------- | :---------------------: | :------------------: |
-| Silver          |          1.05           |          1           |
-| Copper          |            1            |          1           |
-| Gold            |           0.7           |          1           |
-| Aluminum        |          0.61           |          1           |
-| Zinc            |          0.29           |          1           |
-| Brass           |          0.26           |          1           |
-| Nickel          |           0.2           |          1           |
-| Iron            |          0.17           |         1000         |
-| Tin             |          0.15           |          1           |
-| Steel           |           0.1           |         1000         |
-| Hypernick       |          0.06           |        80000         |
-| Monel           |          0.04           |          1           |
-| Mu-Metal        |          0.03           |        80000         |
-| Stainless Steel |          0.02           |         1000         |
-:Typical materials for shielding
-
-## Plane waves
-
-If we assume an infinite plane, it can be solved analytically.
-
-![Plane wave model](image-12.png){width=60%}
-
-The shielding effectiveness is $SE=-20 log_{10}(T_{eff})$. Demonstrated how much energy goes through the shield. 
-
-The usual way to solve such problem is to solve the boundary value problem. Integral equation with boundary value and in this case we have tangential field equal at the interface. Moreover, to respect basic fundamental law of physics, the sum of the transmissions and reflections should be equal to 0 at the interface.
-
-### Analytic solve
-
-![Plane wave behavior](image-13.png){width=60%}
-
-#### Medium 1 $z<-d$
-
-
-
 
 # Shielding
 

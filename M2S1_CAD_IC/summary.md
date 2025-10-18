@@ -255,4 +255,95 @@ One major setback with this algorithm is the fact that the next state is based o
 
 ### Genetic algorithm
 
-This is based on biology and how a population evolves.  ThT
+This is based on biology and how a population evolves.  A child will get part of the dad's and mom's genetics but also extra twist randomly. We will then evaluate and only the fittest will survive and produce the next generation. We can easily parallelize this since we have a "large" population independent from each other.
+
+![GA flow in general](image.png){width=35%}
+
+The evaluation of the fitness is done with the optimization function. We can use some tournament or roulette wheel method for "breeding" of the parents. We repeat the process until reaching the stop criterion.
+
+This type of algorithm is really good for **multi-objective optimization**, it handles quite well the conflicting performances and easily find the Pareto-optimal front[^1].
+
+[^1]: Pareto-optimal is a state where, if we want to gain something (gain, bandwidth), we have to loose in other values. 
+
+#### Age-Layered Population Structure
+
+We can also propose some multi-layer process where each will evaluate different corners or statistics about the circuit. And little by little, the population will progress through the layers.
+
+____
+
+Overall, such optimization methods are quite interesting and useful. We can also do *equation-based* or *simulation-based* optimization. Equation will require more "handcrafting" than the simulation based one. 
+
+It is quite easy to add extra objectives like noise, distortion, ... AMGIE is an interesting as well.
+
+#### Simulation-based
+
+Here we have an optimization engine then we will evaluate the circuit inside a numerical simulator, results will then be processed by the optimization engine. So we get better feedback and do not need equations. But will take more time to run/simulate.
+
+But, for example ANACODA, has been proven to produce better results than hand design baselines. For a design that would take a human designer around 2 weeks. It only takes roughly $20\cdot 10$  hours on old computer.
+
+Higher level simulator like DAISY also exists. They can determine the optimal modulator topology, minimum building block requirements. It will use GA and behavioral simulator to produce fast and compelling results.
+
+
+## RF circuit
+
+It is trickier to simulate as the layout will impact the design and must be taken into account. This takes much more time as we need to do some FEM simulations
+
+## Design complete systems
+
+A common pitfall with optimization is that it will do exactly what the engineer tasked it with. So if no one explicitly told the software to take into account margin for errors, it may produce an unstable results.
+
+To design complete systems, we must simplify and use a vertical approach. One approach is based on the Pareto-boundary. Each sub-block will optimize for its own goals and give back the Pareto front back. Then all those fronts will be re-combine together to form the complete Pareto front. This method is also a good way to explore multiple topology all at once.
+
+## AI/ML-based approaches
+
+The idea is to use a NN model for the circuit to replace simulations. Then we use some reinforcement learning where we want it to optimize a reward function. The challenge is in the quality of the data but also the explainability so an engineer can still control it.
+
+### Examples
+
+- AutoCkt/BAG: use deep reinforcement learning which will subsample to better gain knowledge. This is often more **sample-efficient** than GA, ... algorithms
+- TD3: model-based RL
+
+### Actor-critic RL
+
+This time we have not just one but 2 networks. The first one is the **actor** and will suggest values, simulation will be done and the second network, the **critic**, will grade and estimate the next values of the reward. We keep in memory past experiences at each step.
+
+TD3 will use a mix of real simulated values and synthetic one. This will result in smaller simulation time. Multi-agent versions also exist.
+
+![Probabilistic models -- estimation of mean and variance](image-1.png){width=50%}
+
+#### Short rollouts
+
+Take the model with least loss and randomly choose a past states to repeat for the following $k$ steps. We use the actor to suggest an action. Then we evaluate and see if we should adapt the search. This methods allow for deeper space exploration and can give sort of "quick boosts" to the algorithm. Instead of being bottlenecked by the feedback loop it will run a bit faster.
+
+#### Full MBTD3 architecture
+
+$$
+z_y = \frac{y - y^*}{y + y^*} \rightarrow 
+r_y = 
+\begin{cases}
+\min(z_y, 0), & y \in Y_L \\
+-\max(z_y, 0), & y \in Y_U
+\end{cases}
+\rightarrow 
+r_H = \sum_{y \in Y} r_y
+$$
+
+$$
+o_t = \frac{t - t^*}{t + t^*} \rightarrow 
+r_t = o_t \rightarrow 
+r_T = \sum_{t \in T} r_t
+$$
+
+$$
+\mathrm{FoM} =
+\begin{cases}
+r_H - \alpha \times r_T, & \text{if } r_H < 0 \\
+0.3 - \beta \times r_T, & \text{if } r_H = 0
+\end{cases}
+$$
+
+The $y^*$ is the simulated target, in the first equations with the $\min$ and $\max$, the use of those functions are to cap the reward. If the values are better than targeted, then we won't deduct points.
+
+![Full MBTD3 architecture for circuit sizing](image-2.png){width=50%}
+
+This has been proven to produce better and faster results (less iteration) than state of the art GA algorithms.
