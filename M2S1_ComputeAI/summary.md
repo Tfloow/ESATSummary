@@ -602,10 +602,12 @@ More freedom:
 - Data sharing between cores
 
 Benefits of analog in memory compute still hold (but less!)
+
 - In-memory compute allows extreme input and output parallelism (reuse)
 - In-memory compute enables extreme weight stationarity
 
 Compared to analog:
+
 - More flexible (reconfiguration of data reuse in function of layer topology?)
 - More reliable (precision guaranteed)
 - But… less dense (Tops/mm2 lower)

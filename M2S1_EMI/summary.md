@@ -453,3 +453,147 @@ This is why we must add aperture which are often designed for a specific wavelen
 But there must also be lab equipments and other connections with the other world which can create a parasitic effect like the coax effects. It can act as a scatterer (like an antenna) and introduce extra unwanted signal.
 
 Bad connection or assembly of the box will create worse shielding. Any details count if we want to achieve significant order of magnitude like $-100 dB$.
+
+# Transients
+
+This section is about analyzing and understanding phenomena coming from outside of an electronic circuits. Those phenomena are:
+
+- Sporadic
+- Have an unknown amplitude
+- Have an unknown time duration
+
+Those are typically pulses:
+
+- EMP: ElectroMagnetic Pulse (if capitalize like this, refers to EM fields created by nuclear explosion)
+- Lightning
+- ESD: ElectroStatic Discharge: due to build up of charges induced through friction
+
+But there can also be some more "*continuous*" form of disturbance such as radio or the corona effect (the eerie purple gloom witness around high voltage line when there is mist). All signals and pulses are analyzed from a **time domain** point of view in this section.
+
+## EMP
+
+Due to nuclear explosion inducing gamma radiation. For a shell of $\sim 10m$, there is 50kV/m in 10 ns. In the atmosphere, this can span around 2000 km due to free electron there. At surface, we are closer to 20 km.
+
+This is dangerous as a L or C coupling can appear and this can be then transferred to components. Simple protection as Zener diode (over-current protectors) or voltage limiters. At a larger scale, shielding is effective.
+
+But, if we have communication outside a device, this means the shielding is not perfect thus creating a weakness point.
+
+## Lightning
+
+Lightning is an interesting phenomena which is **bi-directional**. There is a *leader* coming from the sky that is a electrically conductive channels of ionized gas that propagate through. This will splits in multiple channel trying to find the easiest connection. The leader is a negative stream that looks for a *streamers*. When a leader approaches the ground, the presence of opposite charges on the ground enhance the $\vec E$. A positively charged ionic channel may appear from ground object. Once the streamer reaches the leader, BOOM, thunder. The thunder is a **return stroke** so it back propagates.
+
+The ionosphere has a constant 120V/m making it the largest condensator ever with approximately $10^5$ V. This is why we have around 100 lightnings per second! We do not feel those $\sim 250$ V on our body has we are a conductor. We have surface charge but inside there is no $\vec E$.
+
+A lightning will discharged 500kV/m in approximately $1\mu s$ which is a 1/10 of an EMP. The magnetic field will be around 200 kA in $10\mu s$.
+
+This phenomena can be studied statistically. We have the largest exchange in tails around 800 A, this peak current can cause explosion or if it's more continuous, fire. When striking the ground, the $\vec E$ is around 10 kV/m. It is injecting into the soil.
+
+### Protection
+
+To protect against strike, you should:
+
+- Get inside:
+  - House, car/train/plane acts as shielding and everything will flow around it
+- Outside:
+  - In the middle of a field, crouch, reduce area, keep feet close together to avoid to short your balls.
+
+This is really important as a lightning will try to find the easiest path to ground and the conductivity of a human body is better than the air or soil.
+
+We can use lightning rod to attract but also control more the lightning. Another solution is to try to avoid metal in construction. Use voltage and current limiters. Galvanically separate earthing systems, only 1 pin in the ground. Good isolator is glass fiber for example.
+
+## ESD
+
+This is the phenomena where there is a "*transfer of charge between bodies of different electrostatic potential, caused by direct contact or induced  by an electrostatic field*". It is a discharge so we will have a high peak voltage, short time and sharp rising time. Then we couple the charges through induction, approaching speed.
+
+The build up of charges is due to rubbing. Typically rubbing on a carpet with shoes. This will capture some electrons and a positively charged field appears the other side of the dielectric (the soil of the shoe). The body is becoming positively charged. This is the **Tribo-electric effect**. We have non-conductors that act as a slow neutralisation and a fast neutralisation (discharge) with conductor.
+
+![ESD cause](image-18.png){width=70%}
+
+There is the triboelectric series of material where if 2 materials are opposing on this chart, the effect will be even stronger. 
+
+According to the surface resistance different thing can happen:
+
+- $0-10^6 \Omega$/square: Conductive: spark
+- $10^6-10^9 \Omega$/square: Little Conductive: no spark, safe discharge
+- $>10^9 \Omega$/square: Non-Conductive: induce charge on conductors
+
+This discharge effect also gets stronger with the capilarity. Typically, the thinner the contact point is (finger, pin, ...) the stronger will be the discharge. This is why there is a small nail sticking out of helicopter's rotor to dissipate this build-up of charges which can reach up to 300 kV. This is similar in some ways to the Corona effect.
+
+In summary, we need 2 conductors for the spark (skin and metal for example) and 1 non-conductor that isolate the electrons from the positive charges formed in the body.
+
+### Modeling
+
+- Assume pulse shape for “source current” $i_s(t)$
+  - for example sum slow and fast exponential
+- Calculate $i_s(\omega)$ via Fourier transform
+- Calculate transfer function to "load" $T_{ls}(\omega)$ with circuit theory
+- Calculate $u_l(\omega) = T_{ls}(\omega) \cdot i_s(\omega)$
+- Calculate $u_l(t)$
+- Assess whether the "load" will fail or not ...
+
+> CORONA effect: 
+> 
+> electric field around conductor is high enough to form a conductive region, but not high enough to cause electrical breakdown or arcing to nearby objects. It is often seen as a bluish (or other color) glow in the air adjacent to pointed metal conductors carrying high voltages
+
+The maximum voltage is *strongly* dependent on relative humidity. The ESD increases with approaching speed and sharpness of the tip.
+
+### Sharpness
+
+It is possible to model this effect based on Gauss's law. It states that for a sphere:
+
+$$
+\oint \oint E dS = \frac{Q}{\varepsilon_0}
+$$
+
+The field is thus uniform:
+
+$$
+E_n = \frac{Q}{4 \pi r^2 \varepsilon_0} = \frac{\sigma}{\varepsilon_0}
+$$
+
+But, if we start to flatten the sphere, positive surface charge will appear around. This will increase $\sigma$ and thus $\vec E_n$. But, we still need to respect Gauss's law and any cut in that flat sphere should hold the same amount of charges left and right of that cut. So the density will start to increase!
+
+The charge separation is typically an induction phenomena.
+
+### Spark by separation
+
+In a capacitance, we have $Q=CV$. If the capacitance decrease the voltage will increase for the same charges $Q$. Now, if we have a capacitance that is slanted and will gradually go away, we will have an excess of charge density at the closest part to the other capacitance. So at some point, the voltage will be too high and a spark will appear.
+
+A spark is due to trapped energy in a circuits.
+
+ESD effects can be dangerous as a spark that can be sensed by human needs 30 mJ (3kV). And to be visible, it must be over 10 kV. But to ignite a gas like propane, only 3 mJ is required.
+
+### Effects
+
+Analog circuits are affected by ESD only for the duration of the discharge. It makes them more reliable than digital circuits. 
+
+Digital circuits can suffer from bit switch due to ESD. 15 kV over 1 k$\Omega$ yields 15 A $\rightarrow$ H = 24 A/m at 10 cm. The rise time of 10 ns yields 30 V in loop of 100 $cm^2$.
+
+But no matter if they are digital or analog, components can be damaged at any time. Either making them unusable or worse, latent, meaning something has weakened inside and so performance may differ from expected. Typically, the dielectric breakdown can change, metallization burn out for MOS, junction burnout for BJT.
+
+### Protection
+
+To avoid this, we can have special meters that can measure it. We also ground ourselves to discharge the build up. We can also increase the humidity to increase conductivity of air and so discharge in the air. Use plasma (ion charges) with flame.
+
+Equipment:
+
+- touchable parts: offer low HF impedance with earthing or insulate
+- shielding behind insulator
+- very high freq. (GHz): avoid apertures, holes, slots
+
+Components:
+
+- special diodes (Zener)
+- anti-static material (ca. 109 $\Omega$/square): forms humid layer
+  - high enough to avoid sparks
+  - low enough to avoid static charge
+- Anti-static and shielding (using some metal)
+
+
+
+
+| Phenomena | Electric Field discharge |   Time   | Magnetic Field discharge |   Time    |
+| :-------- | :----------------------: | :------: | :----------------------: | :-------: |
+| EMP       |         50 kV/m          |  $10ns$  |            NA            |    NA     |
+| Lightning |         500kV/m          | $1\mu s$ |          200 kA          | $10\mu s$ |
+:Recapitulative table of discharges phenomena
