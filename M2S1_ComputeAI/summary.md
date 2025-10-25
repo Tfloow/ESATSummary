@@ -388,6 +388,233 @@ SambaNova startup is also believing in parallelism with intelligent on chip data
 
 At the end, we all try to raise the roof and tend to higher arithmetic intensity to gain in computing power.
 
+# Lecture 5: Efficient Deep Inference: Quantization
+
+Using quantization will result into better roof as we can push the throughput further with low-accuracy operation using the same hardware. Instead of using full precision `FP32`, we can use lower bit precision as 4-bit, 1-bit, ... Lower order precision is often computed in `int`
+
+![Datatypes for quantization](image-6.png){width=40%}
+
+The `TF32` format is used inside Nvidia's card in memory. It is not a real 32 bit float. They use this format as doing fp32 fp32 operation will unavoidably lead to trimming and rounding errors.
+
+## Block quantization 
+
+We can group exponent together and then use the mantissa for the operation. It is a form of **dynamic** fixed point arithmetic. The exponent is fixed and the mantissa can still vary. This allow for smart operation that can re-use previously computed results.
+
+We can push this idea further by trying to group more than just the same components together. We can group multiple numbers under the same scale. This is the basic idea behind int quantization:
+
+$$
+w_{quant} = quant(S_q \cdot (w-O_q))
+$$
+
+We must add an offset $O_q$ in the case the distribution is not symmetric.
+
+
+| Format Name | Block Size | Scale Data | Scale bits | Element data format | Element bit-width |
+| :---------- | :--------: | :--------: | :--------: | :-----------------: | :---------------: |
+| MXFP8       |     32     |    E8MO    |     8      |  FP8 (E4M3 / E5M2)  |         8         |
+| MXFP        |     32     |    E8MO    |     8      |  FP (E2M3 / E3M2)   |         6         |
+| MXFP4       |     32     |    E8MO    |     8      |     FP4 (E2M1)      |         4         |
+| MXINT       |     32     |    E8MO    |     8      |        INT8         |         8         |
+:The MX-compliant data types
+
+### PQT and QAT
+
+The cheapest way to implement quantization is to do some **Post-training quantization**. After training, an expensive and time consuming step, we apply the quantization on the weights. We need some calibration data to make sure the quantization will not impact negatively the model.
+
+On the other hand, **Quantization aware training** is ran at training. We quantize on the fly and and finetune with the training data. This is often better but more costly especially with LLM's.
+
+![PQT vs QAT](image-7.png){width=60%}
+
+### Mixed precision NN
+
+In the same idea as quantization per group, we can apply different quantization order in the neural network. During the training, all possibilities exist and then model will adapt the $\pi$ transfer function. Finally certain layers will prefer different quantization order than other.
+
+![Differential architecture search](image-8.png){width=50%}
+
+## Variable precision `int` MAC's
+
+All of this is cool and interesting but if we can't reuse hardware or do something a bit smarter, we cannot leverage from those algorithmic technique in real life. This is where versatile MAC arrays come into play.
+
+### Data gating
+
+![Data gating MAC](image-9.png){width=50%}
+
+It is a relatively naive idea and will let lots of space unused ! We gate the LSB's to avoid unnecessary toggling and reduce energy consumption.
+
+### Multi-gating
+
+![Multi-gating MAC](image-10.png){width=50%}
+
+This can only be done for **symmetric** operations as asymmetric is quite inefficient. Interestingly, the more sub-word we have, the larger are the registers getting. It is not depicted in the figures, but we must also ensure some gating of the signal to avoid carry propagation between each sub word.
+
+### Add/shift-gating
+
+![Add/shift-gating MAC](image-11.png){width=50%}
+
+This method is suitable for asymmetric operations. We operate on sub-unit and combine the results as required. This method presents a finite granularity and the more range we want to support the more adder need to be chained hurting the critical path.
+
+### Bit-serial way
+
+![Bit-serial way MAC](image-12.png){width=50%}
+
+We chain operations depending on the width and adjust the clock cycle.
+
+### Comparing
+
+At full precision, data-gating is the best as there is little to no extra hardware or register toggling. But if we look at a reduced precision bit-serial and add-shift have the best energy usage and the best hardware usage.
+
+### From MAC to array level
+
+For fair comparaison, we should compare at the MAC array as it presents many data sharing opportunities.
+
+![Data sharing can be seen as 2 extra for loops](image-13.png){width=50%}
+
+![Potential gains of sharing](image-14.png){width=50%}
+
+## SoTA example of Quantization
+
+### Envision (KU Leuven)
+
+It is a mult-gating approach with precision scalability. There are 256 MACS in a 16 by 16 array.
+
+```c
+for (c = 0 to C-1);
+  parfor (k = 0 to 15);
+    parfor (b = 0 to 15);
+      o[b][k] = i[b][c]*w[c][k]
+
+// Can also be acting 512 MAC units and so on...
+for (c = 0 to C-1);
+  parfor (k = 0 to 15);
+    parfor (b = 0 to 31);
+      parfor (bw = 0 to 7);
+        parfor (bi = 0 to 7);
+```
+
+This was successfully taped out and tested. They managed to adapt the supply voltage to gain even more in power efficiency.
+
+### Tensor Cores (Nvidia)
+
+Same ideas occurs here where we can sort of extend the tensor in multiple dimensions if operating different datatype.
+
+### Hybrid training / inference chip in 7nm (IBM)
+
+IBM has been pushing for lower and lower order of quantization. Proposing special structure for LLM inferences. They have some multi-precision compute array MPE with 16-way hybrid FP8 and 8-way FP16 engine in it. They do the same for int4 and int2 but they separate fp and int as they witnessed a significant energy saving and slight area reduction.
+
+### Binareye - digital and MS (KU Leuven & Stanford)
+
+This extreme 1-bit quantization where we can use XOR gate to compute the multiplication. This is highly efficient in area and energy. The main drawback is the gathering of all those results which constitute the main bottleneck of this architecture. 
+
+The results were quite impressive for such low-order operations. This opens the possibility to run lightweight model on very efficient hardware.
+
+We have really good weight stationary and we keep feeding input in parallel. We break down the input into Fx*Fy and repeat the feeding process for x*y cycles.
+
+```c
+for (k2 = 0 to K/64-1); //for each output channel
+  for (x = 0 to X-1); //for each in/output column
+    for (y = 0 to Y-1); //for each in/output row
+      parfor (c = 0 to 255); //for each input channel
+      parfor (fx = 0 to 2) ; //for each kernel row
+      parfor (fy = 0 to 2) ; //for each kernel column
+      parfor (k1 = 0 to 63); //for each output channel
+      o[b][k1+64.k2][x][y]+= i[b][c][x+fx][y+fy]
+      * w[k1+64.k2][c][fx][fy];
+```
+
+#### Reducing the gathering bottleneck
+
+We can replace those large neurons array by a Mixed Signal approach that is composed of a switched-cap adder (sorts of ADC).
+
+![The switched cap implementation](image-15.png){width=50%}
+
+This presented multiple issues:
+
+- Variations of cap: using cap is better than a resistor ladder, ... but high variation could make accuracy plummet
+- Noise: again sufficient margin must be taken and extra technique should be employed to reduce impact of the noise
+- Comparator offset: this can be quite detrimental but at least we can calibrate this effect reducing its impact
+
+Even with this, the results are still stochastic around the perfect digital model. The energy used by the neuron array is reduced by a factor 12.
+
+## In memory compute
+
+### Concept
+
+Instead of transferring all the time the data from memory, bring the computation in memory. The idea is to use the bitcell and use the selection line as the input and the weight are saved in the bitcell (weight stationary). So the data lines are actually the output lines. 
+
+By measuring the amount of discharge, we could be able to compute the result and digitize it.
+
+### Analog IMC
+
+This seems like a good idea on paper but the amount of extra hardware around is important. We need to use DAC to convert the inputs in analog domain, sum up the current and digitize it with ADC. Finally some post process can be applied (ReLu, ...)
+
+Typically spatially unroll C*FX*FY in vertical direction. Unroll K in horizontal direction, B,X,Y temporal
+
+#### Input pulse width
+
+Use bit width pulses to discharge a certain amount each time.
+
+![bit width pulses](image-16.png){width=50%}
+
+We have superposition of binary weighted bitline discharges across multiple rows. Essentially a MAC operation with digital inputs and analog output. The inputs are now digital.
+
+Quite nonlinear & random, difficult to manage large mismatches between SRAM cells
+
+#### Input pulse count
+
+Here, all the pulses are the same, the only difference is the amount of pulse. Current-based addition still present large bitline non-linearity. This can be adapted using some non-linear modeling to counter-act it.
+
+Both techniques use memory element as *current-source like* and the summation is realized with precharge-discharge cycle.
+
+#### Voltage
+
+We use a regular resistance with ReRAM (or Flash) cell. We make resistive weighted sum.
+
+![Voltage based IMC](image-17.png){width=50%}
+
+This is kinda like the PE unit of google where we could save full the weight and directly route on the chip the data to go through multiple layers.
+
+- THE GOODS:
+  - Analog in-memory compute allows extreme input and output reuse
+    - Due to compact memory (multiplier cell & added) & large arrays
+  - Analog in-memory compute enables extreme weight stationarity
+    - Program weights once, and leave them there forever?
+    - If weight reloading is rare (needs large arrays, or small networks…)
+      - Throughput/area increase (dense computing)
+      - The larger is the memory the higher is the benefit. But not every NN will be this large to actually witness any gains.
+- THE BADS:
+  1. Can all NN layers exploit large arrays? $\rightarrow$ underutilization!
+  2. Only precise at low quantization level? $\rightarrow$ Chip-specific training? Accuracy loss?
+
+### Digital IMC
+
+![Digital IMC architecture](image-18.png){width=40%}
+
+We digitize the 1*1 bit results and accumulation is done digitally. This adder tree is now the bottleneck. 1 weight per adder or weight bank. Here, results are deterministic which is  better suited for the industry. 
+
+For example, TSMC provides special node for this kind of IMC. They share multiplier across 4 weights, it's not really IMC in the strict sense.
+
+More freedom:
+
+- Type of memory cell (now SRAM)
+- Number of bitcells (weights) per multiplier $\rightarrow$ local data reuse (higher level stationarity)
+- Number of cells per core (=size adder tree), or reconfigurable?
+- Number of cores
+- Data sharing between cores
+
+Benefits of analog in memory compute still hold (but less!)
+- In-memory compute allows extreme input and output parallelism (reuse)
+- In-memory compute enables extreme weight stationarity
+
+Compared to analog:
+- More flexible (reconfiguration of data reuse in function of layer topology?)
+- More reliable (precision guaranteed)
+- But… less dense (Tops/mm2 lower)
+- But… less efficient (Tops/Watt lower (at core level, not at system level?))
+
+
+
+
+
 
 \newpage
 
@@ -414,6 +641,12 @@ At the end, we all try to raise the roof and tend to higher arithmetic intensity
 > **Paper to read**
 >
 > *Paper 1*: How to keep pushing ML accelerator performance? Know your rooflines!
+
+## Lecture 5
+
+> **Paper to read**
+>
+> *Paper 1*: ENVISION: A 0.26-to-10TOPS/W Subword-Parallel Dynamic-Voltage-Accuracy-Frequency-Scalable Convolutional Neural Network Processor in 28nm FDSOI
 
 # Questions
 
@@ -539,6 +772,48 @@ At the end, we all try to raise the roof and tend to higher arithmetic intensity
 > &nbsp;
 
 15. [After L4:] Given a nested (par)for loop representation (see examples in L4), explain me what the data parallelism and the stationarity is (spatial and temporal unrolling). Also derive the AI.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+## Lecture 5
+
+16. What data types are relevant for ML computation? What are their main differences? How can this be exploited in an ML processor ans what is the impact on the roofline model? Also use paper L5_MoonsISSCC.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+17. What different ways are there to build precision scalable MAC units / MAC arrays, and what is the impact on the nested for-loop representation? Use this to discuss the dataflow and utilization consequences (opportunities and challenges) of adapting the MAC precision?.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+18. Discuss the parallelism, stationarity and sparsity aspects (after L6) of the Envision processor and the Nvidia Tensor Cores, and how these aspects depend on the chosen data type.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+19. What are the opportunities that come from extreme binary quantization (in the digital, mixed-signal and the in-memory domain? You can use BinarEye as an illustration.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+20. What is the difference between analog and digital in-memory compute and what are their relative benefits and weaknesses?
 
 > **To be answered**
 > 
