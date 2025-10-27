@@ -21,6 +21,8 @@ output: pdf_document
 >
 > Nonetheless, it is recommended to also go through the cursus book as it may go more in depth than this summary
 
+\part{Introduction}
+
 # Introduction
 
 ## Why is measuring important ?
@@ -444,3 +446,85 @@ Luckily, the temperature is a slow varying process meaning that the bandwidth is
   - Compensation $\rightarrow$ add noise of compensating sensor
 
 # Measuring electrical quantities
+
+## OpAmp
+
+Basic facts about OpAmp:
+
+- High input impedance: so almost no current flows in
+- Low output impedance: delivers lots 
+- Very high gain
+- Has a positive and negative terminal
+
+![Non-inverting amplifier](image-7.png){width=70%}
+
+With $\lim_{A \rightarrow \infty}$ we get $1+\frac{R_2}{R_1}$. This means we can control the exact gain by controling the resistance ratio. Then, by combining two together, we can make an *instrumentation amplifier*:
+
+![Instrumentation amplifier](image-8.png){width=70%}
+
+![Measuring the current](image-9.png){width=70%}
+
+![Wheatstone bridge](image-10.png){width=70%}
+
+In the Wheatstone bridge, the $2\Delta R$ factor at the denominator will create non-linearity.
+
+![Improvements](image-11.png){width=70%}
+
+## Measuring reactive elements
+
+As seen previously, reactive elements cannot be measured with DC currents as they will either short or be open. A good way is to apply a chopping/square signal instead of a $sin$ to avoid the reduction of energy by a factor 2.
+
+### Using oscillators to measure reactive elements
+
+An oscillator is a feedback device that becomes a positive feedback. This must respect the **Barkhausen criterium**:
+
+
+\begin{align}
+    |G(j \omega_n)H(j \omega_n)| &= 1\\
+    \angle G(j\omega_n) + \angle H(j\omega_n) &= \pi
+\end{align}
+
+The $\pi$ indicates an inverse of the sign. Instead of a negative feedback, it becomes positive.
+
+![Measuring reactive elements](image-12.png){width=75%}
+
+The resistance must be compensated.
+
+$$
+\omega_n = \frac{1}{\sqrt{LC}} \qquad \zeta = \frac{1}{2R} \sqrt{\frac{L}{C}} \qquad Q = R\sqrt{\frac{C}{L}}
+$$
+
+The $Q$ factor is a metric that depicts the quality of a system. It is the ratio of the total energy of the system over the power dissipated over a cycle $\omega$:
+
+$$
+Q = \frac{1}{2 \zeta} = \omega \frac{\text{Max energy stored}}{\text{Power loss}}
+$$
+
+The higher is the $Q$ factor, the narrower is the oscillation band. This makes it tough to oscillate but once in oscillation, it is hard to stop it.
+
+#### Measuring the frequency
+
+We can use a counter based on a system clock that will monitor the oscillation. The precision of this measurements is as a good as the digital clock (jitter, noise, ...). Of course, the clock should have a higher frequency than the frequency we are trying to monitor (Shanon sampling frequency, ...).
+
+\begin{align}
+    \Delta \omega &= \left( \frac{\partial \omega_n}{\partial C} \right) \Delta C\\
+    &= \frac{1}{2} \frac{1}{\sqrt{LC^3}} \Delta C\\
+    &= \frac{\omega_n}{2C_0}\Delta C
+\end{align}
+
+## Conclusion
+
+- The design of a measurement chain is aimed to reduce the errors :
+    - Meet the input range of the ADC to reduce quantization noise 
+      - to avoid clipping or simply not using the full dynamic range
+    - Filter of noise
+    - Use chopping / modulation to be able to split frequencies
+    - Calibration can be used to reduce production errors
+      - For stochastic
+    - Compensation to reduce environmental errors
+    - Use feedback to reduce errors and improve dynamics
+
+\part{sensors and specific measurement equipment}
+
+
+**Page 154**
