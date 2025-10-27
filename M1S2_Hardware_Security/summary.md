@@ -567,8 +567,10 @@ But also good for Digital Right Management and make sure there is no fake copy o
 | Measured boot      | Unforgeable identity of running code                              | DICE                         |
 | Trusted execution  | Shield away code and data from untrusted OS                       | SGX, TrustZone               |
 | Remote attestation | Prove to other party which software stack you are running         | Apple App Attest             |
+: Different methods
 
 ## Techniques
+
 
 ### Secure boot goals
 

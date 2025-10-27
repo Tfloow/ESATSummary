@@ -17,7 +17,7 @@ PANDOC_CMD = docker run --rm --volume "$(PWD)/$@:/data" pandoc/extra \
 	summary.md LICENSE.md \
 	-o $@.pdf \
 	--template eisvogel \
-	--listings \
+	--syntax-highlighting=idiomatic \
 	--number-sections
 
 
