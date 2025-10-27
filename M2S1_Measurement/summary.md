@@ -298,9 +298,9 @@ As used and explained earlier, the $\sigma^2$ is the power of the signal (total 
 
 # Building a chain : reducing errors
 
-![Measurement chain](image-2.png){ widht=50% }
+![Measurement chain](image-2.png){ width=70% }
 
-each blocks add offset, gain error and noise. This is commonly represented as the chain above. 
+Each blocks add offset, gain error and noise. This is commonly represented as the chain above. 
 
 ## Gain distribution
 
@@ -330,7 +330,7 @@ $$
 sin(\omega t) sin(\omega_c t) = \frac{cos((\omega_c - \omega) t) + cos((\omega_c + \omega)t)}{2}
 $$
 
-![Chopping](image-3.png){width=50%}
+![Chopping](image-3.png){width=70%}
 
 ### Demodulation
 
@@ -338,7 +338,7 @@ Using a sine, half of the energy is lost sadly. This is why actual chopping with
 
 ### Chopping
 
-![Chopping chain - with representation of the tones (no need to remember the math)](image-4.png){width=50%}
+![Chopping chain - with representation of the tones (no need to remember the math)](image-4.png){width=75%}
 
 This will retain the signal energy. The input signal is modulated with pulse train, offset + $1/f$ added by $A_2$. Then demodulated at higher frequencies. Thus, a low-pass filter will not take the high frequency $1/f$ and offset. We are using a 1 -1 square wave.
 
@@ -379,17 +379,68 @@ If we are measuring and calibrating with a worse system, we are increasing our e
 
 #### Gain error example
 
-$$
+
 \begin{align}
     V_{out,cal} &= (BS+V_{offset} - a)b & \hat a &= b(a-V_{offset})\\
     V_{out,cal} &= B\hat b + \hat a & \hat b &= Sb
 \end{align}
-$$
 
-![The calibration is as good as the calibration equipment](image-5.png){width=50%}
+
+![The calibration is as good as the calibration equipment](image-5.png){width=80%}
 
 We need two measurements to be able to model the error. We can see in the math that our calibration will be as good as the accuracy and noise we have.
 
-Need long time to measure to average out the noise. Know the curve and what we should be expecting. Spread the points as wide as possible. A small error between two close points will result in large issues.
+Need long time to measure to average out the noise. Know the curve and what we should be expecting. Spread the points as wide as possible. A small error between two close points will result in large issues. Calibration is thus a mean to remove *stochastic error*.
 
 ## Compensation
+
+> **Definition**
+>
+> Compensation is a technique where an environmental error is removed by measuring th is variable using another sensor
+
+### Hall sensor compensation
+
+Typically, if we know that a sensor may be subjected to variation due to temperature, we will try to measure temperature too to counteract this effect.
+
+![Compensation of a Hall sensor](image-6.png){width=65%}
+
+> *Note*
+>
+> Here, we multiply $T'$ by $d$ instead of dividing it as division is an expensive operation in digital.
+
+The output of this chain is:
+
+$$
+B_{out} = Ba(1+bT_{amb}+ cdT_{amb}+bcdT_{amb}^2)
+$$
+
+We want the $B_{out}/B$ ratio to be constant, in other words not dependent on the temperature. One solution is to make the slope 0 at some temperature. This will require **2** calibration points.
+
+We could also use a quadratic measurement chain. This can make the slope equal 0 on a larger interval of temperature. 
+
+#### noise of the temperature sensor
+
+But, we will also have noise coming from this compensation chain. Namely the added noise is modeled as:
+
+$$
+\sigma_{B_{out}}^2 = \left( \frac{dB_{out}}{dT'} \right)^2\bigg|_{T'=T_{amb}} \sigma^2_{T'}
+$$
+
+Luckily, the temperature is a slow varying process meaning that the bandwidth is in the Hz range. This can be thus filtered out as magnetic field has a bandwidth in the kHz range.
+
+## Conclusion
+
+- White noise can be filtered
+- Flicker noise limits the applicability of filtering
+    - Move 1/f to higher frequencies : chopping
+- Static errors can be removed using calibration
+- Environmental errors can be removed using compensation
+
+
+- BUT : every correction technique adds errors
+  - Filtering $\rightarrow$ settling error
+  - Chopping $\rightarrow$ gain error
+  - Calibration $\rightarrow$ as good as calibration equipment
+  - Compensation $\rightarrow$ add noise of compensating sensor
+
+# Measuring electrical quantities

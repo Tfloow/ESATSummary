@@ -25,4 +25,4 @@ To contribute to this work or any other one from this project please find more i
 
 ---
 
-**© 2025 Authors of the Summary, Professors of the Course and possible book's authors. Some Rights Reserved.**
+**© \the\year{} Authors of the Summary, Professors of the Course and possible book's authors. Some Rights Reserved.**
