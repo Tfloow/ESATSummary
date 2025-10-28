@@ -187,10 +187,94 @@ Appears due to all the connections with each fingers.
 
 To optimize it, we can find the ideal $W_F$ value. The vertical and NQS resistances are found in the `BSIM` model
 
+The multi-finger can be found using the `PEX` model. 
+
+The optimal $W_F$ isn't the same for every transistors. The optimum shifts as the transistor get larger. Typically, the width of a finger should get larger as the total width increase.
+
+Surprisingly, the $f_{max}$ is also shifting as the total width increase. We see that $r_{ds}$ reduces by 10 while $R_G$ only reduces by a factor 3.7. This unequal reduction leads to a 60% reduction of $f_{max}$.
+
+#### Layout optimization
+
+We can focus only on the gate resistance which will add parasitic at the drain which is not too bad for our goal. We use wider trace at the gate which will increase the gate source capacitance. Luckily, this can be tuned out.
+
+#### FinFETs
+
+The total width is the number of fingers times the amount of fings per finger. We need fin depopulation to reduce the gate resistance.
+
+### Interstage matching situation
+
+This is a good way to enhance the gain by re-adjusting the impedance seen at the terminals. However, this will induce power loss and require more chip area ! The losses are proportional to the Impedance Transformation Ratio (ITR).
+
+**Re-read this section + re-watch to fully grasp everything**
+
+The bottomline is that matching with realistic Q factors only makes sense at higher frequencies. Higher than 20 GHz or we would have too much power loss at lower frequencies. 1:1 impedance ratio leads to a very easy matching network. This 1:1 happens at various frequencies for different technology node and size ratio.
+
+#### Mismatch can give better output power
+
+**Add slice example**
+
+
+
 ## Stability
 
 The capacitance $C_{gd}$ forms a feedback between the output and input opening the door for instability issues. This limits the maximum attainable gain.
 
+We define the term conditionally stable and unconditionally stable:
+
+- Conditional: for some source and load impedance, the network will be unstable
+- Unconditional: always stable for (any) source and load
+
+This definition is only based on the fact that we put a network at the input and one at the output without any connections between. But, if add a voltage source between input and output we can make any unconditionally stable circuit oscillate.
+
+### Rollett Stabilityt Factor K
+
+- $K>1$: unconditionally stable
+- $K<1$: *potentially* unstable
+
+$$
+K = \frac{1-|S_{11}|^2 - |S_{22}|^2 + |\Delta|^2}{2|S_{21}S_{12}|} \qquad \Delta = S_{11}S_{22} - S_{21}S_{12} 
+$$
+
+#### Maximum Available Gain (MAG)
+
+MAG provided ideal matching and $K>1$
+
+$$
+MAG = (K-\sqrt{K^2 - 1}) \cdot \frac{S_{21}}{S_{12}} = \frac{1}{K + \sqrt{K^2 - 1}} \cdot \frac{S_{21}}{S_{12}}
+$$
+
+#### Maximum Stable Gain (MSG)
+
+To achieve stability, one way is to add loss at the input or output. If $K=1$ we have the MSG:
+
+$$
+MSG = \frac{S_{21}}{S_{12}}
+$$
+
+### Gmax in Cadence
+
+At lower frequency, the transistor will be conditionnally stable and  thus  the gain will be linear corresponding to the MSG. There will be a corner in the gain depending on the layout. Good layout (ideal finger width) will have a higher corner.
+
+In this second region the MAG  is the maximum gain as the transistor will be unconditionally stable.
+
+Using the proper conjugate matching network, in the conditionnally stable region, we can touch that MSG.
+
 ## Neutralization
-## Drawback of Neutralization
+
+Instead of adding losses, we could try to **tune out** the gate drain capacitance which is the reason for the feedback and instability. But, the inductance will be too large and consumes lots of chip area.
+
+A better solution is to use a "*negative*" capacitance which will counter-act the effects of the gate drain one. In other words, use a **differential mode** approach.
+
+**ADD SCREENSHOTS**
+
+### Drawback of Neutralization
+
+One issue with the neutralization implementation is the fact that the $C_N$ will be not only $C_{gd}$ but also other parasitic.
+
+Ultimately,  neutrarlization will lead to far superior Gmax.
+
+### Implementation
+
+Implementing neutralization is quite easy and interesting to do. We can use transformers and at the middle inject the bias voltages. The transformers will ensure the symmetrical differential mode signal. We put those neutralization capacitance between the gate and drain and not at the output to avoid unnecessary power loss. (*check if true oops he said something during the lecture3e3www*)
+
 ### CM stability
