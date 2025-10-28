@@ -199,7 +199,7 @@ We can focus only on the gate resistance which will add parasitic at the drain w
 
 #### FinFETs
 
-The total width is the number of fingers times the amount of fings per finger. We need fin depopulation to reduce the gate resistance.
+The total width is the number of fingers times the amount of fins per finger. We need fin depopulation to reduce the gate resistance.
 
 ### Interstage matching situation
 
@@ -207,7 +207,7 @@ This is a good way to enhance the gain by re-adjusting the impedance seen at the
 
 **Re-read this section + re-watch to fully grasp everything**
 
-The bottomline is that matching with realistic Q factors only makes sense at higher frequencies. Higher than 20 GHz or we would have too much power loss at lower frequencies. 1:1 impedance ratio leads to a very easy matching network. This 1:1 happens at various frequencies for different technology node and size ratio.
+The bottom line is that matching with realistic Q factors only makes sense at higher frequencies. Higher than 20 GHz or we would have too much power loss at lower frequencies. 1:1 impedance ratio leads to a very easy matching network. This 1:1 happens at various frequencies for different technology node and size ratio.
 
 #### Mismatch can give better output power
 
@@ -226,7 +226,7 @@ We define the term conditionally stable and unconditionally stable:
 
 This definition is only based on the fact that we put a network at the input and one at the output without any connections between. But, if add a voltage source between input and output we can make any unconditionally stable circuit oscillate.
 
-### Rollett Stabilityt Factor K
+### Rollett Stability Factor K
 
 - $K>1$: unconditionally stable
 - $K<1$: *potentially* unstable
@@ -253,11 +253,11 @@ $$
 
 ### Gmax in Cadence
 
-At lower frequency, the transistor will be conditionnally stable and  thus  the gain will be linear corresponding to the MSG. There will be a corner in the gain depending on the layout. Good layout (ideal finger width) will have a higher corner.
+At lower frequency, the transistor will be conditionally stable and thus the gain will be linear corresponding to the MSG. There will be a corner in the gain depending on the layout. Good layout (ideal finger width) will have a higher corner.
 
-In this second region the MAG  is the maximum gain as the transistor will be unconditionally stable.
+In this second region the MAG is the maximum gain as the transistor will be unconditionally stable.
 
-Using the proper conjugate matching network, in the conditionnally stable region, we can touch that MSG.
+Using the proper conjugate matching network, in the conditionally stable region, we can touch that MSG.
 
 ## Neutralization
 
@@ -265,16 +265,44 @@ Instead of adding losses, we could try to **tune out** the gate drain capacitanc
 
 A better solution is to use a "*negative*" capacitance which will counter-act the effects of the gate drain one. In other words, use a **differential mode** approach.
 
-**ADD SCREENSHOTS**
+![Neutralization](image-5.png){width=70%}
 
-### Drawback of Neutralization
+![Value of $C_N$](image-6.png){width=70%}
 
 One issue with the neutralization implementation is the fact that the $C_N$ will be not only $C_{gd}$ but also other parasitic.
 
-Ultimately,  neutrarlization will lead to far superior Gmax.
+Ultimately, neutralization will lead to far superior Gmax.
 
 ### Implementation
 
-Implementing neutralization is quite easy and interesting to do. We can use transformers and at the middle inject the bias voltages. The transformers will ensure the symmetrical differential mode signal. We put those neutralization capacitance between the gate and drain and not at the output to avoid unnecessary power loss. (*check if true oops he said something during the lecture3e3www*)
+Implementing neutralization is quite easy and interesting to do. We can use transformers and at the middle inject the bias voltages. The transformers will ensure the symmetrical differential mode signal. 
+
+![Neutralization implementation](image-7.png){width=70%}
+
+#### Neutralization with single-ended amps
+
+![Possible solutions for single-ended amps](image-8.png){width=70%}
+
+### Use dummy transistor
+
+![Dummy transistors with floating source](image-9.png){width=70%}
+
+Another way, instead of using a floating source, is to tie the drain and source together. With this technique, no current will flow as there will be no real polarity.
+
+## Drawback of Neutralization
+
+In DM, it is easy to analyze the stability of the circuit. We need to just check 1 frequency, the operating one. We are not really affected by the VDD and VBIAS as it is seen as a virtual ground only.
+
+But in Common Mode, this is a whole different story. The circuit looks different, we see the bound pad inductances and we must sweep all frequencies to make sure it is always stable. Moreover, this stability depends on the impedance of the two DC voltages (VDD and VBIAS). Finally the transistor now looks twice as wide.
 
 ### CM stability
+
+One solution is to use *harmonic traps* that will provide excess feedback:
+
+![Harmonic traps](image-10.png){width=60%}
+
+### CM feedback
+
+A crucial thing is the fact that the the second order distortion is caused by the common mode ! In many research paper, this is often overlooked as this distortion will appear at $2\omega_1;2\omega_2;\omega_1+\omega_2$. So this is not close from the main frequencies. 
+
+**BUT**, if a distorted signal is feedback at the input, it will mix and appear like a third order distortion. It is a secondary mixing terms due to the $C_{gd}$ and $C_N$ feedback network.

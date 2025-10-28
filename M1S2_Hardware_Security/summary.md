@@ -569,6 +569,8 @@ But also good for Digital Right Management and make sure there is no fake copy o
 | Remote attestation | Prove to other party which software stack you are running         | Apple App Attest             |
 : Different methods
 
+Compile please
+
 ## Techniques
 
 

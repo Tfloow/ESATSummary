@@ -2,10 +2,15 @@
 
 compile : all_NEW 
 
+# IDK why github actions crash here
+EXCLUDED_DIRS = M1S2_Hardware_Security PDF
+
 # Exclude PDF directory from subdirectories
 SUBDIRS := $(patsubst %/,%,$(wildcard */))
-SUBDIRS := $(filter-out PDF,$(SUBDIRS))
+SUBDIRS := $(filter-out $(EXCLUDED_DIRS),$(SUBDIRS))
 LAST_COMMIT_MESSAGE = $(git log -1 --pretty=%B)
+# Remove possible ENV injection GITHUB_TOKEN from commit message
+LAST_COMMIT_MESSAGE := $(filter-out %GITHUB_TOKEN%, $(LAST_COMMIT_MESSAGE))
 pandoc_run = $(docker run --rm --volume "$(pwd):/data" pandoc/extra)
 PWD = $(shell pwd)
 
@@ -32,18 +37,19 @@ NC       = \033[0m
 	@cp $@/$@.pdf PDF/
 	@rm -f $@/$@.pdf
 	@chmod 664 PDF/$@.pdf
-	@printf "$(GREEN) ✔ Successfully created $(BLUE)%s.pdf$(NC)\n" "$@"
+	@printf "$(GREEN)✔ Successfully created $(BLUE)%s.pdf$(NC)\n" "$@"
 
 %.pdf: %
 
 all_NEW : $(SUBDIRS)
-	@printf "$(GREEN) ✔ All Summaries Compiled Successfully!$(NC)\n"
+	@printf "$(BLUE)INFO:$(NC)Excluded: $(EXCLUDED_DIRS)\n"
+	@printf "$(GREEN)✔ All Summaries Compiled Successfully!$(NC)\n"
 
 zip:
 # zip PDF
 	@printf "$(YELLOW)--> Zipping all PDFs into PDF.zip$(NC)\n"
 	@zip PDF.zip PDF/*.pdf > /dev/null
-	@printf "$(GREEN) ✔ Successfully created PDF.zip$(NC)\n"
+	@printf "$(GREEN)✔ Successfully created PDF.zip$(NC)\n"
 
 
 
@@ -60,7 +66,7 @@ create_summary :
 	@cp template/* $(SEMESTER)_$(DIR)
 	@sed -i "s/TITLE NAME/$(TITLE)/g" $(SEMESTER)_$(DIR)/summary.md
 	@sed -i "s/AUTHOR/$(AUTHOR)/g" $(SEMESTER)_$(DIR)/summary.md
-	@printf "$(GREEN) ✔ Successfully created summary directory $(BLUE)$(SEMESTER)_$(DIR)$(NC)\n"
+	@printf "$(GREEN)✔ Successfully created summary directory $(BLUE)$(SEMESTER)_$(DIR)$(NC)\n"
 
 clean :
 	rm  -rf PDF/
@@ -84,7 +90,7 @@ help:
 # touch all summary.md files to force recompilation
 touch:
 	@touch $(SOURCES)
-	@printf "$(GREEN) ✔ Successfully touched all summary.md files.$(NC) Ready to be recompiled\n"
+	@printf "$(GREEN)✔ Successfully touched all summary.md files.$(NC)Ready to be recompiled\n"
 
 .PHONY: rebuild
 rebuild: clean compile
