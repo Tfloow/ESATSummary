@@ -6,6 +6,7 @@ papersize: a4
 date: \today
 toc: true
 toc-depth: 3
+titlepage-rule-color: 00407A
 titlepage: true
 titlepage-logo: KULlogo.pdf
 template: eisvogel

@@ -1,0 +1,196 @@
+---
+title: "Design of RF and mm-Wave Integrated Circuits"
+author: Thomas Debelle
+geometry: "left=1cm,right=1cm,top=2cm,bottom=2cm"
+papersize: a4
+titlepage-rule-color: 00407A
+date: \today
+toc: true
+toc-depth: 3
+titlepage: true
+titlepage-logo: micas_logo_colored.pdf
+template: eisvogel
+subtitle: "[An Open-Source Summary](https://github.com/Tfloow/ESATSummary)"
+copyright: "© Thomas Debelle. This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License."
+copyright-link: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+output: pdf_document
+---
+
+# Motivation
+
+We want to go to higher frequency to transmit more and more data as per Shannon channel capacity
+
+$$
+BW\cdot \log_2 \left( 1 + \frac{S}{N} \right)
+$$
+
+## Problem 1
+
+It was predicted that the $f_{max}$ and $f_T$ of CMOS would increase in the coming years. Sadly, this is not true as CMOS won't go much higher than 300 GHz. One of our best hope is **Si-Ge** which is a developing and promising technology for high speed application. The main drawback is the fact it doesn't scale well (factor 1000 between CMOS and Si-Ge) and it is a power hungry technology node.
+
+Another issue with this Ge, is that the oxide is quite bad and can be dissolved just by water.
+
+## Problem 2
+
+Another big problem comes from fundamental EM theory. The **free-space path loss**:
+
+$$
+20 \log_{10} \frac{4 \pi f_c d}{c}
+$$
+
+The higher we go in frequency, the higher is the losses. Same with the Friis equation:
+
+
+\begin{align}
+    P_{\text{density}} &= \frac{P_t}{4\pi d^2} \cdot G_t\\
+P_r &= P_{\text{density}} \cdot \frac{\lambda^2}{4\pi} \cdot G_r\\
+\frac{P_r}{P_t} &= \left(\frac{\lambda}{4\pi d}\right)^2 \cdot G_r \cdot G_t
+\end{align}
+
+But, the gain of an antenna scales with the frequency. Which means, for the same area of a RF one, we can split it in multiple sub mmWave one.
+
+$$
+G_{\text{ant}} = \frac{4 \pi A_{ant} f_c^2}{c^2}
+$$
+
+This opens the way to *beamforming* antenna where tiny delays can steer the beam. Main issue is the energy consumption, it has currently troubles to find its way to the consumer market. Many architecture exists that try to overcome various challenges.
+
+# mm-wave design in CMOS: Actives
+
+## MOS transistor power gain, fT and fMAX
+
+![Basic FoM of MOS transistor](image.png){width=70%}
+
+A tuned amplifier can be seen as an amplifier where we have some L at the boundwire for gate and drain making it a tuned amplifier.
+
+![Model of transistor](image-1.png){width=60%}
+
+Good RF model have GSD contact resistor and a bulk resistance model. This can be quite cumbersome to analyze, so for this reason the second model is preferred as lots of important problems can be explained with this model.
+
+## Gate resistance
+
+One of the main limits of gain is this $R_G$ as it will form with $C_{gs}$ a LPF. This value must be minimized to achieve high gain. 
+
+The gate resistance is not just 1 resistance but a combination of various resistance all modeled through $R_G$. Those values depend on the layout of the transistor.
+
+Typically, making smaller width finger will reduce the on resistance between the drain and source but the length of the gate resistance may again increase.
+
+![Minimizing $R_G$ by modifying width of finger](image-2.png){width=50%}
+
+The intrinsic corner frequency $f_T$ can be calculated as:
+
+$$
+f_T = \frac{g_{m}}{2\pi (C_{gs} + C_{gd})}
+\qquad\begin{cases}
+    h_{21}(f) &= \frac{i_{OUT}}{i_{in}} = \frac{Y_{21} v_{in}}{Y_{111} v_{in}}\\
+    |h_{21}(f_T)| = 1
+\end{cases}
+$$
+
+The "*amazing*" thing about this metric is that it does not depend on the layout! It is purely a technological constant!
+
+In reality and more advanced model, there is only a weak dependency between $f_T$ and $R_G$. The higher is the bias point, the higher is the $f_T$ until it plateau and decreases.
+
+### Matching source and load 
+
+The goal is to transform the impedance seen by a load or a source to increase the performances of the circuit.
+
+#### RL Series to Parallel conversion
+
+With $Q_L = \frac{Z_L}{R_S} = \frac{\omega L_S}{R_S}$, we can convert to parallel with:
+
+$$
+L_P = L_S(1+1/Q_L^2) \qquad R_P = R_S(1+Q_L^2)
+$$
+
+#### RC Series to Parallel conversion
+
+With $Q_C = \frac{Z_C}{R_S} = \frac{1}{\omega C_SR_S}$, we can convert to parallel with:
+
+$$
+C_P = \frac{C_S}{1+1/Q_L^2} \qquad R_P = R_S(1+Q_L^2)
+$$
+
+#### LC-match network
+
+If we have a $L_m$, $C_m$ matching network in parallel of a $R_L$ load, we can convert into a fully in series network with $Q_C = \frac{1}{\omega C_m R_L}$.
+
+$$
+\omega = \frac{1}{\sqrt{L_m C_m'}} \qquad R_L' = \frac{R_L}{(1+Q_C^2)}
+$$
+
+And we have now that $R_{in} = R_L'$. There will be now power loss as $P_{out} = P_{in} = \frac{v_{in}^2}{R_{in}} = \frac{v_{in}^2}{R_{L}'} = (1+Q_C^2)\frac{v_{in}^2}{R_L}$. $v_{out} \approx Q_C v_{in}$ (narrowband) passive voltage amplifier.
+
+#### Definition: $f_{max}$
+
+![Matching](image-3.png){width=70%}
+
+$$
+G_P = \left(\frac{g_m}{2\pi f_{\text{MAX}} \cdot C_{gs}}\right)^2 \frac{r_{ds}}{4R_G} = 1 \Rightarrow f_{\text{MAX}} = \frac{g_m}{2\pi \cdot C_{gs}} \sqrt{\frac{r_{ds}}{4R_G}}
+$$
+
+Here, $f_{MAX}$ depends on biasing and layout !
+
+$$
+f_{MAX} = f_T \cdot \sqrt{\frac{r_{ds}}{4 R_G}}
+$$
+
+### Modeling it
+
+![Contributions of $R_G$](image-4.png){width=70%}
+
+#### Horizontal gate resistance $R_{G,h}$
+
+$$
+R_{G,h} = \alpha \frac{W_F}{L}\rho_{sh, Sili}
+$$
+
+We have a distributed effect $\alpha$ using the sheet-resistance of the Silicide layer $\rho_{sh, Sili}$.
+
+It would be naive to think that this resistance is constant throughout the gate, actually, the current $I_G$ will be high at the entrance of the gate and slowly decrease until reaching 0. In this case $\alpha = 1/3$.
+
+One way to reduce this is by applying two contacts at each side. This will divide by 2 the current in each branch and each branch are 2 times smaller. So, $\alpha = 1/2 \cdot 1/2 \cdot 1/3 = 1/12$
+
+#### Vertical gate resistance $R_{G,v}$
+
+$$
+R_{G,v} = \rho_{poly} \frac{t_{poly}}{L \cdot W_F}
+$$
+
+$L$ here is the cross-section of a gate finger and $\rho_{poly}$ is the gate resistivity poly.
+
+#### Non-Quasi-Static (NQS) gate resistance $R_{G,NQS}$
+
+$$
+R_{G,NQS} \sim \frac{L}{W_F}
+$$
+
+It is not a "real" resistance, it appears due to charge in channel coming from the source. It models the time constant $\tau = 1/RC$ that appears due to the fact the charges must travel through the channel.
+
+#### Multi-Finger connection resistance $R_{G,int}$
+
+$$
+R_{G,int} \sim \frac{W\cdot L}{W_F}
+$$
+
+Appears due to all the connections with each fingers.
+
+#### Summary
+
+| Name                               | Symbol      | Equation                                   |
+| :--------------------------------- | :---------- | :----------------------------------------- |
+| Horizontal gate resistance         | $R_{G,h}$   | $\alpha \frac{W_F}{L}\rho_{sh, Sili}$      |
+| Vertical gate resistance           | $R_{G,v}$   | $\rho_{poly} \frac{t_{poly}}{L \cdot W_F}$ |
+| NQS gate resistance                | $R_{G,NQS}$ | $\sim \frac{L}{W_F}$                       |
+| Multi-Finger connection resistance | $R_{G,int}$ | $\sim \frac{W\cdot L}{W_F}$                |
+:Summary of the various actor in the Gate Resistance $R_G$
+
+To optimize it, we can find the ideal $W_F$ value. The vertical and NQS resistances are found in the `BSIM` model
+
+## Stability
+
+The capacitance $C_{gd}$ forms a feedback between the output and input opening the door for instability issues. This limits the maximum attainable gain.
+
+## Neutralization
+## Drawback of Neutralization
+### CM stability

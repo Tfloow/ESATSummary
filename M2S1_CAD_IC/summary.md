@@ -4,6 +4,7 @@ author: Thomas Debelle
 geometry: "left=1cm,right=1cm,top=2cm,bottom=2cm"
 papersize: a4
 date: \today
+titlepage-rule-color: 00407A
 toc: true
 toc-depth: 3
 titlepage: true

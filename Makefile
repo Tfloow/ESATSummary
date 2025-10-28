@@ -68,12 +68,12 @@ clean :
 	mkdir PDF
 
 help:
-	@printf "$(BLUE)Makefile for Course Summary Compilation (Leuven, 2025)\n\n$(NC)"
+	@printf "$(BLUE)Makefile for Course Summary Compilation\n\n$(NC)"
 	@printf "$(YELLOW)Usage:$(NC)\n"
-	@printf "  make $(GREEN)<target>$(NC) [VARIABLE='value']\n\n"
+	@printf "  make $(GREEN)<target>$(NC)\n\n"
 	@printf "$(YELLOW)Available targets:$(NC)\n"
 	@printf "  $(GREEN)%-20s$(NC) %s\n" "compile" "Compile all summaries into PDF/ and create a zip archive."
-	@printf "  $(GREEN)%-20s$(NC) %s\n" "create_summary" "Create a new summary directory from a template."
+	@printf "  $(GREEN)%-20s$(NC) %s\n" "create_summary [ARG]" "Create a new summary directory from a template."
 	@printf "  $(GREEN)%-20s$(NC) %s\n" "zip" "Create a zip archive from existing PDFs in the PDF/ directory."
 	@printf "  $(GREEN)%-20s$(NC) %s\n" "clean" "Remove all generated files (PDF/ directory, zip archive)."
 	@printf "  $(GREEN)%-20s$(NC) %s\n" "rebuild" "Perform a full clean and compile."
