@@ -306,3 +306,101 @@ One solution is to use *harmonic traps* that will provide excess feedback:
 A crucial thing is the fact that the the second order distortion is caused by the common mode ! In many research paper, this is often overlooked as this distortion will appear at $2\omega_1;2\omega_2;\omega_1+\omega_2$. So this is not close from the main frequencies. 
 
 **BUT**, if a distorted signal is feedback at the input, it will mix and appear like a third order distortion. It is a secondary mixing terms due to the $C_{gd}$ and $C_N$ feedback network.
+
+# System-level aspects of PAs
+
+## Introduction
+
+Designing a power amplifier is different than designing a regular amplifier. In a regular amplifier, we are trying to optimize the gain, so the input and output matching network will transform the impedance to be seen as $50\Omega$. In a PA, we want to send the maximum amount of power.
+
+![PA basics 101](image-11.png){width=70%}
+
+The total power is proportional to $V_{DD}^2$, we kept pushing down the supply to maintain $\vec E$ over the diffusion area yet we didn't see any dramatic output power reduction. Why ?
+
+## Gain and power matching
+
+### Gain matching
+
+We are trying to have the highest power gain thanks to conjugate matching as load. We create a sort of high load line to have the highest output power for the given input swing and this is called matching. This is based on a small-signal approach.
+
+### Power matching
+
+we allow to go more extreme and this requires a large-signal approach. We are limited by the $I_{max}$ and $V_{max}$. There is also a minimum $V_{knee}$. The result is a less resistive load and more swing.
+
+- $I_{max}$: to avoid electron migration 
+- $V_{max}$: to avoid breakdown voltage
+- $V_{knee}$: to stay out of the triode region
+
+The optimal loads for maximum gain and power are **not** the same. The best we can do is take an intermediate between the power curves. The corner point in the Pin/Pout plot is sooner for power matching than gain matching.
+
+## Ratio-gain and slope-gain
+
+- **Power gain:** $P_{out}- P_{in}$
+- **Gain compression:**  Crossing point with the linear slope of the -1 dB gain at $P_{in}=0dB$
+  - This indicates the start of the compression area where the PA becomes saturated. In this area, there is high output power and good PAE.
+  - Often, in those plots, we can see the curve never flattens out. This is due to the feed-forward path.
+- **Saturation power:** -3dB compression power, not a convention but usually used.
+
+A good PA will have the $P_{1dB}$ and $P_{3dB}$ close to avoid the effect of "*soft compression*" which induces low input swing due to premature distortion.
+
+### Slope gain and ratio gain
+
+- Slope gain: take the derivative around 0 mW of input
+- Ratio gain: take the difference over X 
+
+Slope gain will remain constant while the ratio gain will continue changing, even in compression. slope gain will tend to 0 which reflects the actual added benefit of going to higher power input.
+
+### Predistortion curve
+
+If we take the Pout/Pin curve and its inverse on the same plot, we will find the **PD gain**. This only appears if the slope gain is bigger than one and this point is where the ratio gain and the output power gain meets.
+
+The issue is the fact that after this distortion point, the slope gain is almost null but not the ratio gain.
+
+- Slope gain: better for checking predistortion
+
+## Efficiency
+
+| Name                              | Description                                                                                       |                        Formula                        |
+| :-------------------------------- | :------------------------------------------------------------------------------------------------ | :---------------------------------------------------: |
+| Drain collector efficiency **DE** | The output power over the DC power                                                                |         $\eta = \frac{P_{out,RF}}{P_{DC,PA}}$         |
+| Power-added efficiency **PAE**    | Subtracting the input power to the output power. Idea closer to laser where input flows to output |   $PAE = \frac{P_{out,RF} - P_{in,RF}}{P_{DC,PA}}$    |
+| System efficiency **SE**          | Overall efficiency of the system, more meaningful and reflect reality                             | $\eta_{sys} = \frac{P_{out,RF}}{P_{in,RF}+P_{DC,PA}}$ |
+: Various efficiency of a Power Amplifier
+
+$$
+\textbf{PAE} = \eta \cdot \left( 1 - \frac{1}{G_P} \right)
+$$
+
+> *Note*
+>
+> $P_{DC,PA}$ depends in most case on $P_{out,RF}$.
+
+When running the simulations we can see that:
+
+- **Linear region:** 
+  - Good: gain, linearity
+  - Bad: output power, efficiency
+- **Compressed region:**
+  - Good: output power, efficiency
+  - Bad: gain, linearity
+
+### $P_{DC} \text{ } \& \text{ } P_{BIAS}$
+
+The DC power is not equal to the bias power besides at small input and output signals. Moreover:
+
+$$
+P_{DC,PA}(P_{out,RF})
+$$
+
+The DE keeps improving due to the feed-forward path but the PAE has an optimum. 
+
+> *Note*
+>
+> PSAT is sometimes defined as the output power at $\textbf{PAE}_{max}$
+
+**PAGE 29**
+
+## PAPR
+## Distortion: ACLR
+## Distortion: EVM
+## Distortion: AM/AM – AM/PM – PM/AM
