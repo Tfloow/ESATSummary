@@ -398,9 +398,189 @@ The DE keeps improving due to the feed-forward path but the PAE has an optimum.
 >
 > PSAT is sometimes defined as the output power at $\textbf{PAE}_{max}$
 
-**PAGE 29**
+#### Driver stage
+
+The DE will always refer to the drain efficiency and thus never take into account the extra power burned by a driver stage. While for other metrics:
+
+$$
+\begin{aligned}
+    PAE &= \frac{P_{out,RF} - P_{in,RF}}{P_{DC,DRV} + P_{DC,PA}} & \eta_{sys} &= \frac{P_{OUT,RF}}{P_{IN,RF} + P_{DC,PA} + P_{DC,DRV}}
+\end{aligned}
+$$
 
 ## PAPR
+
+Or **Peak to Average Power Ratio**, a large difference between the average and peak power gives a *low efficiency*. This is an important metric in modern communication scheme as the PAPR grows bigger and bigger as the standards advance.
+
+### Definition in Analog and RF
+
+| Metric        | Symbol          |      Equation      |
+| :------------ | :-------------- | :----------------: |
+| Crest factor  | $CF$            | $V_{max}/V_{RMS}$  |
+|               | $CF_{dB}$       |   $20 \log(CF)$    |
+| ???           | $PIP$           |  $V_{max}^2/R_L$   |
+| Average power | $P_{avg}$       |  $V_{RMS}^2/R_L$   |
+| PAPR analog   | $PAPR_{analog}$ | $PIP/P_{AVG}=CF^2$ |
+| PAPR RF       | $PAPR_{RF}$     | $PEP/P_{AVG}$                    |
+|               | $PAPR_{dB}$     |     $CF_{dB}$      |
+: Important metrics
+
+In RF, we modulate our signal on a carrier which creates an enveloppe. If we take the $V_{max}$ of this enveloppe and map it to a *continuous wave* with amplitude equal to the peak of the modulated signal, we obtain the **PEP**.
+
+$$
+PEP = PIP - 3 dB
+$$
+
+So when $PAPR_{RF} = 0$, it will be $PAPR_{analog} = 3$. It is just a naming convention but important to distinguish. A good thing is to only use crest factor for $PAPR_{analog}$ instead.
+
+$$
+\begin{aligned}
+    PEP &= \frac{PIP_{env}}{2} & P_{AVG} &= \frac{P_{AVG,ENV}}{2} 
+\end{aligned}
+$$
+
+$$
+PAPR_{RF} = \frac{PEP_{RF}}{P_{AVG,RF}} = \frac{PIP_{ENV}}{P_{AVG,ENV}} = PAPR_{ENV}
+$$
+
+### Modulated signals
+
+We can use constellations plot to represent the *amplitude and phase* of the RF carrier. But, this plot shouldn't just be viewed as a static plot but as a points that carrier will visit and where change is not instantaneous.
+
+$$
+\begin{aligned}
+    s(t) &= I(t) \cos (2\pi f_c t) - Q(t) \sin (2\pi f_c t)\\
+    &= A(t) \cos (2 \pi f_c t+\varphi (t))
+\end{aligned}
+$$
+
+The complex envelope signal is:
+
+$$
+\begin{aligned}
+    g(t) &= \overbrace{A(t)}^{\text{Envelope signal}} \overbrace{e^{j\varphi (t)}}^{\text{phase modulation}} & s(t)&=\mathfrak{R} \left\{ A(t) e^{j\varphi(t)} e^{j2\pi f_c t} \right\}
+\end{aligned}
+$$
+
+The envelope signal properties will influence the PA design and performance. We have:
+
+$$
+\begin{aligned}
+  A(t) &= \sqrt{I(t)^2 + Q(t)^2} & \varphi(t) &= arctan \left( \frac{Q(t)}{I(t)} \right)
+\end{aligned}
+$$
+
+Modulation and filtering will cause envelope variations. If we look at a QPSK constellation where all points lay around the circle of radius 1, if we assume perfect transition between the points, we have a $PAPR = 0$. But with a $RRC = 0.35$, we have $4$dB PAPR. This is due to the transition that takes the shortest path instead of going around the circle. This is some IQ filtering that will introduce the detrimental PAPR.
+
+For constellations that do not have all their point laying on the circle, they will have a PAPR larger than 0.
+
+#### OFDM
+
+If we want to take into account OFDM modulation using $N$ modulated sinewaves, we have the following formula:
+
+$$
+PAPR_{RF,dB} = PAPR_{RF} + \overbrace{10 \log (N)}^{\text{OFDM factor}}
+$$
+
+#### Signal statistics
+
+What define the PAPR is the ratio of the largest peak over the average signal. But some average peak can be quite rare as they must me an exact sequence of bits for example.
+
+So, it is quite common to define the **likelihood** of a waveform of X symbols to have a PAPR of Y dB. A good reference point is using $1\%$. This is shown with a Complementary Cumulative Distribution Function Plot:
+
+![CCDF Plot](image-12.png){width=60%}
+
+The bad news is that, the more advance is a communication scheme, the worse is the PAPR becoming.
+
 ## Distortion: ACLR
+
+> **Definition**
+>
+> ACLR: Adjacent Channel Leakage Ratio
+>
+> ACP: Adjacent Channel Power
+
+This section is about ACLR and how we must take into account possible leakage from other channel. Indeed, we are not operating without any noise or other user. Everyone has a specific frequency range (ideally).
+
+This is all related to Harmonic Distortion (HD) and how third order distortion (IMD3) of 2 signals will fold back next to the two first order signal. Thus, creating some distortion as unwanted signals can be difficultly filtered out.
+
+A spectrum shows the power, measured inside a BW equal to the Resolution Bandwidth (RBW).
+
+![ACP and ACLR](image-13.png){ width=60% }
+
+The shoulders are often asymmetric due to the memory effects and second order distortion. The power in the first **adjacent shoulder** is written as $P_{AC1}$. We can then extract the first ACLR:
+
+$$
+ACLR_{1 [dB]} = P_{OUT[dBm]} - P_{AC1[dBm]}
+$$
+
+
 ## Distortion: EVM
+
+> **Definition**
+>
+> EVM: Error Vector Measure
+
+The error vector is a complex number that represents the difference in a time domain constellation IQ between the measured signal and the ideal signal.
+
+$$
+EVM = \sqrt{(I_{MEAS} - I_{REF})^2 + (Q_{MEAS} - I_{MEAS})^2}
+$$
+
+We can then measure it for each symbol transmitted and compute the RMS value of the EVM:
+
+$$
+EVM_{RMS} = \frac{\sqrt{\frac{1}{N} \sum_{i=1}^N EVM_i^2}}{\sqrt{\frac{1}{N} \sum_{i=1}^N |S_i|^2}}
+$$
+
+An interesting fact is that if we have little to no AM-AM, AM-PM noise, we will have $EVM_n \approx \frac{1}{\sqrt{SNR}}$.
+
+### Understanding the pattern of constellation
+
+If we don't have a nice grid square shaped pattern and rather a round shaped patterned with higher $EVM$ for signal further, this is likely a non-linear PA that saturates for higher signals.
+
+> *Note*
+>
+> Always make sure to pick the root-square sum of the signals and not the max of the signal as Keysight default setting does.
+>
+> The difference is the PAPR of the unfiltered modulated signal. Not the PAPR of the RF signal.
+
+
 ## Distortion: AM/AM – AM/PM – PM/AM
+
+### AM-AM
+
+AM-AM is ratio gain it is the difference between the AM in minus the AM out. If we witness in a QAM constellation that the center is still square but the outside becomes round, this is typical sign of AM-AM distortion.
+
+Cannot really be avoided as it is intrinsic of the PA.
+
+### AM-PM
+
+This is the fact that having a larger amplitude will create a phase change at the output. This can be avoided with better matching. Push the phase shift to higher input voltage.
+
+AM-PM will be seen as the constellation is swirling a little bit. The full constellation is not just rotating but swirling and is more noticeable for the edges.
+
+#### Typical causes
+
+This is due to a changing $C_{GS}$ capacitance. This will change the resonance frequency and phase response. The root cause can also be:
+
+- $C_{GD}$ and miller cap
+- Gain compression
+- Non-linear $C_{DS}$
+- Non-linear $g_m$
+
+But usually, a non-linear $C_{GS}$ is the sweetspot for amplifier.
+
+Class A amplifier will have stronger negative output phase than class AB that will tend to be more positive output phase. Ideally we want a null output phase.
+
+#### Compensating
+
+We can compensate for this by inducing more gain for I instead of Q for example.
+
+Also, a lot of systems have a precise time domain envelope that is not constant. Typically emitting data will have lots of radiation while receiving will be much smaller power-wise.
+
+### Memory effects
+
+The gain and phase relationships of PA depends on the previous power situation. This is caused by thermal behavior and low-frequency bias networks with large RC time constants.
+
+A lot of decoupling capacitance will creates more memory effect as the circuit must (dis)charge more or less the caps. We must do proper sweep to see clearly those effects. 
