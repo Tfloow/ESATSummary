@@ -584,3 +584,70 @@ Also, a lot of systems have a precise time domain envelope that is not constant.
 The gain and phase relationships of PA depends on the previous power situation. This is caused by thermal behavior and low-frequency bias networks with large RC time constants.
 
 A lot of decoupling capacitance will creates more memory effect as the circuit must (dis)charge more or less the caps. We must do proper sweep to see clearly those effects. 
+
+# CMOS Passives
+
+## Metal stacks, CMOS vs SiGe and Q-factor
+
+For the metal part, we can use some microstrip line or coplanar line. A good model is **transmission lines** which are convenient as they are:
+
+1. Length-scalable model
+2. Current-return path is part of the model
+  * no just floating around current that closes the loop somehow; this usually results in poor or unexpected behavior for simulations if not taken into account
+
+In classic CMOS technology, we want to have our signal to run as far as possible from the substrate. We want to avoid any $\vec E$ in the lossy $SiO_2$. We usually shield metals from the substrate with a ground plane but this results into a low $Z_0 = \sqrt{\frac{L}{C}}$.
+
+For more exotic technology such as $GaAs,InP$, the substrate as few losses so no need to shield, microstrip is preferred. The substrate is 3 times smaller than the CMOS one
+
+### Slow-wave transmission lines
+
+Under microstrip line signal line, we can add some floating isolated metal strips. This will increase the capacitance but not the inductance resulting into a slow wave propagation (can never be faster):
+
+$$
+v_c = \frac{1}{\sqrt{LC}} = \frac{\mu}{\varepsilon}
+$$
+
+
+### Lumping components
+
+When lumping, it is harder to model the return current / closing the loop. As hinted before, this is a bad model choice.
+
+One good choice is to use differential mode as it will have a virtual ground but the common mode is tougher to analyze.
+
+
+![Evolution of the stack](image-14.png){width=70%}
+
+![SOI (RF) and SiGe (BJT)](image-15.png){width=40%}
+
+When looking at the speed on CMOS, it's much faster than SiGe but when adding the interconnect, it becomes worse than SiGe.
+
+The quality due to metal resistance $Q \approx \frac{\mathcal{Im}(Z_{11})}{\mathcal{Re}(Z_{11})}$
+
+If we assume that $R_S \approx \sqrt{\omega}$ is dominated by the skin effect. This results in:
+
+- Inductive: $Q_L = \frac{\omega L}{R_S} \approx \sqrt{\omega}$
+- Capacitive: $Q_C = \frac{1}{\omega C R_S} \approx \frac{1}{\omega \sqrt{\omega}}$
+
+So the quality depends on the frequency.
+
+## Capacitors
+
+Thin metal gives worse Quality factor. To have higher density, we must go towards but will create higher resistance.
+
+## Inductors
+
+### Q-factors definitions
+
+In simple model we have $Z_{11} = R_S + j\omega L_S$ with the quality factor being $Q = \frac{\mathcal{Im}(Z_{11})}{\mathcal{Re}(Z_{11})}$. It implies that the quality facto grows until it completely crumbles. This is false as it assumes that the operating frequency is much lower than the self-resonance frequency $f_{SRF}$.
+
+In reality, close to $f_{SRF}$, the impedance goes up due to resonance. We must model the inductance with an extra parasitic capacitance. The proper way to calculate the quality factor is by using $Q = \frac{f_{res}}{\Delta f_{-3 dB}}$.
+
+![Simple inductor model](image-16.png){width=50%}
+
+![Simplified at high frequencies](image-17.png){width=50%}
+
+### CM and DM behavior
+
+## Transformers
+## Transmission lines
+## Shielding
