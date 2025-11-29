@@ -31,7 +31,7 @@ jobs:
           git add PDF/*.pdf
           # Get the last commit message
           LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          LAST_COMMIT_MESSAGE=$(filter-out $(GITHUB_TOKEN), $(LAST_COMMIT_MESSAGE))
+          # LAST_COMMIT_MESSAGE=$(filter-out $(GITHUB_TOKEN), $(LAST_COMMIT_MESSAGE))
 
           # Construct the new commit message
           NEW_COMMIT_MESSAGE="[Compiled]: ${LAST_COMMIT_MESSAGE}"

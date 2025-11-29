@@ -1,3 +1,5 @@
+[![Build](https://github.com/Tfloow/ESATSummary/actions/workflows/build.yml/badge.svg)](https://github.com/Tfloow/ESATSummary/actions/workflows/build.yml)
+
 # ESATSummary
 A summary tool for quick and clean summaries
 
