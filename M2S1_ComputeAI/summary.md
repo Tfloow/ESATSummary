@@ -1,6 +1,6 @@
 ---
 title: "Compute Platform for AI"
-author: Thomas Debelle
+author: Thomas Debelle & Students from the Google Docs
 geometry: "left=1cm,right=1cm,top=2cm,bottom=2cm"
 papersize: a4
 date: \today
@@ -15,6 +15,8 @@ copyright: "© 2025 Thomas Debelle. This work is licensed under a Creative Commo
 copyright-link: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
 output: pdf_document
 ---
+
+\newpage
 
 # Lecture 1: Towards heterogeneous many-core processors
 
@@ -614,8 +616,133 @@ Compared to analog:
 - But… less dense (Tops/mm2 lower)
 - But… less efficient (Tops/Watt lower (at core level, not at system level?))
 
+# Lecture 6: Efficient deep inference: Sparsity, Scheduling, Fusion
 
+## Exploit sparsity
 
+### What is sparsity? Types of sparsity?
+
+Not all NN are fully-connected NN. Thus, not all inputs go to every single nodes which result in matrices with empty spot. This is what we call **sparsity**. But not only the architecture affect sparsity but also: quantization (small values get rounded to 0) and explicit training rules (think about $ReLU$ function).
+
+From this 3 types of sparsity emerges:
+
+| Type                    | Description                                              |                Advantages                |
+| :---------------------- | :------------------------------------------------------- | :--------------------------------------: |
+| **Unstructured**        | Weights are distributed at random                        | Easy for software ppl, hard for hardware |
+| **Structured**          | Weights are pack in sparsity block                       | Easy for hardware ppl, hard for software |
+| **Density block bound** | A ratio of weight/elements can be garante per row/column |              middle ground               |
+
+#### At training
+
+It is possible to only retain the dominant weights (can have some applications in specific AI cases). We add an optimization constraint which will also improve training efficiency:
+
+$$
+\min_{\beta \in \mathbb{R}^p} ||y-X\beta||_2^2 + g||\beta||_1
+$$
+
+Unstructured sparsity showed often better result but it is possible to obtain acceptable results with DBB sparsity. Sadly, the more recent models are less sparse since they are more complex and features are not easily detectible as it used to be in Resnet and other models.
+
+### Exploiting sparsity in memory size/access
+
+The goal here is to avoid useless 0 data as it will hinder the bandwidth. Many encoding schemes exist depending on the sparsity (Compressed sparse row, bitmap, ...)
+
+Using structured sparsity, it is much easier to setup a mask/index matrix and to efficiently store and deploy. With DBB sparsity, we need as many numbers as non-zero data BUT the matrix is regular contrary to unstructured data which can be challenging in modern libraries such as `Numpy` which only accepts regular matrices.
+
+#### Envision processor
+
+They use some Huffman encoding inside the DRAM and DMA (huffman tree), it will analyze and find the useless operation to reduce data transfer.
+
+### Exploiting sparsity in processing
+
+As seen previously, GPU relies on the fact we can stream lots of data in parallel and do the same operation. But having non-rigorous data may compromised the benefit of GPU.
+
+Sparse `BLAS` libraries exist but need huge sparsity to have any benefits.
+
+#### Envision processor
+
+On top of the memory flag to guard read as introduced previously, we re-use this flag to guard MAC execution. It only improves the power consumption but doesn't improve speed or throughput!
+
+#### Sparse CNN engine
+
+There is some specific hardware tailored for such operation. It stores inputs and weights compressed and schedule **dynamically** the operations. This require an extensive control on operation and scheduler.
+
+Does perform better than Envision at low sparsity $<60\%$ due to the massive overhead. But this proves, dedicated hardware yield significant benefits!
+
+#### Systolic array
+
+Using DBB, we can have a dedicated X MAC array per block which will be sure to have some operation to do at all time. We have the same throughput for less MAC.
+
+#### CUDA
+
+On `CUDA`, there is now (Ampere) the `cuSPARSELt` library that assumes 2:4 DBB. It will force in a mux 4 operands by using non-zero indices MUX. At a perfect 50% sparsity we can almost double the operations! 
+
+## Operator fusion / scheduling
+
+It is important to understand the advantages and limitations of algorithms and hardware to better design them.
+
+![Better mapping leads to better performance](image-19.png){ width=50% }
+
+### Single core / single layer
+
+Besides the usual `for`-`parfor` as seen previously, we can leverage from various level of cache to hide the latency of accessing memory.
+
+![Memory level](image-20.png){ width=50% }
+
+A good and simple algorithm for scheduling and putting the right boundaries is to:
+
+- If we have not enough memory a level x
+  - Drop upper memory boundary
+  - Cache size related
+- Too many memory accesses of level x
+  - Increase lower memory boundary
+  - AI mem accesses/clock cycle
+
+#### Automated performance estimation
+
+We can also think about possible automated tools that can find the best architecture for a given algorithm. The best is to build an *analytical performance model* that do not need extensive compilations or simulations for each NN performance evaluation.
+
+This is what ZigZag is solving where based on:
+
+- NN workload
+- Mapping
+- Hardware architecture & constraints
+- Technology characteristics
+
+It builds a cost model.
+
+### Single core / multi-layer
+
+If we did our job well, we should have optimized single layer. But if we don't look at the interconnect between layers, we may miss potential benefits.
+
+Typically in LLM, there is many linear layer, we could fuse the instructions together to reduce redundant architecture.
+
+![Tensor RT Optimized](image-21.png){ width=50% }
+
+As in threading, we can try to do some round-robin scheduling and have a divide and conquer approach. Instead of waiting for full output, we can start the next layer with partial output. But this is not possible for every architectures. 
+
+Split operation is really interesting for memory constrained architecture where we must rely on tiling or other operations to obtain the outputs.
+
+### Multi-core / multi-layer
+
+#### Homogeneous
+
+We simply duplicate the core multiple time. It is easily scalable and it gives some mapping flexibility. But only allows output re-use.
+
+#### Heterogeneous - Diana chip
+
+We have a distributed memory hierarchy with digital and analog cores. We can do pipelining and fusion with a small memory which allows for good performance and low shuffling of data.
+
+It is flexible, maybe too flexible and requires tool to efficiently schedule (stream).
+
+![Scheduling across multi-cores](image-22.png){ width=50% }
+
+# Lecture 7:
+
+TODO
+
+# Lecture 8
+
+TODO
 
 
 
@@ -652,6 +779,8 @@ Compared to analog:
 > *Paper 1*: ENVISION: A 0.26-to-10TOPS/W Subword-Parallel Dynamic-Voltage-Accuracy-Frequency-Scalable Convolutional Neural Network Processor in 28nm FDSOI
 
 # Questions
+
+Access the online Google docs with this [link](https://docs.google.com/document/d/1-78EFv326HanFbBDpIHGobIe6YWkITXwQaS58lerUes/edit?usp=sharing).
 
 ## Lecture 1
 
@@ -824,3 +953,131 @@ Compared to analog:
 > 
 > &nbsp;
 
+## Lecture 6
+
+21. What is neural network sparsity and how can it improve energy efficiency and/or throughput in neural network storage as well as processing? Include the relative advantages and disadvantages of more or less structured sparsity.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+22. How can one analytically estimate the utilization (throughput) and energy consumption for executing a given neural network layer on a given hardware architecture? 
+
+      - Exercise: given a set of nested for-loops and a memory allocation (e.g. a variation on slide 41, with a different loop set), discuss required memory sizes, spatial utilization, memory bandwidth requirements, AI
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+23. How can one optimize a schedule and/or hardware architecture for a set of workloads.
+    - Exercise: given a set of nested for-loops (e.g. a variation on slide 41, with a different loop set), discuss possible hardware, scheduling and/or memory allocation optimizations and their impact.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+24.  What is operator fusion (layer fusion) and why does it matter? What are its challenges?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+25.  What are the benefits and downsides of homogeneous/heterogeneous multi-core implementations and scheduling? Illustrate with the L6_Diana chip.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+## Lecture 7
+
+31. Using slide 4, explain the causes and solutions to the HW- and SW-productivity gap.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+32. What is RISC-V and how does it allow individuals to speed up SoC design, without giving up on customization? (discuss implementation flows and standard and custom extension approaches)
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+33. Which CPU extensions make sense in this era of embedded AI processing. Explain the impact of different opportunities on the system efficiency (also use L7_PulpNN).
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+34. How can hardware designers make heterogeneous multiprocessing systems based on CPU cores (big.LITTLE) easier to use/program? How is scheduling and synchronization organized in such systems? (see also L7_ARMscheduling)
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+35. What solutions are proposed to alleviate using truly heterogeneous multi-core CPU/GPU/NPU systems? What challenges remain?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+## Lecture 8
+
+36. How do DVFS and AFS work, what is the difference between them and what are their advantages/disadvantages?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+37. What is the difference between resilient and adaptive designs? Give and explain an example of both. Are they sometimes combined?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+38. What is the difference between EDS and TRCs, and how can they be used in a pipelined processor? What are their advantages / disadvantages? Explain their different performance (L8, slide 29/30).
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+39. What can be done to overcome very fast voltage droops under a fixed supply voltage and static clock generation.
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+40. What can be done to overcome very fast voltage droops, when exploiting integrated supply and voltage regulation (illustrate with L8_Zimmer)
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
