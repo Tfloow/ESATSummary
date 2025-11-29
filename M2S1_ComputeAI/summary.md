@@ -736,9 +736,99 @@ It is flexible, maybe too flexible and requires tool to efficiently schedule (st
 
 ![Scheduling across multi-cores](image-22.png){ width=50% }
 
-# Lecture 7:
+# Lecture 7: Heterogeneous processor co-operation
 
-TODO
+![We need more productivity to keep on designing more complex chips](image-23.png){ width=50% }
+
+We will be looking at how we can keep up in productivity.
+
+## Improving design efficiency
+
+### IP reuse
+
+One of the first way to improve productivity is to reuse IP. This technique has been extensively used for the past few years topping at around 90% of IP reuse in a 2018 chip. There is also an Open-Source movement for hardware like RISC-V.
+
+The goal of RISC-V is to standardized and build a common API for Software and Hardware engineers to work on. This will allow for compatibility, shared compiler and simulators, ...
+
+RISC only provides the ISA **not** the full processor. It provides the format and set but also leaves room for variants and extensions. So, many flavours of processor exist each being tailored for a specific utilization.
+
+### IP extension
+
+It is important to make them easy to adapt. Meaning, we should avoid writing low-level Verilog code but instead use some Hardware Construction Language like Chisel (Scala). The best choice is to use some OOP (object oriented programming) to be able to deploy and parametrized new modules easily. 
+
+With one object, we can produce many variants and insert it like we desire. From a dual issue to a quad issue, ...
+
+#### Changing the ISA
+
+On top of that, we can also support extra instructions not defined in the standard ISA. If we want to keep support with basic C-compiler we can only use the opcode `00010xx` or `01010xx`. For example, RI5CY allows for efficient hardware loop by introducing extra instruction.
+
+AI-centered extension can be designed to support quantized values for efficient operations like in XpulpNN.
+
+In XpulpNN, we provide some extra unit with multiplier designed to work at lower bit precision. We must start playing with VDD due to the modified critical path. The energy per operation is getting much better.
+
+### IP integration
+
+We can also do some "Frankenstein" cores by mixing and integrating them together. Using PULP, we can easily mix and match components.
+
+## Improving deployment efficiency
+
+The investement made for each new process node has a major software part. The hardware could help at hiding the complexity for software (choosing the right cores, ...)
+
+### CPU-centric
+
+By using multiple level of cores, we can tailor each of them for specific tasks and performance, maximizing their efficiency. This is like the Big.LITTLE architecture from ARM. Each core has the same ISA and can easily transfer workload from one core to the other.
+
+We use a cache coherent interconnect so every cores have access to the same content at all time. Need some good cache coherency protocol such as bus snooping, MESI protocols, ...
+
+To monitor the workload, we monitor the *running average* of the task state (is the core used or not), if it crosses a certain threshold it could be migrated (**up migration**). The **down migration** threshold is lower than the up migration to avoid constant workload migration.
+
+| Architecture           |                                         Description                                         |                               Advantages |
+| :--------------------- | :-----------------------------------------------------------------------------------------: | ---------------------------------------: |
+| Core pairing           | We have a pair of big.LITTLE cores. Using DVFS (of core) we determine which core is active. |     Quite simple to program and migrate. |
+| Global task scheduling | Every core can migrate to any other core. We again use DFVS (of threads) to monitor usage.  | Harder to monitor and dispatch the work. |
+:Migration architecture
+
+#### Scheduling
+
+![Typical scheduling](image-24.png){ width=50% }
+
+Will try to maximize usage by looking at the state of the threads and checking if they are terminated. Scheduler is an art in itself and various level of hierarchy exist in schedulers.
+
+But one key components is the need to synchronize them together to share data or commit data.
+
+- data synchronization:
+  - Avoid double access/parallel access. One thread locks the ressource, commit on it and release it. This ensures a chronological succession.
+- event synchronization:
+  - To make sure multiple thread end at the same time. Typically if we want to synchronize the output of a parallel function. We put a barrier to block on a loc.
+
+Barriers can be realized in SW or HW! In SW, we have a lock that decrement the value and all thread must force a fresh read (no compiler optimization `volatile`) until the value of 0 is reached. This adds a lot of overhead and busy waiting.
+
+In HW this can be solve with dedicated register such as the **Control Status Register**. It requires some special instruction (to make it atomic) but any core can access this CSR.
+
+### Heterogeneous SoC's
+
+It is still a field that is not mature yet and many architecture and design variants are proposed to overcome some shortcoming.
+
+#### hUMA - heterogeneous Uniform Memory Access
+
+We have only one shared memory (system) for CPU, GPU, ... We can also make it virtually shared so the OS does the heavy lifting. Avoid snooping since it will have a lot of traffic. Typically the M1 of Apple.
+
+The DRAM is IN the package and unified which allows for drastic performance boost.
+
+#### Shared ISA for CPU, GPU, TPU, ...
+
+Not solved yet but many obstacles. We don't want to go back to a non-RISC set where we have too many instructions. But, we are looking at an *unified intermediate* representation. So could be easily mapable to any device and the hardware only needs to compile it once and dispatch on the fly.
+
+This is still quite abstract. The backend for support on hardware still requires lots of improvements.
+
+Every compilation target still needs own (custom written/optimized) “finalizer” (optimized kernel functions). Which is not easy to add new/own HW accelerators.
+
+- Difficult (impossible) for tools to automatically allocate code to cores
+  - Detect / optimize fused kernel opportunities, ...
+- Difficult (impossible) for tools to automatically optimize schedulingacross cores
+  - Detect / optimize parallelization opportunities, ...
+
+Current vendors just have hardcoded kernel implementations, lots of work to do until reaching this shared ISA.
 
 # Lecture 8
 
