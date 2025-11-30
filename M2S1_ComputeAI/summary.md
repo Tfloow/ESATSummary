@@ -803,7 +803,8 @@ But one key components is the need to synchronize them together to share data or
 
 Barriers can be realized in SW or HW! In SW, we have a lock that decrement the value and all thread must force a fresh read (no compiler optimization `volatile`) until the value of 0 is reached. This adds a lot of overhead and busy waiting.
 
-In HW this can be solve with dedicated register such as the **Control Status Register**. It requires some special instruction (to make it atomic) but any core can access this CSR.
+In HW this can be solve with dedicated register such as
+ the **Control Status Register**. It requires some special instruction (to make it atomic) but any core can access this CSR.
 
 ### Heterogeneous SoC's
 
@@ -830,11 +831,77 @@ Every compilation target still needs own (custom written/optimized) “finalizer
 
 Current vendors just have hardcoded kernel implementations, lots of work to do until reaching this shared ISA.
 
-# Lecture 8
+# Lecture 8: Adaptive SoC's
 
-TODO
+We must adapt at all time as the workload on a computer changes rapidly. The core workload changes, the frequency changes at all time, ...
 
+## Open loop solutions for handling workload variations
 
+### DVFS
+
+As seen in previous classes, dynamic voltage and frequency scaling is one of the most important tool for efficient and dynamic computing. By scaling the Vdd at runtime, we can make sure our processor is much more energy efficient thus less heat dissipation. $P_{dyn} = \alpha \cdot C \cdot f \cdot V_{dd}^2$ 
+
+We can have preset pair of $(f, V_{dd})$ called **power states** and this can be chosen by the scheduler. One easy way is to use some LUT.
+
+### Problems of DVFS
+
+It does not take into account slow runtime variations and it is too slow for fast variations. It is a feedback system which can have quite significant delay compared to small burst.
+
+#### Slow variation
+
+It is a fixed LUT realized at production time, thus overtime those values can drift significantly. It doesn't control well the temperature either. That's why we need a closed loop system maximizing performance under thermal limit.
+
+#### Fast variation
+
+When using intensively the core, we can witness *voltage droop* that can further impact performances beyond a certain threshold.
+
+Typically, those droop can create setup time violation as the data may arrive late. The issue is that simply adding guardband can be problematic. Especially at lower power mode, since we are operating near $V_{th}$ thus the guardband must be larger. We could also add some decoupling cap but this would cost lots of area and energy.
+
+## Closed loop solutions for handling variations
+
+### Resiliency $\rightarrow$ detect error & instruction replay: tolerate errors
+
+We want to detect and correct errors due to dynamic variations.
+
+### Adaptivity for slow changes $\rightarrow$ AFS & instruction throttling: avoid errors
+
+#### Error-Detection Sequential - EDS - Insitu
+
+This is the idea of the razor latch has seen in other classes:
+
+![EDS](image-25.png){ width=50% }
+
+The error-detection must be carefully chosen. Too small and we could miss errors, too big and we could interpret some combinational logic change as a late data arrival while it is just data already ready for next clock cycle. To help with the last type of error, we must add min-delay penalty to avoid those errors.
+
+#### Tunable Replica Circuit - TRC - Non Insitu
+
+We have a succession of gates, NOT, ... that has an equivalent delay as the path we are actively monitoring. This TRC must be calibrated to make sure we are accurately monitoring the critical path.
+
+![TRC](image-26.png){ width=50% }
+
+We also need some tuning bits to change the path length. We also need to make sure the TRC fails at any VDD, temperature, ... before the critical path does.
+
+#### Error recovery
+
+| Feature                            | Local: Value Injection                                                                                                  | Local: Instruction Replay                                                                                                             |
+| :--------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| **Detection Method Compatibility** | **EDS**                                                                              | **EDS** or **TRC**                                                                                      |
+| **Error Feedback Mechanism**       | Value is injected back into the pipeline. If an error is detected, the value is fed back using a **MUX** (Multiplexer). | Uses a **flag** that propagates through the pipeline stages.                                                                          |
+| **Pipeline Recovery Action**       | Requires stalling the **full chip for one cycle**.                                                                      | At the WB stage, the pipeline stages are **flushed** and the instruction is **re-fetched** from where the miss occurred. Can use an Error Control Unit to replay at different (f,VDD). |
+| **Immediate Stall Required?**      | **Yes** (full chip for one cycle).                                                                                      | **No** immediate stall, but has a **significant delay** due to flush and re-fetch.                                                    |
+| **Implementation Status**          | **Never really implemented** in commercial products.                                                                    | Requires tracking the **critical path** for each pipeline stage.                                                                      |
+
+![Local error recovery](image-27.png){ width=50% } 
+
+![Instruction Replay](image-28.png){ width=50% } 
+
+#### TRC Vs. EDS
+
+![Gains: 16% TP w/ EDS - 12% TP w/ TRC](image-29.png){ width=50% } 
+
+### Adaptivity for fast changes $\rightarrow$ adaptive clocking: avoid errors
+### Future $\rightarrow$ UVFR
+### RISC-V example
 
 \newpage
 
