@@ -899,9 +899,71 @@ We also need some tuning bits to change the path length. We also need to make su
 
 ![Gains: 16% TP w/ EDS - 12% TP w/ TRC](image-29.png){ width=50% } 
 
+This difference is due to the fact that for TRC, extra guardband must be used.
+
+![Throughput for various VDD](image-30.png){ width=50% }
+
+This graph, however, shows a totally different story! The issue lays in the fact that EDS has a minimum detection window for error detection. Remember, this window must be large enough and the path of fast path adapted for it. For TRC, since we are mimicking the critical path behavior, no need to have a constant guardband like in EDS. 
+
+Those solutions are easy to implement and quickly act upon error, but yet no system to actively retry without trying with the same settings.
+
+Will ensure to change operation settings to not keep doing the same errors. We can use some thermal, aging or Vdd sensor to base our changes on them.
+
+#### Instruciton throttling
+
+Fetch less instruction per CC and let the power decrease on its own. But after the throttle mode finish, they will again spike up! Sometimes, to avoid to let all cores run fast after a throttle, we can use **staged throttle** to gradually release throttle.
+
+#### Adaptive frequency scaling
+
+![Adaptive frequency scaling](image-31.png){ width=50% }
+
+Reduce the clock frequency with the same VDD as it is faster than changing VDD. We can imagine the mux being controlled by a Error Control Unit based on TRC.
+
+This is easy to implement in commercial product. The main issue with those two methods is that fact it will still take some time to recover + propagation may be too long. We loose some clock cycle and so on. The droop is mitigated but not stopped.
+
 ### Adaptivity for fast changes $\rightarrow$ adaptive clocking: avoid errors
+
+The VDD droop will impact datapath and clock distribution timing. Which means the clock and datapath will slow down at the same time! Then, when it ramps up the delay goes faster and clock compress.
+
+![Compression and Expansion](image-32.png){ width=50% }
+
+At first, the data is compensated, but then as it compresses in the last clock cycle on the graph, the data fails and an error occurs. The stretch period must be long enough to allow other adaptations to kick in.
+
+So why not extending this effect to allow more margin during the droop? This is **adaptive clocking distribution**.
+
+![ACD](image-35.png){ width=50% }
+
+For this, we also need some Dynamic Variation Monitor (TRC) and use adaptive control, clock divider and a tunable length delay.
+
+The top path is the fast response with clock stretching while the bottom is slower. The TRC, the slow path, triggers clock frequency adaptation in adaptive clock system. 
+
+![Tunable Length Delay](image-34.png){ width=50% }
+
+
 ### Future $\rightarrow$ UVFR
-### RISC-V example
+
+We want to add some feedback for the droop preventions to better monitor and adapt.
+
+![Unified Voltage & Frequency Regulation (UVFR)](image-36.png){ width=50% }
+
+We adapt the clock itself, linked with VDD droop in a single control loop. LDO regulator controlled on average (Fref - Fout). The clock is generated on the same supply voltage as logic so will follow together the speed.
+
+UVFR avoids timing-margin violations but is not yet very programmable. But it adapts vdd to temperature, die-to-die and ageing variations.
+
+![UVFR](image-38.png){ width=50% }
+
+
+#### RISC-V example
+
+![RISC-V example](image-39.png){ width=50% }
+
+The voltage regulator is implemented using switch-cap voltage regulator. By controling the toggling and which array to use, we can produce various voltages. The feedback circuit allows to precisely control the output voltage when it fluctuates. The power consumption governs the discharge rate and thus we must adapt the DC DC toggle rate to keep a sufficient supply. This creates large ripple on VDD and some IC's can be sensitive to it. 
+
+This is why we use an adaptive clock generator to avoid this ripple effect.
+
+![Power management](image-40.png){ width=50% }
+
+The idea is to no longer have fixed power states but set an average frequency.
 
 \newpage
 
