@@ -16,6 +16,7 @@ copyright-link: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
 output: pdf_document
 ---
 
+\newpage
 
 # Terminology
 
@@ -585,7 +586,7 @@ Equipment:
 Components:
 
 - special diodes (Zener)
-- anti-static material (ca. 109 $\Omega$/square): forms humid layer
+- anti-static material (ca. $10^9 \Omega$/square): forms humid layer
   - high enough to avoid sparks
   - low enough to avoid static charge
 - Anti-static and shielding (using some metal)
@@ -598,3 +599,178 @@ Components:
 | EMP       |         50 kV/m          |  $10ns$  |            NA            |    NA     |
 | Lightning |         500kV/m          | $1\mu s$ |          200 kA          | $10\mu s$ |
 :Recapitulative table of discharges phenomena
+
+# Green radiation - are EM waves dangerous?
+
+## EM fields and radiation
+
+> **definition**
+>
+> radiation is the principle that leads to EM field propagating through space
+
+We must do the distinction between non-propagating waves. Typically high voltage power line, we call this near field waves. On the contrary, there is far field waves like GSM, ... 
+
+$$
+\frac{\lambda}{c} \text{ is } \begin{cases}
+  << & \text{ near-field} \\
+  >> & \text{ far-field}
+\end{cases}
+$$
+
+The important characteristics of a wave:
+
+### 1 - Spectrum
+
+To find if a wave is dangerous, we must look at the energy it carries:
+
+$$
+E = \hbar f
+$$
+
+To reach the energy level that can cause damage to the DNA and cause cancer, it must be a high frequency similar to the gamma waves.
+
+### 2 - Radiated power
+
+Power or energy radiated per second is around 2 W for a phone and 10s of W for a base station.
+
+### 3 - Distance
+
+The intensity decreases with $1/r^2$ so fast reduction. On top of this, if we take into account the fact that we are in a city with no direct line of sight with a base station, the power quickly drops. Usually to 1-10mV/m instead of the 3-0.6V/m of the base station.
+
+### 4 - Enting (?) of information onto radiation
+
+To carry information, we can't simply send a singletone signal, it must have some variation. Typically in GSM we use gaussian-filtered minimum shift keying.
+
+|Source| Frequency| Power |Distance| Intensity|
+|:---:|:---:|:---:|:---:|:---:|
+|Radio/TV| kHz – MHz |up to 100 kW| 1000 m| 0.016 W/m2|
+GSM BS 0.9 - 1.8 GHz 20 – 100 W 10 m
+100 m
+3.2 W/m2
+0.032 W/m2
+GSM handset 0.9 -1.8 GHz 20 mW - 2 W
+(1/8 time)
+1 – 2 cm
+1 m
+2 - 200 W/m2
+0.0002 – 0.02 W/m2
+DECT
+(phone)
+1.9 GHz 250 mW peak 1 m 0.02 W/m2
+WLAN,WIFI
+(internet)
+2.4 GHz 100 mW max 1 m
+10 m
+0.008 W/m2
+0.00008 W/m2
+Bluetooth 2.4 GHz 1-10 mW 1 – 2 cm 0.8 - 8 W/m2
+UMTS handset 0.85 – 1.7 –
+1.9 – 2.1 GHz
+max. 125-250 mW 1 – 2 cm max. 12.5-25 W/m2
+:Various characteristics of waves
+
+### Relation between gain and effective length
+
+We have an antenna of a certain length but the effective length can be bigger or smaller than the actual length. The wave comes at an angle $\theta$. The received wave can be modeled as $V_{open}$.
+
+$$
+V_{open} = E_{inc} i_z l_{eff} = E_{inc} sin(\theta) l_{eff} 
+$$
+
+If the antenna is matched $Z_{rec} = Z_{ant}^*$ we get:
+
+$$
+\begin{aligned}
+  P_{\text{rec}} &= - \mathbf{S}_{\text{inc}} \cdot \mathbf{A}_{\text{eff}}(\theta, \phi) \mathbf{i}_r = - \frac{\mathbf{E}_{\text{inc}} \times \mathbf{H}_{\text{inc}}^*}{2} \cdot \mathbf{A}_{\text{eff}}(\theta, \phi) \mathbf{i}_r = \frac{1}{2 \eta_0} |\mathbf{E}_{\text{inc}}|^2 A_{\text{eff}}(\theta, \phi)\\
+  P_{\text{rec}} &= \frac{1}{2} R_{\text{ant}} \left( \frac{|\mathbf{V}_{\text{open}}|}{2 R_{\text{ant}}} \right)^2 = \frac{1}{8} \frac{|\mathbf{V}_{\text{open}}|^2}{R_{\text{ant}}} = \frac{1}{8} \frac{|\mathbf{E}_{\text{inc}} \sin \theta \cdot l_{\text{eff}}|^2}{R_{\text{ant}}}\\
+  \frac{1}{2 \eta_0} |\mathbf{E}_{\text{inc}}|^2 A_{\text{eff}}(\theta, \phi) &= \frac{1}{8} \frac{|\mathbf{E}_{\text{inc}} \sin \theta \cdot l_{\text{eff}}|^2}{R_{\text{ant}}}\\
+  l_{\text{eff}} &= 2 \sqrt{\frac{R_{\text{ant}} A_{\text{eff}}(\theta, \phi)}{\eta_0 |\sin \theta|}} = \lambda \sqrt{\frac{R_{\text{ant}} G(\theta, \phi)}{\pi \eta_0 |\sin \theta|}}
+\end{aligned}
+$$
+
+which creates at the terminal of the antenna:
+
+$$
+\begin{aligned}
+  V &= l_eff E_{inc} = \lambda \sqrt{\frac{\Re(Z_{in}) \eta^{rad} D}{\pi \eta_0}} \cdot E_{inc}\\
+  &\approx \frac{\lambda}{2 \pi} \sqrt{\frac{5}{3}} \approx \frac{\lambda }{5} E_{inc}
+\end{aligned}
+$$
+
+With $\eta^{rad}$, $Z_{in} = 50$ and $D=1$. For a frequency of $900$ Mhz, we have a maximum of $40$ mV.
+
+## ALATA principle
+
+> **ALATA**
+>
+> As Low As Technically Achievable
+
+To avoid enduring unnecessary risk or potential danger to user especially if better SoTA alternatives exist. This a precautionary principle broadly used in the UE.
+
+For the telecom world, this means reducing the SNR as much as possible since this means lower transmitted energy thus reduces potential risk.
+
+Reducing the power from 20 to 3 V per meter is a decrease by 44.4 while going from 20 to 0.06 is by 100.000.
+
+## Reducing EM radiation
+
+### In general
+
+The received power follows:
+
+$$
+p^{inc} = \frac{P^{tr}}{4 \pi r^2} G^{tr}
+$$
+
+3 strategies can emerge looking at this equation.
+
+#### 1 - constant minimum $p^{inc}$
+
+We deploy more cell tower at lower power so we keep the power at a minimum power everywhere. This will decrease the r in the equation (let's say by 2) and to make power constant with the basic case, we have to divide by 4 the transmitted power.
+
+Now, the maximum power induced will be 4 times smaller than the baseline. It's the easiest to implement, no need for new equipment.
+
+#### 2 - constant $p^{inc}$
+
+To avoid this spherical effect, we could imagine a high cell tower such that on the ground, the power induced is constant (sphere flattens out).
+
+The r will drastically increase and the Gtr will have to increase quadratically. Moreover, the maximum receivable power will be the minimal.
+
+It was attempted in the 90's by the Japanese with the High ALtitude Platforms (HAPS). It seemed quite interesting with decent speed and low noise low power solution but deemed not feasible by the operators.
+
+#### 3 - radiation where needed
+
+More gain with less power, beam-steering idea. We can imagine having twice as much gain, closer to base station which will require us 1/8 of the transmitted power. If we are not on the right spot we loose 77,5% of the power.
+
+It is quite a tough solution as it requires a lot of architectural changes!
+
+### At user level
+
+Nowadays, antenna from mobile phones radiate away from the head which was not always the case before. But since phones are quite small compared to wavelength (30 cm) it's hard to shield. That is why mm wave will help for better shielding in our phones.
+
+$$
+G^{mobile} = \frac{4\pi}{\lambda^2} A^{mobile}
+$$
+
+#### Normal frequency
+
+The gain is roughly 2.3 and 10% goes towards the head. It's a green antenna that uses the whole surface with a ground. Less radiation towards head but more interference with hand.
+
+Reduces radiation levels, no extra energy. Simple and SOTA.
+
+#### Higher frequencies
+
+We can improve the G by going to higher frequencies and can also be topped with beam steering.
+
+## requirements for radiation
+
+We must compare the radiation depending on the frequency as we can have 120 V/m radiation for f=0! The WHO recommends 0.08W/kg = 42 V/m while in belgium we are around 21 V/m max. This is 4 times smaller than the HWO norm.
+
+### Effects on the body
+
+We know that EM waves are not ionizing as the frequency is too small, little thermic effects (20 mins call increase the brain by 0.1 C). But may have some biological effects as an EM wave is a polarizing waves that creates some excitation of charge. 
+
+Hard to demonstrate using a group, may introduce bias, weird results + hard to create a placebo group as we are all living in a world full of EM.
+
+For now, the most trustworthy is in vitro experiments. They have shown some impact on tissues! But this doesn't help understanding how this would behave for a full body.
+
+So there may be some impact of EM waves on human's body. The issue is that the problems will maybe appear as benin over long term over large population. But wireless communication has been a massive benefit for society. The best we can do at the moment is to approach the matter following **ALATA**. 

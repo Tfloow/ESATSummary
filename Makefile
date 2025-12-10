@@ -3,7 +3,7 @@
 compile : all_NEW 
 
 # IDK why github actions crash here
-EXCLUDED_DIRS = M1S2_Hardware_Security PDF
+EXCLUDED_DIRS = M1S2_Hardware_Security M1S2_Design_of_Digital_IC PDF
 
 # Exclude PDF directory from subdirectories
 SUBDIRS := $(patsubst %/,%,$(wildcard */))
