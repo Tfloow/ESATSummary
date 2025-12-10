@@ -391,6 +391,95 @@ SambaNova startup is also believing in parallelism with intelligent on chip data
 
 At the end, we all try to raise the roof and tend to higher arithmetic intensity to gain in computing power.
 
+# Lecture 4: Efficient Deep Inference: Sationarity & Tiling
+
+## Stationarity (temporal unrolling optimization)
+
+As always our goal is to improve the Arithmetic intensity to:
+
+1. Improve performances
+2. Improve energy efficiency
+
+### Tiling in CPU and (traditional) GPU cores
+
+If we don't have data locality (e.g.: systolic array), we can still improve the operation by fetching one line of data and reusing across. Typically we fetch one row of A matrix and all the columns of the B matrix to obtain the first row of results. This is called **tiling**.
+
+We can also be aware of the abstraction level of the memory and to reuse what was fetched in SRAM or other caches. For example, if the computer fetches a full row of 4 by X of matrix A, then we could compute all of those rows first.
+
+Of course, this makes the AI roofline plot tougher has we have distinct bandwidth for each memory type.
+
+$$
+\min (BW_{dram} \cdot AI_{dram},BW_{sram} \cdot AI_{sram},BW_{rf} \cdot AI_{rf})
+$$
+
+With the temporal utilization:
+
+$$
+\text{Temporal Utilization (TU)} = \frac{\text{Compute CC}}{\text{{Total CC}}}
+$$
+
+For the energy efficiency, we take the weighted sum of energy access of DRAM, SRAM and register file. Not really clear to what happens at lower level.
+
+The preferred stationarity is the output sationarity as we need 1 output read and 1 output write. Outputs are often 4 times larger than inputs !
+
+```c
+for (b = 0 to B-1); // for each image in the batch
+  for (k = 0 to K-1); // for each output channel
+    for (c2 = 0 to C/P-1); // for each input channel
+      parfor (c1 = 0 to P-1);
+        o[b][k] += i[b][c2*P+c1] * w[c2*P+c1][k];
+```
+
+With `T` the factor of data reuse we can establish for matrix and vector computation the following results:
+
+|           | Weight-stationary | Input-stationary | Output-stationary |
+| :-------- | :---------------: | :--------------: | :---------------: |
+| Weight BW |        S/T        |        S         |         S         |
+| Input BW  |         S         |       S/T        |         S         |
+| Output BW |         1         |        1         |        1/T        |
+| AI_SRAM   |   2S/(S/T+S+2)    |   2S/(S+S/T+2)   |    2S/(2S+2/T)    |
+:Matrix computation efficiency for various temporal reuse
+
+|           | Weight-stationary | Input-stationary | Output-stationary |
+| :-------- | :---------------: | :--------------: | :---------------: |
+| Weight BW |        1/T        |        1         |         1         |
+| Input BW  |         S         |       S/T        |         S         |
+| Output BW |         S         |        S         |        S/T        |
+| AI_SRAM   |    2S/(1/T+3S)    |   S/(1+S/T+2S)   |   S/(1+S+2S/T)    |
+:Vector computation efficiency for various temporal reuse
+
+## Advanced temporal data reuse (stationarity) in NPU’s & TC’s
+
+
+- Huawei DaVinci core
+  - Based on tensor architecture with output reuse. The AI is 8 using 4096 MAC.
+  - ```c 
+    for (b1 = 0 to B/16-1); for each image/pixel in the batch
+      for (k1 = 0 to K/16-1); for each output channel
+        for (c1 = 0 to C/16-1); for each input channel
+          parfor (b2 = 0 to 15); for each image in the batch
+          parfor (k2 = 0 to 15); for each output channel
+          parfor (c2 = 0 to 15); for each input channel
+          o[b][k]+= i[b][c] * w[k][c]
+  ```
+- Tesla NPU
+  - It has roughly 10.000 MACs and only fetch 2*96 weights at each cycle bringing the AI to 104.
+  - ```c
+    for (c = 0 to C-1);
+      parfor (k = 0 to 95);
+      parfor (b = 0 to 95);
+      o[b][k] += i[b][c] * w[c] [k];
+  ```
+- Systolic arrays: Google TPU & ARM’s systolic tensor array
+  - Pass inputs and outputs to neighboring PE. We pre-load all the weights in the array and we pass partial sum to the next PE to complete the operation. Lots of register switching!
+  - 256 by 256 for variable size B*256 input, it requires only B clock cycles with an AI of 256.
+
+![Comparing the solutions](image-41.png){width=50%}
+
+The biggest issue with systolic array is the register overhead.
+
+![Solution to reduce overhead by 20%](image-42.png){width=50%}
+
 # Lecture 5: Efficient Deep Inference: Quantization
 
 Using quantization will result into better roof as we can push the throughput further with low-accuracy operation using the same hardware. Instead of using full precision `FP32`, we can use lower bit precision as 4-bit, 1-bit, ... Lower order precision is often computed in `int`
@@ -883,13 +972,13 @@ We also need some tuning bits to change the path length. We also need to make su
 
 #### Error recovery
 
-| Feature                            | Local: Value Injection                                                                                                  | Local: Instruction Replay                                                                                                             |
-| :--------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| **Detection Method Compatibility** | **EDS**                                                                              | **EDS** or **TRC**                                                                                      |
-| **Error Feedback Mechanism**       | Value is injected back into the pipeline. If an error is detected, the value is fed back using a **MUX** (Multiplexer). | Uses a **flag** that propagates through the pipeline stages.                                                                          |
+| Feature                            | Local: Value Injection                                                                                                  | Local: Instruction Replay                                                                                                                                                              |
+| :--------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Detection Method Compatibility** | **EDS**                                                                                                                 | **EDS** or **TRC**                                                                                                                                                                     |
+| **Error Feedback Mechanism**       | Value is injected back into the pipeline. If an error is detected, the value is fed back using a **MUX** (Multiplexer). | Uses a **flag** that propagates through the pipeline stages.                                                                                                                           |
 | **Pipeline Recovery Action**       | Requires stalling the **full chip for one cycle**.                                                                      | At the WB stage, the pipeline stages are **flushed** and the instruction is **re-fetched** from where the miss occurred. Can use an Error Control Unit to replay at different (f,VDD). |
-| **Immediate Stall Required?**      | **Yes** (full chip for one cycle).                                                                                      | **No** immediate stall, but has a **significant delay** due to flush and re-fetch.                                                    |
-| **Implementation Status**          | **Never really implemented** in commercial products.                                                                    | Requires tracking the **critical path** for each pipeline stage.                                                                      |
+| **Immediate Stall Required?**      | **Yes** (full chip for one cycle).                                                                                      | **No** immediate stall, but has a **significant delay** due to flush and re-fetch.                                                                                                     |
+| **Implementation Status**          | **Never really implemented** in commercial products.                                                                    | Requires tracking the **critical path** for each pipeline stage.                                                                                                                       |
 
 ![Local error recovery](image-27.png){ width=50% } 
 
@@ -1130,9 +1219,51 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
+## Lecture 4
+
+16. What is tiling, how does it improve arithmetic intensity and how can you recognize it from a set of nested for loops?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+17. [Also using input from L3]: For a given number of MACs (e.g. 256), how can respectively a 1D, 2D and 3D MAC arrays exploit spatial and temporal data reuse, and which of these do you expect to result in the most efficient datapaths?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+18. What is a systolic array, and what are its benefits and downsides. Can the downsides be overcome? (Also use the content of L4_TPU.pdf)
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+19. What is utilization, and what aspects influence the utilization of an AI processor core?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+20. Why does a (performance or energy) roofline actually encompass multiple roofs, and what does this have to do with temporal loop optimizations?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
 ## Lecture 5
 
-16. What data types are relevant for ML computation? What are their main differences? How can this be exploited in an ML processor ans what is the impact on the roofline model? Also use paper L5_MoonsISSCC.
+21. What data types are relevant for ML computation? What are their main differences? How can this be exploited in an ML processor ans what is the impact on the roofline model? Also use paper L5_MoonsISSCC.
 
 > **To be answered**
 > 
@@ -1140,7 +1271,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
-17. What different ways are there to build precision scalable MAC units / MAC arrays, and what is the impact on the nested for-loop representation? Use this to discuss the dataflow and utilization consequences (opportunities and challenges) of adapting the MAC precision?.
+22. What different ways are there to build precision scalable MAC units / MAC arrays, and what is the impact on the nested for-loop representation? Use this to discuss the dataflow and utilization consequences (opportunities and challenges) of adapting the MAC precision?.
 
 > **To be answered**
 > 
@@ -1148,7 +1279,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
-18. Discuss the parallelism, stationarity and sparsity aspects (after L6) of the Envision processor and the Nvidia Tensor Cores, and how these aspects depend on the chosen data type.
+23. Discuss the parallelism, stationarity and sparsity aspects (after L6) of the Envision processor and the Nvidia Tensor Cores, and how these aspects depend on the chosen data type.
 
 > **To be answered**
 > 
@@ -1156,7 +1287,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
-19. What are the opportunities that come from extreme binary quantization (in the digital, mixed-signal and the in-memory domain? You can use BinarEye as an illustration.
+24. What are the opportunities that come from extreme binary quantization (in the digital, mixed-signal and the in-memory domain? You can use BinarEye as an illustration.
 
 > **To be answered**
 > 
@@ -1164,7 +1295,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
-20. What is the difference between analog and digital in-memory compute and what are their relative benefits and weaknesses?
+25. What is the difference between analog and digital in-memory compute and what are their relative benefits and weaknesses?
 
 > **To be answered**
 > 
@@ -1174,7 +1305,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 
 ## Lecture 6
 
-21. What is neural network sparsity and how can it improve energy efficiency and/or throughput in neural network storage as well as processing? Include the relative advantages and disadvantages of more or less structured sparsity.
+26. What is neural network sparsity and how can it improve energy efficiency and/or throughput in neural network storage as well as processing? Include the relative advantages and disadvantages of more or less structured sparsity.
 
 > **To be answered**
 > 
@@ -1182,7 +1313,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
-22. How can one analytically estimate the utilization (throughput) and energy consumption for executing a given neural network layer on a given hardware architecture? 
+27. How can one analytically estimate the utilization (throughput) and energy consumption for executing a given neural network layer on a given hardware architecture? 
 
       - Exercise: given a set of nested for-loops and a memory allocation (e.g. a variation on slide 41, with a different loop set), discuss required memory sizes, spatial utilization, memory bandwidth requirements, AI
 
@@ -1192,7 +1323,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
-23. How can one optimize a schedule and/or hardware architecture for a set of workloads.
+28. How can one optimize a schedule and/or hardware architecture for a set of workloads.
     - Exercise: given a set of nested for-loops (e.g. a variation on slide 41, with a different loop set), discuss possible hardware, scheduling and/or memory allocation optimizations and their impact.
 
 > **To be answered**
@@ -1201,7 +1332,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
-24.  What is operator fusion (layer fusion) and why does it matter? What are its challenges?
+29.  What is operator fusion (layer fusion) and why does it matter? What are its challenges?
 
 > **To be answered**
 > 
@@ -1209,7 +1340,7 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > 
 > &nbsp;
 
-25.  What are the benefits and downsides of homogeneous/heterogeneous multi-core implementations and scheduling? Illustrate with the L6_Diana chip.
+30.  What are the benefits and downsides of homogeneous/heterogeneous multi-core implementations and scheduling? Illustrate with the L6_Diana chip.
 
 > **To be answered**
 > 
@@ -1300,3 +1431,31 @@ Access the online Google docs with this [link](https://docs.google.com/document/
 > &nbsp;
 > 
 > &nbsp;
+
+## Guest Lecture
+
+41. How does NXP's micro NPU differs from a more traditional NPU, such as e.g. the Envision processor. Why are they making these choices at NXP?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+42. Explain the operation of the systolic dot product array of NXP for a GeMM workload. What are its benefits and downsides compared to a regular systolic array?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+43. Which techniques are used in NXP's compiler use to optimize memory accesses or memory useage?
+
+> **To be answered**
+> 
+> &nbsp;
+> 
+> &nbsp;
+
+44. Apply the roofline model to the different phases of transformer execution. What is the impact of the datatype in this? What is the impact of the embedding length in this?
