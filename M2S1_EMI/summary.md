@@ -774,3 +774,157 @@ Hard to demonstrate using a group, may introduce bias, weird results + hard to c
 For now, the most trustworthy is in vitro experiments. They have shown some impact on tissues! But this doesn't help understanding how this would behave for a full body.
 
 So there may be some impact of EM waves on human's body. The issue is that the problems will maybe appear as benin over long term over large population. But wireless communication has been a massive benefit for society. The best we can do at the moment is to approach the matter following **ALATA**. 
+
+# Best practices for EMC
+
+> This chapter is about the most important design rules and concepts to remember when designing with EMC in mind. It is important to understand them and their impact.
+>
+> You should never try to comply with them all as some may degrade more important rules. Be aware and understand what is happening.
+>
+> 1. Minimize loop area
+> 2. No split, gap or cut in signal return path
+> 3. No high-speed circuitry between connectors (high-speed can have CM noise voltage that may disturb other signals)
+> 4. Avoid sharp rise-time
+>
+> [http://www.learnemc.com/tutorials/guidelines.html](http://www.learnemc.com/tutorials/guidelines.html)
+
+## Golden rules
+
+1. Make the current paths as short as possible. Always think about the return path.
+   - The larger the area, the more important is the dipole
+   - Higher frequencies means $\frac{d}{dt}$ goes up and the **more it radiates**.
+2. Avoid unexpected dipole or monopole antennas
+3. Make good High Frequencies (HF) connections
+     - So you won't have bad surprise with unexpected current loops flowing out of "nowhere"
+4. Use of shielded cables
+5. Segregation: separate ground
+6. Use filters correctly
+7. Practical design rules: avoid abrupt current changes as they will induce the most $\frac{d}{dt}$. 
+
+### 1 - Return path
+
+We must have a ground plane; **Watch out** GND at DC = 0V but at HF it doesn't really mean anything. It is simply a common reference.
+
+#### Return path
+
+At DC ($f < 100 kHz$), the return path in a ground plane is distributed! Meaning there is not a single one and it will simply average out the resistivity change due to current.
+
+At HF ($f > 100 kHz$), the inductive effect gets predominant and thus $Z = R + j\omega L$. It will know try to reduce $L$ by choosing the path right under the signal trace.
+
+#### Gaping of GND
+
+It is important to properly separate 2 grounds to avoid possible crosstalk. But we must also be aware of the interconnect of the chips together and avoid that the Digital and Analog GND creates long return path for a DAC or ADC. 
+
+So it is best advised to avoid having separate GND BUT if needed, avoid traces crossing over 2 gaps and that the planes must be seen as 2 different voltages. So be extra careful
+
+If a conductor is referenced to multiple grounds, it can be a good antenna or noisy! We need to only have one HF ground!
+
+#### Switching planes
+
+In the case where a signal *must* cut through a planes, the return current can be disrupted. Since we break the plane, the only way the return current can flow is by capacitive and inductive coupling.
+
+![Place an extra return via](image-19.png){width=50%}
+
+In the case of a mother-daughter board like GPU slotted in a PCIe port, we must switch the GND and PWR.
+
+![Source: Bruce Archambeault](image-20.png){width=50%}
+
+It can also be a good thing to place some extra decoupling cap between the two planes where we insert a return via.
+
+![Source: Bruce Archambeault](image-21.png){width=50%}
+
+#### Multi-conductor TL
+
+With flat ribbon cables:
+
+- Minimum configuration: Return-Sig-Sig-Return-Sig-Sig-...
+- Best configuration: Return-Sig-Return-Sig-...
+
+This can be seen as the 1D shield seen previously in the class. This is still not the best shielding.
+
+The best solution is to bundle all the wires together. For connector, scatter some return wires through the panel or better, intertwined them all together at a ratio of 1:1.
+
+Twisted pair still remains the best solution as the flux can cancel each other's polarity and improve isolation. It is even better if we can attach the twisted pair next to a metallic plate. Always keep returning path close to signal path.
+
+### 2 - Dipole & Monopole antennas
+
+Can appear more than we think (e.g.: heatsink). A dipole/monopole is simply 2 metal parts excited by a voltage.
+
+### 3 - Make good HF connections
+
+It is simply to ensure that the designed path for return current is going to be the one used as we have a much lower impedance. But DC low impedance is **not** HF low impedance, a 1 meter cable will gets a much high resistivity even with higher gauge (linear increase with $f$)! (Green/yellow wire is not a low-Z HF, not meant to carry current, only used for safety)
+
+For this matter, it is best to use flat and wide conductors and braided (skin effect). Always add shielding before connecting to a metallic plate. Also, make use of the EM shadow area of right angle plates. Evaluate possible aging effects.
+
+### 4 - Use of shielded cables
+
+We add a shield around conductors, must be careful to what is happening around the edges of the shield! Moreover, the shield must be thick enough to not transmit the J from inside or outside. The higher is the frequency the more pronounced is this effect.
+
+![Shielding and Skin effect (Source: Keith Armstrong, The EMC Journal)](image-22.png){width=50%}
+
+To transmit information between two shielded enclosures, it is important to not disrupt the shielding and use filters when we have unshielded connections coming in. All cables are routed close to the PEC.
+
+### 5 - Segregation
+
+Separate the components on a PCB, for example, avoid IO communications too close to clocked circuit as those circuits are not in sync with each other and may cause unforeseen effects. In summary:
+
+- Keep IO from high-speed logic + memory
+- shorter loop
+  - HF oscillators close to circuits that needs it
+  - IO drivers close to connectors
+- Video + low-frequency analog circuits should have access to IO area without being near or crossing high-speed area
+- Again, good HF connections to chassis (better reference plane especially for IO).
+
+The critical signals in a PCB are:
+
+- Small rise/fall times
+- High fundamental frequency
+- Large transient current when gate switch
+
+System clock is the biggest enemy for EMC.
+
+![Segregation (Source: Keith Armstrong, The EMC Journal)](image-23.png){width=50%}
+
+For larger systems, we can even imagine different compartment separating power and low signals. Also, bring chassis ground to IO but the best would be giving the same ground to every components.
+
+To separate zones, the **keep out zone** should be 20 times larger than the thickness between the signal layer and the return plane.
+
+### 6 - Filters
+
+#### Working principle
+
+The goal is to mismatch impedance so that an undesired input signal won't propagate to the output  (typical LC, RC filters).
+
+#### Types
+
+The passive filters have losses.
+
+![Source: Keith Armstrong, The EMC Journal](image-24.png){width=50%}
+
+#### Insertion loss
+
+This is a typical term in telecom circuits where inserting a DUT will impact the circuit and create losses.
+
+![Definition Insertion Loss](image-25.png){width=50%}
+
+#### Source and load impedance
+
+The filters performances will always be given assuming a 50 Ohm load and source impedance.
+
+#### Ferrites
+
+![Ferrite block modeling](image-26.png){width=30%} 
+
+![Ferrites rod](image-27.png){width=40%}
+
+Here, we concentrate the CM current inside the ferrite to have more dissipation. The model has a frequency dependent resistor + mutual inductance.
+
+![CM choke (Source: Keith Armstrong, The EMC Journal)](image-28.png){width=50%}
+
+![Mains filters: avoid HF signals to go to electricity grid (Source: Keith Armstrong, The EMC Journal)](image-29.png){width=50%}
+
+#### Placement
+
+Bad grounding destroys the inductance's characteristics. 
+
+Always avoid putting unfiletered/noisy signal wires next to filtered one. Inside a chassis, keep the distance with noisy side as short as possible (none is the best).
