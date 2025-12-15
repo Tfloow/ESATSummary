@@ -16,7 +16,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Dependencies
-        run: echo Not needed #apt update && apt install -y pandoc
+        run: docker pull pandoc/extra@sha256:7e9724ee58edfa9b01af8ff4e99738f5f19a1d421e21247a23439898506d86d5
+        # It seems like newer versions of the container have issues with certain LaTeX packages
 
       - name: Run Make Command
         run: |
