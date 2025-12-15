@@ -20,7 +20,7 @@ output: pdf_document
 
 # Terminology
 
-- **Electromagnetic Compatibility (EMC):** the fact that devices can work normally in the neighborhood of other. apability of a device, apparatus or system to function properly (with a pre-defined margin) in its electromagnetic environment (given in advance) without generating intolerable disturbing signals in this environment
+- **Electromagnetic Compatibility (EMC):** the fact that devices can work normally in the neighborhood of other. Capability of a device, apparatus or system to function properly (with a pre-defined margin) in its electromagnetic environment (given in advance) without generating intolerable disturbing signals in this environment
   - **EMEmission:** emission; to disturb. within and between systems
   - **EMSusceptibility:** to be disturbed. within and between systems
   - Everything is a probability and we must take margins to ensure the proper function of a circuit.
@@ -148,7 +148,7 @@ $$
 J_{2n} = j \omega \varepsilon_1 E_{1n} \longrightarrow \underbrace{AJ_{2n}}_I = j \omega \underbrace{\frac{\varepsilon_1 A}{d}}_C \overbrace{d E_{1n}}^{V}
 $$
 
-This can be applied to **any pair of conductors**, which is contrary to the current law of Kirchoff. We must model it as a RC parallel network that appears at AC.
+This can be applied to **any pair of conductors**, which is contrary to the current law of Kirchhoff. We must model it as a RC parallel network that appears at AC.
 
 ## Combined coupling
 
@@ -184,7 +184,7 @@ If we look transversal, the cross section is much smaller which leads to quasi-s
 
 ![L and C coupling](image-4.png){ width=50% }
 
-If we look in telecommunication cables such as telephone line or ethernet cable, we will see twister pairs, shielding, ... this is a first hint to answer the question "how to reduce coupling". This same principle is also found in microstrip line. The strongest coupling is the horizontal one between the microstrip but also some with the ground plate.
+If we look in telecommunication cables such as telephone line or Ethernet cable, we will see twister pairs, shielding, ... this is a first hint to answer the question "how to reduce coupling". This same principle is also found in microstrip line. The strongest coupling is the horizontal one between the microstrip but also some with the ground plate.
 
 ![Transmission line equation (frequency domain)](image-5.png){ width=70% }
 
@@ -519,7 +519,7 @@ According to the surface resistance different thing can happen:
 - $10^6-10^9 \Omega$/square: Little Conductive: no spark, safe discharge
 - $>10^9 \Omega$/square: Non-Conductive: induce charge on conductors
 
-This discharge effect also gets stronger with the capilarity. Typically, the thinner the contact point is (finger, pin, ...) the stronger will be the discharge. This is why there is a small nail sticking out of helicopter's rotor to dissipate this build-up of charges which can reach up to 300 kV. This is similar in some ways to the Corona effect.
+This discharge effect also gets stronger with the capillarity. Typically, the thinner the contact point is (finger, pin, ...) the stronger will be the discharge. This is why there is a small nail sticking out of helicopter's rotor to dissipate this build-up of charges which can reach up to 300 kV. This is similar in some ways to the Corona effect.
 
 In summary, we need 2 conductors for the spark (skin and metal for example) and 1 non-conductor that isolate the electrons from the positive charges formed in the body.
 
@@ -639,7 +639,7 @@ The intensity decreases with $1/r^2$ so fast reduction. On top of this, if we ta
 
 ### 4 - Enting (?) of information onto radiation
 
-To carry information, we can't simply send a singletone signal, it must have some variation. Typically in GSM we use gaussian-filtered minimum shift keying.
+To carry information, we can't simply send a singletone signal, it must have some variation. Typically in GSM we use Gaussian-filtered minimum shift keying.
 
 |Source| Frequency| Power |Distance| Intensity|
 |:---:|:---:|:---:|:---:|:---:|
@@ -763,7 +763,7 @@ We can improve the G by going to higher frequencies and can also be topped with 
 
 ## requirements for radiation
 
-We must compare the radiation depending on the frequency as we can have 120 V/m radiation for f=0! The WHO recommends 0.08W/kg = 42 V/m while in belgium we are around 21 V/m max. This is 4 times smaller than the HWO norm.
+We must compare the radiation depending on the frequency as we can have 120 V/m radiation for f=0! The WHO recommends 0.08W/kg = 42 V/m while in Belgium we are around 21 V/m max. This is 4 times smaller than the HWO norm.
 
 ### Effects on the body
 
@@ -773,7 +773,7 @@ Hard to demonstrate using a group, may introduce bias, weird results + hard to c
 
 For now, the most trustworthy is in vitro experiments. They have shown some impact on tissues! But this doesn't help understanding how this would behave for a full body.
 
-So there may be some impact of EM waves on human's body. The issue is that the problems will maybe appear as benin over long term over large population. But wireless communication has been a massive benefit for society. The best we can do at the moment is to approach the matter following **ALATA**. 
+So there may be some impact of EM waves on human's body. The issue is that the problems will maybe appear as benign over long term over large population. But wireless communication has been a massive benefit for society. The best we can do at the moment is to approach the matter following **ALATA**. 
 
 # Best practices for EMC
 
@@ -927,4 +927,4 @@ Here, we concentrate the CM current inside the ferrite to have more dissipation.
 
 Bad grounding destroys the inductance's characteristics. 
 
-Always avoid putting unfiletered/noisy signal wires next to filtered one. Inside a chassis, keep the distance with noisy side as short as possible (none is the best).
+Always avoid putting unfiltered/noisy signal wires next to filtered one. Inside a chassis, keep the distance with noisy side as short as possible (none is the best).
