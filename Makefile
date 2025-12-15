@@ -2,8 +2,9 @@
 
 compile : all_NEW 
 
+PANDOC_IMAGE = pandoc/extra@sha256:7e9724ee58edfa9b01af8ff4e99738f5f19a1d421e21247a23439898506d86d5
 # IDK why github actions crash here
-EXCLUDED_DIRS = M1S2_Hardware_Security M1S2_Design_of_Digital_IC PDF
+EXCLUDED_DIRS = PDF
 
 # Exclude PDF directory from subdirectories
 SUBDIRS := $(patsubst %/,%,$(wildcard */))
@@ -11,14 +12,14 @@ SUBDIRS := $(filter-out $(EXCLUDED_DIRS),$(SUBDIRS))
 LAST_COMMIT_MESSAGE = $(git log -1 --pretty=%B)
 # Remove possible ENV injection GITHUB_TOKEN from commit message
 LAST_COMMIT_MESSAGE := $(filter-out %GITHUB_TOKEN%, $(LAST_COMMIT_MESSAGE))
-pandoc_run = $(docker run --rm --volume "$(pwd):/data" pandoc/extra)
+pandoc_run = $(docker run --rm --volume "$(pwd):/data" $(PANDOC_IMAGE))
 PWD = $(shell pwd)
 
 SOURCES = $(wildcard */summary.md)
 
 # Define the pandoc command template for reusability
 # Note: We use $$@ inside this variable to escape the $ for when 'make' expands it later in the rule.
-PANDOC_CMD = docker run --rm --volume "$(PWD)/$@:/data" pandoc/extra \
+PANDOC_CMD = docker run --rm --volume "$(PWD)/$@:/data" $(PANDOC_IMAGE) \
 	summary.md LICENSE.md \
 	-o $@.pdf \
 	--template eisvogel \
