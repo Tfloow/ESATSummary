@@ -16,6 +16,8 @@ copyright-link: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
 output: pdf_document
 ---
 
+\newpage
+
 # Welcome
 
 Please use { width=50% } in line with your image so Latex doesn't go crazy.

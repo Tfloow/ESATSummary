@@ -90,7 +90,6 @@ $$
 
 In the case of an AC signal where the derivate is no longer null we have:
 
-
 \begin{align}
   \int \nabla \times E dS &= \int - \frac{dB}{dt} dS & \text{with } \int \nabla \times E dS &= \oint E dC \text{ the contour}\\
   \oint E dC &= \int - \frac{dB}{dt} dS & \text{with } B &= \frac{\phi}{dS}\\
@@ -404,7 +403,7 @@ Inside the wire, the $\vec E$ is 0 if it is a PEC and the wire acts as a **scatt
 
 If we form a mesh of wire, and space them regularly at a certain distance, the effect of shielding will be better. The tighter they are ($\lambda$ wise) the better is the shielding.
 
-![Wire grid](image-14.png){width=50%}
+![Wire grid](image-14.png){width=80%}
 
 The last experiment has wire spaced at $\lambda / 32$ but has only a $-30dB$ shielding. This is far less than the $-100dB$ we could attain with a full screen. Also we can see the waves reflected are quasi-static (if we ignore the computer artifacts).
 
@@ -641,32 +640,19 @@ The intensity decreases with $1/r^2$ so fast reduction. On top of this, if we ta
 
 To carry information, we can't simply send a singletone signal, it must have some variation. Typically in GSM we use Gaussian-filtered minimum shift keying.
 
-|Source| Frequency| Power |Distance| Intensity|
-|:---:|:---:|:---:|:---:|:---:|
-|Radio/TV| kHz – MHz |up to 100 kW| 1000 m| 0.016 W/m2|
-GSM BS 0.9 - 1.8 GHz 20 – 100 W 10 m
-100 m
-3.2 W/m2
-0.032 W/m2
-GSM handset 0.9 -1.8 GHz 20 mW - 2 W
-(1/8 time)
-1 – 2 cm
-1 m
-2 - 200 W/m2
-0.0002 – 0.02 W/m2
-DECT
-(phone)
-1.9 GHz 250 mW peak 1 m 0.02 W/m2
-WLAN,WIFI
-(internet)
-2.4 GHz 100 mW max 1 m
-10 m
-0.008 W/m2
-0.00008 W/m2
-Bluetooth 2.4 GHz 1-10 mW 1 – 2 cm 0.8 - 8 W/m2
-UMTS handset 0.85 – 1.7 –
-1.9 – 2.1 GHz
-max. 125-250 mW 1 – 2 cm max. 12.5-25 W/m2
+| Source | Frequency | Power | Distance | Intensity |
+| :--- | :--- | :--- | :--- | :--- |
+| Radio/TV | kHz – MHz | up to **100 kW** | 1000 m | $0.016 \text{ W/m}^2$ |
+| GSM BS | $0.9 – 1.8 \text{ GHz}$ | $20 – 100 \text{ W}$ | $10 \text{ m}$ | $3.2 \text{ W/m}^2$ |
+| | | | $100 \text{ m}$ | **$0.032 \text{ W/m}^2$** |
+| GSM handset | $0.9 – 1.8 \text{ GHz}$ | $20 \text{ mW} – 2 \text{ W}$ ($1/8$ time) | $1 – 2 \text{ cm}$ | **$2 – 200 \text{ W/m}^2$** |
+| | | | $1 \text{ m}$ | $0.0002 – 0.02 \text{ W/m}^2$ |
+| DECT (phone) | $1.9 \text{ GHz}$ | $250 \text{ mW peak}$ | $1 \text{ m}$ | $0.02 \text{ W/m}^2$ |
+| WLAN,WIFI (internet) | $2.4 \text{ GHz}$ | $100 \text{ mW max}$ | $1 \text{ m}$ | $0.008 \text{ W/m}^2$ |
+| | | | $10 \text{ m}$ | **$0.00008 \text{ W/m}^2$** |
+| Bluetooth | $2.4 \text{ GHz}$ | $1–10 \text{ mW}$ | $1 – 2 \text{ cm}$ | $0.8 – 8 \text{ W/m}^2$ |
+| UMTS handset | $0.85 – 1.7 \text{ GHz}$, $1.9 – 2.1 \text{ GHz}$ | max. $125–250 \text{ mW}$ | $1 – 2 \text{ cm}$ | max. $12.5–25 \text{ W/m}^2$ |
+| Sun | broad spectrum ionising ! | V/ | far field properly conversion | $1400 \text{ W/m}^2$ |
 :Various characteristics of waves
 
 ### Relation between gain and effective length

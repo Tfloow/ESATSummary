@@ -28,4 +28,4 @@ If you are a professor or representing any official party and wish to take down 
 
 ---
 
-**© \the\year{} Authors of the Summary, Professors of the Course and possible book's authors. Some Rights Reserved.**
+**Some Rights Reserved \the\year{} Authors of the Summary, Professors of the Course and possible book's authors. Some Rights Reserved.**
