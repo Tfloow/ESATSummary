@@ -542,11 +542,11 @@ NotebookLM but verified by hand:
 
 **Answer:** Resolution is defined as the smallest change in the input signal that produces a detectable change in the output signal. 
  
-*  **Example 1:** A wire-wound potentiometer has a resolution limited by the number of wire turns; the wiper moves in discrete steps from one turn to the next.
+*  **Example 1:** A wire-wound potentiometer has a resolution limited by the thickness of the wires; the wiper moves in discrete steps from one turn to the next.
  
 *   **Example 2:** An Analog-to-Digital Converter (ADC) has a resolution defined by its bit depth. For a voltage range $V_{ref}$, the resolution is $V_{ref}/2^n$.
  
-*   **Influence on noise:** Resolution is often modeled as **quantization noise**. This error is assumed to be uniformly distributed between $\pm 0.5$ LSB, resulting in a noise variance (power) of $\Delta I_R^2 / 12$, where $\Delta I_R$ is the resolution step.
+*   **Influence on noise:** Resolution is often modeled as **quantization noise**. This is a mathematical formulation of the quantization error and is not a real noise! We assume random varying input which will create an uniformly distributed error. This error is assumed to be uniformly distributed between $\pm 0.5$ LSB, resulting in a noise variance (power) of $\Delta I_R^2 / 12$, where $\Delta I_R$ is the resolution step.
 
 **Question 2:** Describe hysteresis. Give one example. Explain how feedback can be used to reduce hysteresis.
 
@@ -603,11 +603,14 @@ $kT/C$ noise is the total integrated thermal noise on a capacitor. Even if a low
  
 *   **Filtering:** Standard low-pass or high-pass filters cannot remove $1/f$ noise because it dominates at low frequencies (near DC), which is typically where the measurement signal of interest resides. Filtering the noise would also filter the signal.
 
+What about chopping ???
+
 **Question 9:** Why can we represent resolution as quantization noise? Can we filter quantization noise? Elaborate.
 
 **Answer:** Resolution error is the rounding error between the analog input and digitized output. This error is uniformly distributed between $\pm 0.5$ LSB. Statistically, this acts like an added noise source with variance $\sigma_q^2 = \Delta^2 / 12$.
  
 *   **Filtering:** Yes, quantization noise can be filtered. Since it is approximately white noise spread over the Nyquist bandwidth ($f_s/2$), sampling at a higher frequency (oversampling) and then digitally low-pass filtering (averaging) reduces the noise power in the signal bandwidth, effectively increasing the effective number of bits (ENOB).
+*   Typically we can use some sigma delta design to oversample and spread the noise.
 
 **Question 10:** Give a block diagram of a generalized measurement chain. Discuss gain distribution. Why would we sometimes split up the gain in several amplifiers in series?
 
@@ -615,9 +618,9 @@ $kT/C$ noise is the total integrated thermal noise on a capacitor. Even if a low
  
 *   **Block Diagram:** Sensor $\rightarrow$ Signal Conditioning (Amplification/Filtering) $\rightarrow$ Signal Processing (DSP) $\rightarrow$ Representation.
  
-*   **Gain Distribution:** To minimize noise (Friis formula), high gain should be applied as early as possible in the chain. However, high gain on the first stage can cause saturation due to the amplification of offset voltages or large DC components.
+*   **Gain Distribution:** To minimize noise, high gain should be applied as early as possible in the chain. However, high gain on the first stage can cause saturation due to the amplification of offset voltages or large DC components.
  
-*   **Splitting Gain:** Gain is split into multiple stages (e.g., Stage 1 $\rightarrow$ Filter/Offset Removal $\rightarrow$ Stage 2) to amplify the signal without saturating the chain with offset errors.
+*   **Splitting Gain:** Gain is split into multiple stages (e.g., Stage 1 $\rightarrow$ Filter/Offset Removal $\rightarrow$ Stage 2) to amplify the signal without saturating the chain with offset errors. Typically if each OpAmp has 1 V of output swing, we could quickly saturates if we have a micro V measurement and mV offset.
 
 **Question 11:** Explain chopping. Why would we use this in measurement systems? What is the origin of chopping ripple?
 
@@ -655,6 +658,8 @@ $kT/C$ noise is the total integrated thermal noise on a capacitor. Even if a low
 
 **Question 15:** Draw the schematic of an instrumentation amplifier. Elaborate on its most important properties.
 
+![Instrumentation Amplifier](image-18.png){width=60%}
+
 **Answer:** An instrumentation amplifier consists of two input buffers (non-inverting amplifiers) feeding into a differential amplifier.
  
 *   **Properties:** It offers very high input impedance (does not load the sensor), high differential gain (set by a single resistor $R_g$), and high Common Mode Rejection Ratio (CMRR) to reject environmental noise.
@@ -671,7 +676,7 @@ $kT/C$ noise is the total integrated thermal noise on a capacitor. Even if a low
 
 **Question 17:** Describe the design of an oscillator as a sensor readout interface for a reactive sensor element.
 
-**Answer:** A reactive sensor (Capacitor or Inductor) is placed in the feedback network of an amplifier to form an oscillator. The circuit must satisfy the Barkhausen criteria (Loop gain $\ge 1$, Phase shift = $360^\circ$). The oscillation frequency becomes a function of the sensor value (e.g., $\omega_n = 1/\sqrt{LC}$). The readout measures the frequency or period, effectively digitizing the signal without a standard ADC.
+**Answer:** A reactive sensor (Capacitor or Inductor) is placed in the feedback network of an amplifier to form an oscillator. The circuit must satisfy the Barkhausen criteria (Loop gain $\ge 1$, Phase shift = $360^\circ$). The oscillation frequency becomes a function of the sensor value (e.g., $\omega_n = 1/\sqrt{LC}$). The readout measures the frequency or period, effectively digitizing the signal without a standard ADC. We just need a digital counter.
 
 **Question 18:** Explain the working principle of a strain gauge.
 
