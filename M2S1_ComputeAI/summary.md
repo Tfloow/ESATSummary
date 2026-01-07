@@ -1090,372 +1090,645 @@ The idea is to no longer have fixed power states but set an average frequency.
 
 Access the online Google docs with this [link](https://docs.google.com/document/d/1-78EFv326HanFbBDpIHGobIe6YWkITXwQaS58lerUes/edit?usp=sharing).
 
+Here is some notebook LM based answers:
+
 ## Lecture 1
 
-1. *What is Dennard’s law and how is it linked to the evolution of computer architectures over the last 30 years? Describe the different phases we see in this evolution, and the architectural consequences. Illustrate this with examples from processors discussed in class and the papers to be read.*
+### 1. Dennard’s Law and the Evolution of Computer Architectures
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Dennard’s Law** posits that as transistors become smaller (scaling by a factor of $\alpha$), their power density stays constant. Ideally, this meant that with each new technology generation, transistors became faster and more energy-efficient, allowing total power consumption to remain stable even as the number of transistors on a chip doubled (Moore's Law). In short Power drops by half as size reduces by half. V/2 + S/2.
 
-2. *Why do Henessey and Patterson say it is a New Golden Age for computer architectures, and which opportunities should be exploited in this Golden Age, according to them? (See L1_Turing.pdf)*
+However, around 2005, Dennard scaling broke down because voltage scaling hit physical limits (leakage currents), causing power density to increase rather than stay constant. This triggered a shift in architectural evolution across three phases:
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+1.  **Frequency Scaling Era (Pre-2005):** Architects relied on faster transistors and Instruction Level Parallelism (ILP) to boost single-core performance. Power density was manageable.
+2.  **Multicore Era (Homogeneous):** To utilize the increasing transistor count (Moore’s Law) without overheating (Power Wall), the industry shifted to multicore CPUs. Instead of one faster core, chips used multiple cores running at lower frequencies to improve throughput within the thermal budget,.
+3.  **Heterogeneous & Dark Silicon Era:** As scaling continued without energy benefits, "Dark Silicon" emerged—designers could fit more transistors than they could power simultaneously. This forced a shift to **heterogeneous architectures**, where "area is spent to buy energy efficiency." Instead of generic cores, silicon area is dedicated to specialized accelerators (Domain Specific Architectures or DSAs) that are far more efficient for specific tasks, while unused parts of the chip remain powered off ("dark"),.
 
-3. *Discuss the different types of processors present in a modern embedded system (like iPhone’s, smart glasses, Tesla cars, or...). In what sense do they differ? Why are they all there? How do they exploit area for efficiency? (after L8: How would they exchange data and processing jobs?)*
+**Examples:**
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+*   **Homogeneous:** Early multi-core CPUs like the Intel Core i7.
+*   **Heterogeneous:** The **Apple M1** and **Nvidia Tegra** integrate CPUs, GPUs, and NPUs to execute workloads more efficiently than a general-purpose CPU could,.
 
-4. *Apply the different concepts from this class to the Apple M1 processor. Which “area for efficiency” techniques do they exploit and why? What is unique about the FireStorm cores. (See also paper L1_Apple.pdf)*
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
 
-5. *What are the reasons for the going to multi-core CPU’s, first homogeneous and later heterogeneous? How are the micro-architectures of the CPU’s different/similar, and how are they exploited? Does this offer energy efficiency and/or carbon footprint benefits?*
+### 2. A New Golden Age for Computer Architecture
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+Hennessy and Patterson declare a "New Golden Age" because the traditional techniques for performance gains (Dennard scaling and Moore’s Law) have slowed or ended, forcing architects to innovate rather than rely on process technology improvements,.
+
+According to them, the following opportunities should be exploited:
+
+*   **Domain-Specific Architectures (DSAs):** Designing hardware tailored to specific problem domains (e.g., GPUs for graphics, TPUs for AI) to achieve significant efficiency and performance gains compared to general-purpose CPUs.
+*   **Agile Hardware Development:** Adopting agile software methodologies for hardware design to enable faster iteration and prototyping,.
+*   **Open Architectures:** Promoting open instruction set architectures (ISAs) like **RISC-V** to foster community innovation and competition, similar to open-source software.
+*   **Enhanced Security:** Rethinking architecture to treat security as a first-class design concern, addressing hardware vulnerabilities like Meltdown and Spectre.
+
+
+
+### 3. Processors in Modern Embedded Systems
+
+Modern embedded systems (e.g., smartphones, autonomous cars) contain a diverse mix of processors to handle varying workloads efficiently:
+
+*   **CPUs:** General-purpose processing for operating systems and control logic.
+*   **GPUs:** Throughput-oriented processing for graphics and parallel data tasks.
+*   **DSPs/NPUs:** Highly specialized math engines (e.g., Hexagon DSP, Neural Engines) for signal processing and AI,.
+*   **ISPs:** Image Signal Processors for converting raw sensor data into images,.
+
+**Differences & Efficiency:**
+
+They differ in their trade-off between flexibility and efficiency. CPUs are flexible but energy-expensive; accelerators (NPUs/ISPs) are inflexible but highly energy-efficient. They "exploit area for efficiency" by dedicating transistors to specialized datapaths that perform specific tasks (like matrix multiplication) with much less energy than a generic instruction cycle on a CPU,.
+
+**Data Exchange (Post-L8):**
+
+To exchange data efficiently without stalling, these heterogeneous cores often use **Shared Memory** architectures (like the **Apple M1**'s Unified Memory) or hardware **Cache Coherency Interconnects** (like ARM's CoreLink). This allows different processors to access the same data in memory without expensive copying operations,.
+
+
+
+### 4. The Apple M1 Processor
+
+The Apple M1 applies "area for efficiency" by integrating massive amounts of specialized hardware alongside its CPUs:
+
+*   **Specialization:** It includes dedicated accelerators like a 16-core **Neural Engine** for AI and an 8-core **GPU**, using silicon area to offload tasks from the CPU at much higher energy efficiency,.
+*   **Unified Memory:** It integrates DRAM into the package with a unified architecture, reducing the energy and latency costs of moving data between separate memory pools for the CPU, GPU, and NPU.
+*   **FireStorm Cores (Performance):** The high-performance "FireStorm" cores are unique because of their **extremely wide decoder design** (8-wide compared to the industry standard ~4-wide). This allows them to process far more instructions in parallel (Instruction Level Parallelism), maximizing single-thread performance.
+
+
+
+### 5. Multi-core CPUs: Homogeneous to Heterogeneous
+
+**Reasons for Multi-core:**
+
+*   **Homogeneous:** Initially driven by the "Power Wall" (breakdown of Dennard scaling). Since frequency could not be increased, performance was improved by adding more identical cores,.
+*   **Heterogeneous (big.LITTLE):** Workloads on mobile devices vary wildly in intensity. Using a single core type is inefficient. **big.LITTLE** architectures (pioneered by ARM) pair powerful, power-hungry cores ("big") with simple, energy-efficient cores ("LITTLE") to dynamically match the hardware to the workload,.
+
+**Micro-architectures:**
+
+*   **Similarity:** Both core types share the **same Instruction Set Architecture (ISA)** so they can run the same software binary,.
+*   **Difference:** "Big" cores use complex **Out-of-Order (OoO)** execution and deep pipelines for performance. "LITTLE" cores use simpler **In-Order** or limited OoO designs to save area and power,.
+
+**Benefits:**
+
+*   **Energy Efficiency:** Heterogeneity offers significant **operational energy efficiency** (e.g., 40% improvement) by running background tasks on efficient cores,.
+*   **Carbon Footprint:** While operational efficiency reduces energy use (and thus carbon during use), the manufacturing complexity of these advanced, large heterogeneous chips typically leads to **rising embodied carbon** emissions during production.
+
 
 
 ## Lecture 2
 
-6. What are ISP’s and IPU’s? Explain the evolution in their architecture, using example processors to illustrate the trends. What are the main characteristics that distinguish the Google Pixel IPU from a CPU and from the Hexagon processor?
+### 6. ISPs and IPUs
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**ISPs (Image Signal Processors)** are specialized processors designed to convert raw data from a camera sensor into a viewable digital image. Traditionally, they relied on fixed-function, hardwired pipelines to perform standardized operations like demosaicing, noise reduction, and white balance efficiently.
 
-7. Explain the workload of embedded rendering tasks and how this leads to new GPU processing architectures beyond CPU’s. What are the main characteristics that distinguish GPU’s from CPU’s? How do mobile GPU’s differ from cloud GPU’s?
+**Evolution towards IPUs:**
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+The architecture has evolved from rigid, hardwired pipelines toward programmable **Image Processing Units (IPUs)**. This shift is driven by the need for flexibility to support new "Computational Photography" tasks (e.g., bokeh effects, multi-frame interpolation) that go beyond standard image reconstruction. While early ISPs like the ARM Mali-C71 used dedicated buffers and fixed dataflows, modern architectures like the **Google Pixel Visual Core** (PVC) introduce full programmability to handle diverse and evolving algorithms without sacrificing the efficiency of hardware acceleration.
 
-8. What is the difference between a fully connected, a convolutional neural network layer and a depthwise separable layer. Which one is considered more hardware efficient, and why?
+**Google Pixel Visual Core (IPU) Characteristics:**
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+*   **vs. CPU:** The Pixel IPU is a Domain-Specific Architecture (DSA) designed for massive parallelism, capable of 3 trillion operations per second. It is approximately **10x more energy-efficient** than a general-purpose CPU for image tasks because it avoids the overhead of complex control logic (out-of-order execution, branch prediction) found in CPUs.
+*   **vs. Hexagon:** While the Qualcomm Hexagon is a VLIW/SIMD DSP optimized for 1D vector processing, the Pixel IPU functions as a 2D array. It features a **16x16 array of Processing Elements (PEs)** that can shift data directly to neighbors (North, East, South, West) in a "torus" configuration. This 2D spatial architecture allows it to exploit the 2D nature of image data (stencil operations) more naturally and efficiently than the 1D vector processing of a standard DSP, essentially acting like a "Hexagon on steroids".
 
-9.  What is the attention mechanism in transformers, and what operations does it require in prefill and decode? what are its benefits and downsides compared to convolutional networks. (Also use L2_Attention.pdf)
+### 7. Embedded Rendering and GPU Architectures
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Workload:**
 
-10. (After having studied L3-5) How can certain types of neural network layers be more efficient from an algorithmic point of view and at the same time be more inefficient from a HW point of view?
+Embedded rendering involves two massive tasks: **geometry processing** (vertex shading) to calculate the shape and position of 3D objects, and **pixel shading** to determine the color of individual pixels. These tasks are inherently parallel, involving millions of independent calculations (e.g., millions of pixels on a screen), which maps poorly to serial CPU execution.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**GPU vs. CPU:**
+
+*   **CPU:** Designed for latency minimization with complex control logic (branch prediction) and large caches to handle sequential code.
+*   **GPU:** Designed for **throughput maximization**. They dedicate silicon area to thousands of simple execution cores (ALUs) rather than control logic. They hide memory latency not with large caches, but by switching instantly between thousands of active threads (multi-threading).
+
+**Mobile vs. Cloud GPUs:**
+
+*   **Cloud GPUs:** Discrete cards with massive power budgets (hundreds of watts) and dedicated high-bandwidth memory (e.g., GDDR).
+*   **Mobile GPUs:** Tightly integrated into a **System-on-Chip (SoC)** alongside the CPU. They share the same system memory (**Unified Memory**) to avoid energy-intensive data copying between CPU and GPU. They must operate under strict power and thermal limits (passive cooling), forcing them to rely on fewer cores and specialized bandwidth-saving techniques like tile-based rendering.
+
+### 8. Neural Network Layers and Hardware Efficiency
+
+*   **Fully Connected (FC):** Performs matrix-vector multiplication where every input connects to every output. It has low data reuse (weights are used only once per input vector), making it **memory-bandwidth bound** and inefficient if the batch size is small.
+*   **Convolutional (CNN):** Performs sliding window operations. Weights are reused across the entire spatial dimension of the input image. This high **spatial reuse** results in high Arithmetic Intensity (AI), making CNNs **compute-bound** and highly efficient on hardware accelerators.
+*   **Depthwise Separable:** Decomposes a standard convolution into a depthwise layer (spatial filtering only) and a pointwise layer (channel mixing).
+    *   **Hardware Efficiency:** While **algorithmically efficient** (fewer FLOPs), depthwise layers are often **hardware inefficient**. The depthwise step has low arithmetic intensity because it lacks channel-wise weight reuse, often making it **memory-bound**. This can lead to low utilization of dense compute arrays (like systolic arrays or Tensor Cores) designed for massive matrix multiplications.
+
+### 9. Transformers: Attention Mechanism, Prefill vs. Decode
+
+**Attention Mechanism:**
+The attention mechanism computes dependencies between *any* two positions in a sequence, regardless of their distance. It calculates a weighted average of values ($V$) based on the similarity between queries ($Q$) and keys ($K$). This allows modeling global context, unlike CNNs which are limited to local receptive fields.
+
+**Prefill vs. Decode Operations:**
+
+*   **Prefill (Encoding):** Processes the entire input prompt in parallel. It performs large matrix-matrix multiplications ($Q \times K^T$), which have **high arithmetic intensity** because weights and inputs are reused across the sequence length. This phase is typically **compute-bound**.
+*   **Decode (Generation):** Generates tokens sequentially (one by one). This involves vector-matrix operations (using the KV cache). Since weights and cached values are loaded for only one new token, the **arithmetic intensity is very low** (close to 1 or 2), making this phase heavily **memory-bandwidth bound**.
+
+**Comparison to CNNs:**
+
+*   **Benefit:** Captures long-range global dependencies in a constant number of operations.
+*   **Downside:** Computational cost and memory usage for attention grow quadratically with sequence length, whereas CNNs scale linearly. The memory-bound nature of the decode phase makes efficient hardware utilization difficult compared to the compute-bound nature of CNNs.
+
+### 10. Algorithmic Efficiency vs. Hardware Inefficiency
+
+A neural network layer can be **algorithmically efficient** (low number of total operations/FLOPs) yet **hardware inefficient** (low utilization or throughput) if it reduces the **Arithmetic Intensity (AI)** or disrupts data regularity.
+
+
+*   **Low Arithmetic Intensity:** Techniques like **Depthwise Separable Convolutions** drastically reduce the number of MAC operations. However, because they remove the dense cross-channel weight reuse found in standard convolutions, the ratio of computation to memory access drops. This pushes the workload into the **memory-bound region** of the roofline model, leaving high-performance compute units (like large MAC arrays) idle waiting for data.
+*   **Irregularity:** Techniques like **Sparsity** (skipping zero-valued weights) theoretically reduce work. However, managing irregular indices creates overhead and memory fragmentation. If the hardware cannot efficiently handle these irregular patterns, the theoretical speedup is lost to stalling or complex control logic, leading to lower real-world performance compared to dense, regular operations.
+
 
 ## Lecture 3
 
-11. How can Rooflines be used to assess NPU performance? How do the techniques we discussed in L3-6 impact the rooflines themselves, or the position of a workload in the roofline. (also use paper L3_Rooflines).
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 11. Rooflines and NPU Performance
 
-12. [After L4:] What is the difference between spatial and temporal unrolling of for-loops, and how does it impact the arithmetic intensity? What sub-types of spatial and temporal unrolling can you distinguish?
+Roofline models are used to visualize the theoretical peak performance (throughput or energy efficiency) of an NPU against its **Arithmetic Intensity (AI)** (operations per byte of memory access). They identify whether a workload is **memory-bound** (limited by bandwidth, lying on the sloped part of the graph) or **compute-bound** (limited by peak MAC capacity, lying on the flat part).
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+Unlike standard processors, ML accelerators typically have **two rooflines**: a performance roofline (Ops/sec) and an energy roofline (Ops/Joule). The energy roofline is curved rather than sharp because energy is the sum of compute and memory costs, whereas throughput is determined by the bottleneck (min function) of the two.
 
-13. Explain the difference between the GeMM execution dataflows of:
-      1. Tesla’s NPU
-      2.  An Nvidia TensorCore
+Techniques discussed in Lectures 3–6 impact the rooflines as follows:
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+*   **Raising the Roof (Peak Performance):** Increasing the number of Processing Elements (PEs) or using **Quantization** (e.g., INT8 vs FP32) increases the operations per second/Joule, lifting the horizontal "compute-bound" ceiling. **Sparsity** can also raise the effective roofline by skipping zero-valued operations.
+*   **Raising the Slope (Bandwidth):** Techniques like **memory banking**, advanced packaging (e.g., HBM), or **In-Memory Computing (IMC)** increase the effective bandwidth or reduce the energy per access, shifting the memory-bound slope upward and moving the "knee" (turning point) to the left.
+*   **Moving the Workload Right (Increasing AI):** **Spatial and temporal data reuse** (tiling) increases the number of operations performed for every byte fetched from memory. This shifts the workload to the right on the X-axis, potentially moving it from the memory-bound region to the efficient compute-bound region.
+*   **Approaching the Roof (Utilization):** Optimization of execution schedules (e.g., double buffering to hide latency) ensures high **utilization** (spatial and temporal), allowing the actual performance to rise closer to the theoretical roofline.
 
-14. How can spatial unrolling be extended from the datapath to the core level? What sharding opportunities exist and what are their benefits or downsides?
+### 12. Spatial vs. Temporal Unrolling
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Spatial unrolling** refers to parallelizing loop iterations across multiple hardware units (MACs/PEs) within a single clock cycle. It is represented by `parfor` loops in the code. **Temporal unrolling** refers to distributing loop iterations over time (sequential clock cycles) on the same hardware, often keeping specific data operands "stationary" in local memory. It is represented by standard `for` loops.
 
-15. [After L4:] Given a nested (par)for loop representation (see examples in L4), explain me what the data parallelism and the stationarity is (spatial and temporal unrolling). Also derive the AI.
+*   **Impact on Arithmetic Intensity (AI):** Both techniques increase AI by enabling data reuse.
+    *   **Spatial unrolling** enables **spatial reuse** (multicasting inputs/weights or spatially reducing outputs), reducing the bandwidth requirement relative to the compute throughput.
+    *   **Temporal unrolling** (Tiling) enables **temporal reuse** (stationarity), where data fetched from DRAM is stored in local SRAM/RF and reused across multiple cycles, drastically reducing off-chip memory accesses.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+*   **Sub-types:**
+    1.  **Input Reuse/Stationary:** The input feature map is reused/kept constant while weights change (e.g., across different output channels).
+    2.  **Weight Reuse/Stationary:** The weight is reused/kept constant (e.g., across a batch of inputs).
+    3.  **Output Reuse/Stationary:** The partial sum accumulation is kept local (e.g., in a register) while inputs and weights change (accumulation of dot products).
+
+### 13. GeMM Execution Dataflows: Tesla vs. Nvidia
+
+1.  **Tesla’s NPU:**
+    *   Uses a massive, monolithic **96x96 MAC array**.
+    *   It executes Convolutional Neural Networks (CNNs) by mapping them to General Matrix Multiplications (GeMM). It typically unrolls the channel ($C$) and filter ($K$) dimensions.
+    *   **Pros/Cons:** It offers immense throughput for large layers. However, it suffers from **under-utilization** (idle MACs) if the workload dimensions (e.g., batch size or channel count) are not multiples of 96.
+2.  **Nvidia TensorCore:**
+    *   Uses smaller, modular tiles, such as **4x4x4** (Volta) or **8x4x8** (Ampere).
+    *   It builds larger matrix operations by issuing many instructions to these smaller blocks.
+    *   **Pros/Cons:** This granular approach offers higher flexibility and easier utilization for varied layer shapes compared to the massive rigid array of the Tesla NPU, but relies heavily on the compiler/scheduler to feed the cores efficiently.
+
+### 14. Spatial Unrolling at the Core Level (Sharding)
+
+Spatial unrolling can be extended from the datapath to the **multi-core level** (also called "sharding") by distributing the outer loops (e.g., Batch or Output Channel) across different processor cores.
+
+**Opportunities:**
+
+1.  **Data Parallelism (Split Batch $B$):** Different cores process different images/inputs.
+    *   *Benefit:* High utilization for large batches.
+    *   *Downside:* **Weight replication** is required (weights must be broadcast to all cores), increasing memory footprint.
+2.  **Model Parallelism (Split Channels $K$ or $C$):** Different cores process different parts of the neural network layer (e.g., subset of filters).
+    *   *Benefit:* Allows running large models that don't fit in one core's memory; lower latency for batch-1 inference.
+    *   *Downside:* High **communication overhead** (requires gathering/reducing partial sums from all cores to get the final output).
+
+### 15. Analysis of Nested Loops (Data Parallelism, Stationarity, AI)
+
+Given a generic nested loop structure (based on Lecture 4 examples):
+
+```c
+for (b = 0 to B-1)      // Temporal Loop 1
+  for (k = 0 to K-1)    // Temporal Loop 2
+    parfor (c = 0 to C-1) // Spatial Loop (Parallel)
+       o[b][k] += i[b][c] * w[c][k]
+```
+
+*   **Data Parallelism (Spatial Unrolling):**
+    *   Look at the **`parfor`** loop. Here, `parfor (c)` indicates that the **Input Channel ($C$)** dimension is spatially unrolled. This means $C$ MAC units work in parallel, each taking a different channel element $c$. This represents **spatial accumulation** (reducing partial sums across channels).
+
+*   **Stationarity (Temporal Unrolling):**
+    *   Look at the **innermost sequential `for` loop** (the one just above `parfor`). Here, it is `for (k)`.
+    *   Inside this loop, as $k$ varies:
+        *   `w[c][k]` changes (Load Weight).
+        *   `o[b][k]` changes (Load/Store Accumulator).
+        *   `i[b][c]` depends on $b$ and $c$, which are constant within the $k$ loop. Therefore, the **Input `i` is stationary** in the registers during the execution of the $k$ loop.
+
+*   **Deriving Arithmetic Intensity (AI):**
+    *   *Operations:* The loop body performs 1 MAC (2 ops: 1 multiply + 1 add).
+    *   *Memory Accesses (per cycle/iteration):*
+        *   Input $i$: 0 reads (Stationary in register).
+        *   Weight $w$: 1 read.
+        *   Output $o$: 1 read + 1 write (Partial sum update).
+    *   *Formula:* $AI = \frac{\text{Ops}}{\text{Bytes}}$.
+    *   Assuming 1 byte per word: $AI = \frac{2 \text{ ops}}{1 (W) + 2 (O)} = 0.66$ Ops/byte.
+    *   *Note:* If the output accumulation happens in a register file and only the final result is written to memory after the loop finishes, the output bandwidth cost drops, significantly increasing AI. For example, if we tile heavily, we fetch weights and inputs once and perform many ops. The exact AI depends on the specific tiling sizes chosen for the loops.
 
 ## Lecture 4
 
-16. What is tiling, how does it improve arithmetic intensity and how can you recognize it from a set of nested for loops?
+### 16. Tiling and Arithmetic Intensity
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Tiling** involves cutting large data structures (matrices or tensors) into smaller blocks, known as tiles, that fit into specific levels of the on-chip memory hierarchy (e.g., SRAM or Register Files).
 
-17. [Also using input from L3]: For a given number of MACs (e.g. 256), how can respectively a 1D, 2D and 3D MAC arrays exploit spatial and temporal data reuse, and which of these do you expect to result in the most efficient datapaths?
+*   **Improvement on Arithmetic Intensity (AI):** Tiling improves AI through **temporal data reuse**. By loading a tile of data from a large, energy-expensive memory (like DRAM) into a smaller, local memory (like SRAM) and performing multiple operations on it before evicting it, the system reduces the number of times data must be fetched from the main memory. For example, in a tiled matrix multiplication, an input tile loaded once from DRAM can be reused multiple times against different weight tiles, significantly increasing the operations performed per DRAM byte accessed.
+*   **Recognition in Loops:** You can recognize tiling in code when a single loop iterating over a dimension is split into **nested loops**. The outer loop iterates across the blocks (tiles) residing in the larger memory, while the inner loop iterates through the elements within that block residing in the local memory.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 17. MAC Arrays (1D, 2D, 3D) and Reuse
 
-18. What is a systolic array, and what are its benefits and downsides. Can the downsides be overcome? (Also use the content of L4_TPU.pdf)
+For a fixed number of MACs (e.g., 256), the arrangement affects reuse opportunities:
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+*   **1D Array (SIMD/Vector):** Typical of CPUs/GPUs. These generally exploit spatial reuse along only one dimension (e.g., reusing an instruction across data, or broadcasting one weight to multiple inputs). They often rely heavily on high memory bandwidth because they cannot exploit multidimensional reuse as effectively as 2D/3D arrays.
+*   **2D Array (e.g., 16x16):** Allows for **spatial reuse** in two dimensions (e.g., broadcasting inputs across rows and weights across columns). While the *spatial* arithmetic intensity (AI) might be moderate (e.g., ~1), 2D arrays allow for highly efficient **temporal reuse** (stationarity) strategies. In specific examples discussed in class, a 2D array utilizing weight, input, and output reuse achieved a higher temporal AI (32) compared to a 3D array (8) because it allows for more flexibility in temporal unrolling.
+*   **3D Array (e.g., 8x8x4):** Exploits spatial reuse across three dimensions (e.g., input, weight, and output partial sums). While this results in a very high **spatial** AI (reducing immediate bandwidth pressure significantly), it imposes rigid constraints on the workload dimensions.
+*   **Efficiency Conclusion:** While 3D arrays maximize spatial AI, **2D arrays** are often considered the most efficient datapaths for general workloads. They strike a balance, offering good spatial reuse while maintaining the flexibility to exploit significant temporal reuse (tiling) without the rigid dimension constraints that often lead to under-utilization in 3D arrays.
 
-19. What is utilization, and what aspects influence the utilization of an AI processor core?
+### 18. Systolic Arrays
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+A **systolic array** is a grid of Processing Elements (PEs) where data flows rhythmically (like a heartbeat) from one neighbor to the next rather than being broadcast from a central memory.
 
-20. Why does a (performance or energy) roofline actually encompass multiple roofs, and what does this have to do with temporal loop optimizations?
+*   **Benefits:**
+    *   **Energy Efficiency:** It saves significant energy by minimizing access to large, power-hungry SRAMs. Data is passed directly between local registers in PEs.
+    *   **High Throughput:** It allows for massive parallelism (e.g., the TPU has a 256x256 array) executing tens of thousands of operations per cycle.
+    *   **Reduced Bandwidth:** It provides reduced memory bandwidth requirements due to high reuse within the array.
+*   **Downsides:**
+    *   **Latency/Warm-up:** There is a pipeline delay ("warm-up" and "cool-down") to fill the array with data before valid results appear.
+    *   **Inflexibility:** The rigid structure makes it difficult to handle irregular computation graphs or layers with dimensions that do not match the array size.
+*   **Overcoming Downsides:**
+    *   **Utilization:** Low utilization caused by dimension mismatches can be mitigated by software compilers and dataflow techniques (e.g., reordering passes) that pack data to fit the hardware efficiency.
+    *   **Area/Cost:** While the array is large, using lower precision (e.g., 8-bit integers) reduces energy and area by an order of magnitude compared to FP32, allowing massive arrays like the TPU's to be feasible.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 19. Utilization of an AI Processor Core
+
+**Utilization** is the fraction of the processor's peak computational power that is effectively used during execution. It is calculated as the product of **Spatial Utilization (SU)** and **Temporal Utilization (TU)**.
+
+*   **Spatial Utilization (SU):** The ratio of useful MACs to total MACs per clock cycle. It is influenced by the **workload dimensions**. If the neural network layer dimensions (e.g., channel count) are smaller than the physical array dimensions (e.g., 128 channels on a 256-wide array), many PEs will remain idle.
+*   **Temporal Utilization (TU):** The ratio of compute cycles to total cycles. It is primarily influenced by **memory bandwidth constraints**. If the system cannot fetch data fast enough to keep the PEs busy (memory-bound), the datapath stalls, reducing TU.
+
+### 20. Rooflines and Multiple Roofs
+
+A roofline model encompasses **multiple roofs** (horizontal ceilings and sloped bandwidth limits) because bottlenecks can occur at different levels of the memory hierarchy.
+
+*   **Multiple Levels:** A system has different bandwidths and Arithmetic Intensities (AI) for the Register File (RF), SRAM, and DRAM. Performance is limited by the minimum of these bottlenecks: $P = \min(BW_{DRAM} \times AI_{DRAM}, BW_{SRAM} \times AI_{SRAM}, PeakCompute)$.
+*   **Connection to Temporal Optimizations:** Temporal loop optimizations, specifically **tiling**, directly determine the position of the workload relative to these roofs.
+    *   By optimizing the tile sizes for the SRAM level (inner loops), you maximize $AI_{SRAM}$.
+    *   By optimizing the tile sizes for the DRAM level (outer loops), you maximize $AI_{DRAM}$.
+    *   These optimizations shift the workload operating point to the right on the AI axis for that specific memory level, potentially moving the task from a memory-bound region (sloped roof) to a compute-bound region (flat roof).
+
 
 ## Lecture 5
 
-21. What data types are relevant for ML computation? What are their main differences? How can this be exploited in an ML processor ans what is the impact on the roofline model? Also use paper L5_MoonsISSCC.
+### 21. Data Types in ML and Roofline Impact
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Relevant Data Types:**
 
-22. What different ways are there to build precision scalable MAC units / MAC arrays, and what is the impact on the nested for-loop representation? Use this to discuss the dataflow and utilization consequences (opportunities and challenges) of adapting the MAC precision?.
+Machine learning computation utilizes a spectrum of data types ranging from high-precision floating-point to low-precision integers:
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+*   **Floating Point:** Used primarily for training and high-precision inference. Includes **FP32** (single precision), **FP16** (half precision), **BF16** (Brain Float), and **TF32** (Tensor Float). Newer formats like **FP8** (E4M3/E5M2) are emerging for transformers.
+*   **Integers (Fixed Point):** Standard for efficient inference. Includes **INT16**, **INT8** (most common for edge), **INT4**, and **INT2**.
+*   **Dynamic Fixed Point (Block Floating Point):** A hybrid approach (e.g., **MXFP**, **MXINT**) where a block of numbers (e.g., 32) shares a single exponent/scale factor while individual elements use low-precision mantissas (e.g., 4 to 8 bits). This combines the efficiency of integer math with the dynamic range of floating point.
+*   **Binary/Ternary:** Extreme quantization using 1-bit (**Binary**) or {-1, 0, 1} (**Ternary**) weights and activations.
 
-23. Discuss the parallelism, stationarity and sparsity aspects (after L6) of the Envision processor and the Nvidia Tensor Cores, and how these aspects depend on the chosen data type.
+**Exploitation in Processors:**
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+Processors exploit these types to reduce energy and memory traffic.
 
-24. What are the opportunities that come from extreme binary quantization (in the digital, mixed-signal and the in-memory domain? You can use BinarEye as an illustration.
+*   **Energy:** An 8-bit integer multiply consumes approx. **18.5x less energy** than a 32-bit float multiply.
+*   **Memory:** Reducing precision reduces the memory footprint and bandwidth requirements linearly (e.g., INT8 requires 4x less bandwidth than FP32).
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Impact on Roofline Model:**
 
-25. What is the difference between analog and digital in-memory compute and what are their relative benefits and weaknesses?
+1.  **Raises the Roof (Performance):** Lower precision allows packing more Processing Elements (PEs) into the same silicon area. For example, the Envision processor increases throughput by **40x** (from 0.26 to 10 TOPS/W) by scaling from 16-bit to 4-bit.
+2.  **Shifts the Slope (Bandwidth):** By transferring smaller data types, the effective "elements per second" bandwidth increases. This shifts the memory-bound slope to the left, allowing workloads with lower Arithmetic Intensity (AI) to reach peak compute performance.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 22. Precision Scalable MAC Units and For-Loop Representation
+
+**Ways to Build Scalable MACs:**
+
+1.  **Data Gating (Naive):** Simply forcing zeros into the unused bits of a large multiplier (e.g., running 8-bit data on a 16-bit MAC). This saves some power but wastes area and does not improve throughput.
+2.  **Subword Parallelism (Mult-gating):** Reconfiguring hardware so that one large multiplier splits into multiple smaller ones. For instance, a 16x16 multiplier can be reconfigured to perform two 8x8 or four 4x4 multiplications in parallel. This is used in the **Envision** processor.
+3.  **Bit-Serial/Shift-Add:** Processing bits sequentially over time. The MAC unit processes 1 bit per cycle, accumulating the result. This offers fine-grained variable precision but increases latency.
+
+**Impact on Nested For-Loops:**
+
+Adapting precision introduces **two additional inner loops** to the standard 3-loop convolution/matrix-multiplication nest: one for the bits of the weights (`bw`) and one for the bits of the inputs (`bi`).
+
+*   *Equation:* `o[b][k] += i[b][c][bi] * 2^bi * w[c][k][bw] * 2^bw`.
+
+**Dataflow and Utilization Consequences:**
+
+*   **Opportunities:** Allows trading temporal execution for spatial execution. In a **bit-serial** architecture, the loops `bw` and `bi` are unrolled temporally (more cycles). In a **bit-parallel** architecture (like subword parallelism), these loops are unrolled spatially (more operations per cycle). This provides massive throughput gains for low-precision workloads.
+*   **Challenges:** Utilization drops if the workload precision does not match the hardware vector width. For example, running a 3-bit workload on a 4-bit hardwired subword-parallel engine results in wasted compute cycles or idle bits (padding).
+
+### 23. Parallelism, Stationarity, and Sparsity: Envision vs. Nvidia Tensor Cores
+
+**Envision Processor:**
+
+*   **Data Type:** Supports dynamic fixed-point precision scalable from 16-bit down to 1-4 bits.
+*   **Parallelism:** Uses a **2D-SIMD** MAC array (16x16). It exploits **spatial subword parallelism**, turning one 16-bit MAC into four 4-bit MACs to boost throughput at low precision.
+*   **Stationarity:** It employs an **Output Stationary** dataflow where intermediate partial sums are accumulated in local registers within the array to minimize memory access.
+*   **Sparsity:** Uses "Guarded" execution. It stores sparsity flags in a separate memory (GRD) to prevent data fetches and clock-gate the MAC units when weights or inputs are zero. This improves energy but *not* throughput (cycles are still consumed).
+
+**Nvidia Tensor Cores (A100/H100):**
+
+*   **Data Type:** Extensive support for Mixed Precision, including FP16, BF16, TF32, INT8, and recently FP8.
+*   **Parallelism:** Operates on fixed-size matrix tiles (e.g., 4x4x4 or 8x8x4). It uses massive spatial parallelism to perform tile-level matrix-multiply-accumulate (MMA) operations in one instruction.
+*   **Stationarity:** Also utilizes **Output Stationarity** (accumulating into 32-bit registers) but relies heavily on input/weight reuse within the register file due to the "tile" processing nature.
+*   **Sparsity:** Implements **Structured Sparsity (2:4)**. It requires that for every block of 4 values, at least 2 are zero. This allows the hardware to compress indices and skip math, effectively doubling throughput for compatible workloads.
+
+### 24. Extreme Binary Quantization Opportunities (BinarEye)
+
+**Digital Domain:**
+
+Binary Neural Networks (BNNs) restrict weights and activations to 1 bit (0 or 1, representing -1 or +1).
+
+*   **Opportunity:** The expensive Multiply-Accumulate (MAC) operation is replaced by a simple **XNOR** gate (for multiplication) and a **PopCount** (population count) for accumulation. This reduces hardware cost significantly.
+*   **BinarEye Example:** A fully digital BNN processor where the "neuron array" consists entirely of XNORs and PopCounters. However, the PopCount becomes the new bottleneck (75% of area/energy) because accumulation still requires multi-bit precision to prevent overflow before the final activation.
+
+**Mixed-Signal Domain:**
+
+*   **Opportunity:** Using switched-capacitor logic or current summation to perform the accumulation in the analog domain. This can be more energy-efficient than digital PopCounting but suffers from noise.
+
+**In-Memory Domain:**
+
+*   **Opportunity:** A 6T SRAM cell can inherently perform the XNOR function. By modifying the word-line/bit-line access, the memory array itself becomes the compute engine, achieving extreme density and eliminating the memory bottleneck.
+
+### 25. Analog vs. Digital In-Memory Compute (IMC)
+
+**Analog IMC:**
+
+*   **Mechanism:** Performs MAC operations using physical laws (Ohm’s law, Kirchhoff’s law) on the bit-lines (e.g., accumulating current or charge).
+*   **Benefits:** Highest possible energy efficiency (often <1 fJ/op) and density. Enables **extreme weight stationarity** (weights programmed once and used for many inputs).
+*   **Weaknesses:** Suffer from **Signal-to-Noise Ratio (SNR)** issues, non-linearities (requiring specialized training), and Process-Voltage-Temperature (PVT) variations. It typically requires expensive ADCs (Analog-to-Digital Converters) to read results back, which can dominate power consumption.
+
+**Digital IMC:**
+
+*   **Mechanism:** Embeds digital logic gates (e.g., bit-serial adders) directly inside or immediately next to the memory bit-cells.
+*   **Benefits:** **Reliable and deterministic** (no noise or PVT issues). Flexible precision support and scalable with process technology scaling (unlike analog, which struggles at lower nodes due to mismatch).
+*   **Weaknesses:** Lower compute density (TOPS/mm²) and lower peak energy efficiency (TOPS/W) compared to analog IMC because digital logic takes up more space than analog wire-summation.
 
 ## Lecture 6
 
-26. What is neural network sparsity and how can it improve energy efficiency and/or throughput in neural network storage as well as processing? Include the relative advantages and disadvantages of more or less structured sparsity.
+### 26. Neural Network Sparsity
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Neural network sparsity** refers to the prevalence of zero-valued elements within a neural network's data structures, specifically in the weights (static sparsity) and activations (dynamic sparsity, often due to ReLU functions).
 
-27. How can one analytically estimate the utilization (throughput) and energy consumption for executing a given neural network layer on a given hardware architecture? 
+**Improvements in Efficiency:**
 
-      - Exercise: given a set of nested for-loops and a memory allocation (e.g. a variation on slide 41, with a different loop set), discuss required memory sizes, spatial utilization, memory bandwidth requirements, AI
+*   **Storage (Memory):** Sparsity allows for compression. Instead of storing every value, systems can store only non-zero values and their indices (e.g., using formats like Compressed Sparse Row). This reduces the memory footprint and the off-chip bandwidth required to fetch data.
+*   **Processing (Compute):** Energy is saved by "guarding" operations. If an input or weight is zero, the Multiply-Accumulate (MAC) operation ($X \times 0$) is redundant. Hardware can skip these operations to save switching energy. If the hardware can also skip the *cycles* associated with these zeros, throughput increases.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Structured vs. Unstructured Sparsity:**
 
-28. How can one optimize a schedule and/or hardware architecture for a set of workloads.
-    - Exercise: given a set of nested for-loops (e.g. a variation on slide 41, with a different loop set), discuss possible hardware, scheduling and/or memory allocation optimizations and their impact.
+*   **Unstructured (Random) Sparsity:** Individual weights are pruned arbitrarily.
+    *   *Advantages:* High compression potential; models can often be pruned significantly (up to 90%+) with minimal accuracy loss.
+    *   *Disadvantages:* Extremely irregular memory access patterns make it hard to utilize hardware efficiently. It creates load imbalances and control overhead (indexing) that can negate performance gains.
+*   **Structured Sparsity:** Weights are pruned in blocks or fixed patterns (e.g., N:M sparsity where N out of M elements are non-zero).
+    *   *Advantages:* Hardware-friendly. Regular patterns allow for efficient block transfers and vector processing (SIMD). Nvidia’s Ampere architecture, for instance, supports 2:4 sparsity effectively.
+    *   *Disadvantages:* Lower compression rates compared to unstructured sparsity; enforcing structure may require more retraining to maintain accuracy.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 27. Analytical Estimation of Utilization and Energy
 
-29.  What is operator fusion (layer fusion) and why does it matter? What are its challenges?
+To analytically estimate performance, one uses a cost model that inputs the neural network layer dimensions, hardware specifications (memory hierarchy, PE array size), and the mapping (loop order/tiling).
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Throughput/Latency Estimation:**
 
-30.  What are the benefits and downsides of homogeneous/heterogeneous multi-core implementations and scheduling? Illustrate with the L6_Diana chip.
+Throughput is determined by the **Total Utilization**, which is the product of:
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+1.  **Spatial Utilization (SU):** The fraction of the PE array active per cycle. It is calculated by comparing the hardware parallelism dimensions (e.g., 16x16 array) with the spatially unrolled loops in the mapping (e.g., `parfor`). If the workload dimension is smaller than the hardware dimension, PEs are idle.
+2.  **Temporal Utilization (TU):** The ratio of compute cycles to total cycles (including stalls). This accounts for bottlenecks where computation stalls waiting for data from memory.
+    *   *Formula:* $Utilization = TU \times SU$.
+
+**Energy Estimation:**
+
+Energy is the sum of computational and data movement costs:
+
+*   $E_{total} = (N_{ops} \times E_{MAC}) + \sum (N_{accesses\_level\_i} \times E_{access\_level\_i})$.
+*   The number of accesses depends on the loop tiling: a tensor is accessed from a memory level every time the loops *above* that level iterate, unless it is stationary.
+
+**Exercise Analysis (Scenario based on Slide 61/62):**
+
+*   **Given:** A memory hierarchy (DRAM -> SRAM -> Register File) and a nested loop mapping.
+*   **Memory Sizes:** Calculated by the product of the ranges of the loops *below* a specific memory level. For example, if the SRAM level encloses loops for channels $C_{tile}$ and width $W_{tile}$, the SRAM must fit $C_{tile} \times W_{tile}$ values.
+*   **Spatial Utilization:** Check the innermost `parfor` loops. If the hardware has 16 PEs and the `parfor` loop iterates 4 times, SU = 4/16 = 25%.
+*   **Memory Bandwidth:** Determined by the loops feeding from that level. If the loop feeding from DRAM iterates $N$ times and fetches $M$ bytes each time, the required BW is proportional to $N \times M$ / cycles.
+*   **AI (Arithmetic Intensity):** Calculated as $Ops / Bytes$. High temporal reuse (tiling) at the RF/SRAM level reduces bandwidth needs at the DRAM level, increasing the DRAM-level AI.
+
+### 28. Optimizing Schedule and Hardware
+
+**Optimization Strategy:**
+
+*   **Schedule:** To optimize a schedule for a set of workloads, one must maximize reuse (AI) and utilization. This involves:
+    *   **Tiling:** adjusting block sizes to fit available SRAM/RF.
+    *   **Ordering:** placing loops with highest reuse innermost (stationarity).
+    *   **Parallelism:** mapping dimensions with sufficient parallelism to the spatial array.
+*   **Hardware:** Designers can tune memory banking (to increase bandwidth for low-AI workloads) or increase MAC parallelism (for high-AI workloads).
+
+**Exercise Impact (Slide 61/62 context):**
+
+*   *Scenario:* If the calculated required memory for weights exceeds the SRAM size.
+*   *Optimization:* Reduce the tile size of the weight-related loops (e.g., `k` or `c` loops).
+*   *Impact:* This fits the data in SRAM but increases the number of times data must be fetched from DRAM (reducing DRAM-level AI) because the outer loops now iterate more often, reloading the same data.
+
+### 29. Operator Fusion (Layer Fusion)
+
+**Definition:** Operator fusion combines the execution of multiple neural network layers (e.g., Convolution + ReLU, or Conv + Conv) into a single pass. Instead of writing the output of Layer 1 to main memory (DRAM) and reading it back for Layer 2, the data flows directly from Layer 1 compute to Layer 2 compute via small on-chip buffers (SRAM/L1).
+
+**Why it matters:**
+
+*   **Energy & Latency:** Drastically reduces off-chip memory accesses, which are energy-expensive and slow. It mitigates the "memory wall".
+*   **Footprint:** Reduces the need to store massive intermediate feature maps in memory.
+
+**Challenges:**
+
+*   **Memory Constraints:** The on-chip buffer must be large enough to hold the "overlap" or "halo" rows required for the next convolution. If the tile size required for fusion exceeds local memory, fusion becomes complex or impossible.
+*   **Scheduling Complexity:** It requires complex depth-first pipeline scheduling rather than simple layer-by-layer execution.
+*   **Hardware Support:** Not all hardware supports the flexible dataflow required to pipeline different operators simultaneously.
+
+### 30. Homogeneous vs. Heterogeneous Multi-core & Diana
+
+**Homogeneous Multi-core:**
+
+*   **Benefits:** Scalable design (copy-paste cores); easier load balancing since all cores are identical.
+*   **Downsides:** "One size fits all" is inefficient. A core optimized for Conv layers is inefficient for Fully Connected layers, and vice versa.
+
+**Heterogeneous Multi-core:**
+
+*   **Benefits:** Assigns tasks to the "best fit" hardware.
+*   **Downsides:** Complex global scheduling. The scheduler must decide which core executes which task based on availability and efficiency, handling data migration between different core types.
+
+**Illustration with L6_Diana Chip:**
+
+*   **Architecture:** Diana features a flexible **Digital Core** (SIMD) and a specialized **Analog In-Memory Compute (AiMC)** core.
+*   **Benefit:** The AiMC core is ultra-efficient for dense convolution (1152x512 array), while the Digital core handles layers the AiMC cannot (like high-precision or irregular layers).
+*   **Scheduling/Fusion:** Diana demonstrates **heterogeneous pipelining**. While the Digital core processes part of Layer 1, the AiMC core simultaneously processes Layer 2. By fusing layers and pipelining them between these heterogeneous cores, Diana reduces L1 memory requirements (data doesn't go off-chip) and improves latency by 1.73x compared to sequential execution.
+
 
 ## Lecture 7
 
-31. Using slide 4, explain the causes and solutions to the HW- and SW-productivity gap.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 31. The HW- and SW-Productivity Gap
 
-32. What is RISC-V and how does it allow individuals to speed up SoC design, without giving up on customization? (discuss implementation flows and standard and custom extension approaches)
+*   **Causes:** The gap, often referred to as the "Design Gap," arises from the disparity between the potential complexity of hardware and the ability of designers to utilize it. According to the data, hardware complexity (measured in gates/cm² via Moore's Law) has grown at a Compound Annual Growth Rate (CAGR) of **59%**, while design productivity has only grown at **20–25%**. Simultaneously, the complexity of software (Lines of Code per chip) is exploding, doubling every 10 months.
+*   **Solutions:** To bridge this gap, the industry relies on:
+    1.  **IP Reuse:** Instead of designing from scratch, designers reuse blocks (IP) to "bridge the silicon design gap".
+    2.  **AI in EDA:** Integrating Artificial Intelligence into Electronic Design Automation (EDA) tools is projected to provide the necessary productivity boost to manage rising complexity.
+    3.  **High-Level Abstraction:** Moving towards higher-level languages and agile hardware development methodologies (discussed in the L1 Turing paper) to iterate faster.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 32. RISC-V and SoC Design Acceleration
 
-33. Which CPU extensions make sense in this era of embedded AI processing. Explain the impact of different opportunities on the system efficiency (also use L7_PulpNN).
+**RISC-V** is an open-source, modular Instruction Set Architecture (ISA) that allows designers to implement processors without paying royalties or asking for permission.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+*   **Customization without fragmentation:** Unlike proprietary ISAs (like ARM), RISC-V is modular. It consists of a small frozen **base ISA** (e.g., RV32I) and optional **standard extensions** (M for multiply, C for compressed, etc.). Crucially, it reserves specific opcode spaces for **custom extensions**. This allows designers to add domain-specific instructions (e.g., for AI or DSP) to accelerate specific tasks without breaking compliance with the standard software stack.
+*   **Implementation Flows:**
+    *   **Generators (Chisel):** RISC-V facilitates the use of hardware construction languages like **Chisel** (used for Berkeley's BOOM core). Chisel uses object-oriented programming to generate RTL. This enables a single high-level source to generate compilable Verilog for both **FPGAs** (for fast emulation/software development) and **ASICs** (for final silicon), enabling an **Agile Hardware Development** flow.
+    *   **IP Reuse:** The open nature fosters a library of open-source cores (e.g., PULP, Rocket) that can be easily integrated or modified, drastically reducing design time compared to negotiating licenses for proprietary cores.
 
-34. How can hardware designers make heterogeneous multiprocessing systems based on CPU cores (big.LITTLE) easier to use/program? How is scheduling and synchronization organized in such systems? (see also L7_ARMscheduling)
+### 33. CPU Extensions for Embedded AI (XpulpNN)
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+In the era of embedded AI, general-purpose CPUs are inefficient due to the lack of support for low-precision arithmetic used in quantized neural networks (QNNs).
 
-35. What solutions are proposed to alleviate using truly heterogeneous multi-core CPU/GPU/NPU systems? What challenges remain?
+*   **Sensible Extensions:**
+    1.  **Sub-byte SIMD:** Extensions that support **4-bit (nibble)** and **2-bit (crumb)** packed vectors allow executing multiple operations in parallel within a standard 32-bit register.
+    2.  **Dot Product Units:** Dedicated instructions (like `sdotp`) that perform multiply-accumulate operations on these packed vectors in a single cycle.
+    3.  **Hardware Quantization (`pv.qnt`):** A dedicated instruction to handle the re-quantization step (compressing 32-bit accumulated results back to 8/4/2 bits). Without this, the overhead of unpacking, scaling, and repacking data in software negates the benefits of low-precision compute.
+*   **Impact on Efficiency:**
+    *   **Performance:** These extensions can speed up execution by **5.3x (4-bit)** to **8.9x (2-bit)** compared to a baseline RISC-V core that relies on software overhead for sub-byte handling.
+    *   **System Efficiency:** They improve energy efficiency by up to **9x** (achieving hundreds of GMAC/s/W). By packing more data into registers and memory, they also effectively increase the memory bandwidth and cache capacity, alleviating the memory bottleneck.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 34. Heterogeneous Multiprocessing (big.LITTLE)
+
+Hardware designers make heterogeneous systems (like ARM's big.LITTLE) manageable by ensuring **transparency** to the software.
+
+*   **Ease of Use:**
+    *   **Same ISA:** Both "big" (performance) and "LITTLE" (efficiency) cores share the exact same Instruction Set Architecture. A program binary can run on either core without modification.
+    *   **Cache Coherency:** A hardware **Cache Coherent Interconnect (CCI)** ensures that all cores see the same memory view. Data modified by a big core is automatically visible to a LITTLE core without the operating system having to manually flush caches or copy data, which would be slow and complex.
+*   **Scheduling (Global Task Scheduling - GTS):**
+    *   The scheduler tracks the **historical load** of each software thread.
+    *   **Migration:** It uses thresholds. If a task's load exceeds an "up-migration threshold," it is moved to a big core. If it drops below a "down-migration threshold," it moves to a LITTLE core.
+    *   **Mechanisms:** It uses techniques like **Fork Migration** (new heavy tasks start big), **Wake Migration** (waking tasks stay where they were unless load changed), and **Offload Migration** (moving background work to LITTLE cores to free up big cores).
+*   **Synchronization:**
+    *   **Hardware Barriers:** Specialized hardware registers (in the interconnect or interrupt controller) allow cores to synchronize (e.g., signal completion) faster than using shared memory variables.
+    *   **Software Locks:** Standard atomic instructions (Load-Linked/Store-Conditional) are used for mutual exclusion, relying on the coherent interconnect to pass lock states between cores.
+
+### 35. Solutions and Challenges for *Truly* Heterogeneous Systems
+
+When integrating distinct architectures (CPU, GPU, NPU) that do *not* share the same ISA, the complexity increases.
+
+*   **Solutions:**
+    *   **Unified Memory (Hardware):** Architectures like the **Apple M1** use a physically unified memory where CPU, GPU, and NPU access the same DRAM. This eliminates the need for checking data coherency or copying data buffers between separate "CPU memory" and "GPU memory," drastically reducing latency and energy.
+    *   **Virtual Unified Memory:** Systems like Nvidia's CUDA use page-fault mechanisms to automatically migrate data between CPU and GPU memory behind the scenes, simplifying the programmer's view.
+    *   **Libraries & No-Code Tools:** Vendors provide highly optimized kernel libraries (e.g., CMSIS-NN, cuDNN) or "No-Code" compilation flows that map high-level graphs (like TensorFlow) to specific hardware kernels, hiding the complexity from the user.
+*   **Remaining Challenges:**
+    *   **Automated Mapping:** It remains very difficult for compilers to *automatically* decide which code section should run on which core (CPU vs. NPU) or how to partition a workload (sharding) across them without manual intervention.
+    *   **Customization vs. Tooling:** Every new hardware accelerator requires a custom-written compiler backend or "finalizer" to map operations efficiently. There is currently no "universal compiler" that can instantly target a custom NPU design with high efficiency.
 
 ## Lecture 8
 
-36. How do DVFS and AFS work, what is the difference between them and what are their advantages/disadvantages?
+### 36. DVFS vs. AFS
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**How they work:**
 
-37. What is the difference between resilient and adaptive designs? Give and explain an example of both. Are they sometimes combined?
+*   **DVFS (Dynamic Voltage and Frequency Scaling):** This is an **open-loop** control technique. The operating system or scheduler determines the frequency and voltage based on the current **workload** (the number of tasks in the queue). It selects a pre-defined pair of frequency and voltage settings (often called P-states) from a look-up table established at design/test time.
+*   **AFS (Adaptive Frequency Scaling):** This is a **closed-loop** control technique. It uses on-chip **sensors** (monitoring temperature, aging, or timing margins) to detect the *actual* physical conditions of the chip at runtime. It dynamically adjusts the frequency (and potentially voltage) to the maximum safe level possible under the current conditions.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Differences & Trade-offs:**
 
-38. What is the difference between EDS and TRCs, and how can they be used in a pipelined processor? What are their advantages / disadvantages? Explain their different performance (L8, slide 29/30).
+*   **Reaction Speed:** DVFS is generally slow and predictive, reacting to software workload changes. AFS is reactive and fast, capable of responding to physical variations.
+*   **Margins (Guardbands):**
+    *   **DVFS Disadvantage:** Because it is open-loop, it must include large safety margins (guardbands) to account for worst-case scenarios (worst-case silicon, temperature, and aging) to ensure the pre-defined P-states always work. This wastes energy and performance.
+    *   **AFS Advantage:** By monitoring the actual silicon speed, AFS allows the removal of these pessimistic guardbands, reclaiming performance or energy efficiency,.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 37. Resilient vs. Adaptive Designs
 
-39. What can be done to overcome very fast voltage droops under a fixed supply voltage and static clock generation.
+**Difference:**
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+*   **Resilient Designs:** Focus on **error detection and correction**. They allow timing errors to happen (e.g., during a fast voltage droop) but have mechanisms to detect them immediately and correct the result (e.g., by replaying the instruction),.
+*   **Adaptive Designs:** Focus on **error avoidance**. They sense conditions (like a voltage droop starting) and adjust parameters (like slowing down the clock or throttling instructions) to prevent errors from occurring in the future.
 
-40. What can be done to overcome very fast voltage droops, when exploiting integrated supply and voltage regulation (illustrate with L8_Zimmer)
+**Combination:**
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+Yes, they are often combined because they solve different problems.
+
+*   **Resiliency** is fast enough to handle the *immediate* impact of a fast voltage droop (first few cycles) where feedback loops are too slow.
+*   **Adaptivity** is used to adjust the system for sustained problems.
+*   **Example:** A system might use **EDS** (resiliency) to detect a timing error during a sharp voltage droop and trigger a replay. Simultaneously, this error signal acts as a trigger for the **Adaptive Control** to lower the clock frequency or throttle instructions to prevent further errors while the voltage remains low,.
+
+### 38. EDS vs. TRC
+
+**Definitions & Usage:**
+
+*   **EDS (Error-Detection Sequential):** This is an **intrusive** "in-situ" technique. It replaces standard flip-flops on the critical path with "Razor" flip-flops (a flip-flop + a latch + a comparator). It detects if data changes *after* the clock edge but within a specific detection window. If an error is detected, it triggers a pipeline flush and replay.
+*   **TRC (Tunable Replica Circuit):** This is a **non-intrusive** technique. It places a tunable delay line (a dummy path) next to the processor core that mimics the critical path delay. If the replica circuit fails, the system assumes the core is about to fail and takes action.
+
+**Performance (Slide 29/30 reference):**
+
+*   **EDS Performance:** EDS generally achieves higher throughput gains (e.g., **16%**) because it monitors the *actual* critical path. It can run the processor right up to the point of failure, removing almost all margins.
+*   **TRC Performance:** TRC achieves lower gains (e.g., **12%**).
+*   **Explanation:** TRC requires a "safety margin" (guardband) because the replica circuit never perfectly matches the real critical path (miscorrelation). EDS is limited only by the "min-delay" constraint (the detection window size), whereas TRC is limited by the accuracy of the replica,.
+
+### 39. Overcoming Fast Voltage Droops (Fixed Supply/Clock)
+
+If the supply voltage is fixed and the clock generation is static (meaning you cannot slow down the clock instantly), you have limited options to handle fast voltage droops caused by sudden current spikes:
+
+1.  **Guardbands:** Run the processor permanently at a higher voltage or lower frequency than necessary to ensure it survives the worst-case droop without failing.
+2.  **Decoupling Capacitance:** Add massive on-chip decoupling capacitors to act as local energy reservoirs, smoothing out the droops. This consumes significant silicon area.
+3.  **Instruction Throttling:** Use a "Critical Path Monitor" (CPM) or voltage sensor to detect the start of a droop. Immediately reduce the workload intensity by **throttling the instruction fetch** (e.g., fetching instructions only every other cycle). This reduces the current draw, allowing the voltage to recover.
+
+### 40. Overcoming Fast Voltage Droops with Integrated Regulation (L8_Zimmer)
+
+When exploiting integrated supply and voltage regulation, specifically **Unified Voltage & Frequency Regulation (UVFR)**, one can use **Adaptive Clocking** to overcome droops.
+
+*   **Mechanism:** Instead of trying to keep the voltage perfectly stable, the system allows the voltage to ripple or droop. The clock generator is designed to track the supply voltage instantly.
+*   **L8_Zimmer Illustration:** The RISC-V processor described in the Zimmer paper uses **Switched-Capacitor DC-DC converters** that are non-interleaved, causing a significant, intentional voltage ripple.
+*   **Solution:** An **adaptive clock generator** uses a Tunable Replica Circuit (TRC) powered by the same rippling voltage as the core.
+    *   When the voltage drops (droop/ripple), the TRC slows down.
+    *   This instantly slows down the clock being sent to the core.
+    *   This ensures that the "Clock Data Compensation" happens cycle-by-cycle: as the logic slows down due to low voltage, the clock period stretches to accommodate it,.
+*   **Result:** The processor operates reliably even with large 100mV ripples and fast transitions, achieving high efficiency (26.2 GFLOPS/W) without needing large margins or off-chip components,.
 
 ## Guest Lecture
 
-41. How does NXP's micro NPU differs from a more traditional NPU, such as e.g. the Envision processor. Why are they making these choices at NXP?
+### 41. NXP's Micro-NPU vs. Traditional NPUs (e.g., Envision)
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Differences:**
 
-42. Explain the operation of the systolic dot product array of NXP for a GeMM workload. What are its benefits and downsides compared to a regular systolic array?
+*   **Memory Architecture:** Traditional NPUs, like Envision, typically rely on massive, private on-chip SRAMs (scratchpads) to store complete models or large activation maps to minimize external memory access. In contrast, NXP's **Micro-NPU** is designed as a "Near-Memory Compute" architecture deeply integrated into the SoC. It uses small, tightly coupled memories (TCM) and relies on **interconnect awareness** to efficiently reuse shared system resources (system SRAM, Flash, DDR) rather than owning large private buffers,.
+*   **Data Handling:** Instead of static data buffering, the Micro-NPU employs a programmable **Data Engine**. This engine fetches, realigns, and constructs input vectors (rows and columns) "on-the-fly" from system memory to feed the compute units, hiding system memory latency,.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+**Why NXP makes these choices:**
 
-43. Which techniques are used in NXP's compiler use to optimize memory accesses or memory useage?
+*   **Cost and Area Efficiency:** High peak performance (TOPS) often correlates with high silicon cost. By removing large dedicated SRAMs and reusing existing system memory, NXP minimizes the silicon area, making the NPU affordable for cost-sensitive edge devices (MCUs/MPUs),.
+*   **Flexibility:** Storing entire models on-chip is impractical for modern, large-scale models (e.g., Transformers). The data-driven, programmable dataflow allows the Micro-NPU to handle diverse and evolving workloads without the rigid constraints of a fixed internal memory hierarchy.
 
-> **To be answered**
-> 
-> &nbsp;
-> 
-> &nbsp;
+### 42. Operation of NXP's Systolic Dot Product Array
 
-44. Apply the roofline model to the different phases of transformer execution. What is the impact of the datatype in this? What is the impact of the embedding length in this?
+**Operation:**
+
+The core consists of $M$ parallel dot-product units. In every clock cycle, each unit computes a dot product of two vectors of length $N$. The array executes a **tile** of computation (e.g., $M \times A$ results) by utilizing **spatial parallelism** (calculating $M$ output rows in parallel) and **temporal accumulation** (accumulating partial results over time in local registers),. To reduce bandwidth, operands are often shared across lanes (e.g., broadcasting one weight vector to all $M$ units).
+
+**Comparison to a Regular Systolic Array (e.g., TPU):**
+
+*   **Benefits:**
+    *   **Utilization:** Regular systolic arrays (fixed grids) suffer from low utilization when workload dimensions do not perfectly match the array size. NXP's dot-product approach allows for flexible tiling (spatial and temporal unrolling), ensuring high utilization even for irregular layer shapes provided $A \geq M$,.
+    *   **Efficiency (Area/Wiring):** A regular array typically requires $N \cdot M$ wide (32-bit) accumulators and complex neighbor-to-neighbor wiring. NXP's architecture drastically reduces this overhead by sharing operands and accumulating temporally in a smaller set of local registers ($A$ accumulators per unit), reducing logic and wire/register costs,.
+*   **Downsides:**
+    *   **Control Complexity:** Unlike the rhythmic, self-managing data flow of a pure systolic array, NXP's approach shifts complexity to the **Data Engine** and the **compiler**, which must orchestrate the precise fetching and "on-the-fly" construction of data tiles to keep the pipelines fed.
+
+### 43. NXP Compiler Techniques for Memory Optimization
+
+The compiler uses a **Constraint Programming (CP)** approach to solve the joint problem of scheduling and allocation. Specific techniques include:
+
+1.  **Ahead-of-Time (AoT) Scheduling:** The compiler statically schedules all compute jobs and data movements (DMA) to overlap computation with memory transfers (Decoupled Access-Execute), effectively hiding memory latency,.
+2.  **Tiling and Format Selection:** It automatically selects optimal **temporal tile sizes** to fit within the TCM and chooses between **Line Parallelism** (spatial tiling along height) and **Depth Parallelism** (spatial tiling along channels) to maximize compute utilization based on the layer dimensions,.
+3.  **Layer Fusion:** The compiler interleaves the execution of consecutive layers (fusing them) to keep intermediate activation data within the small L1/TCM memory, significantly reducing traffic to off-chip memory (DRAM).
+4.  **Memory Banking & Reuse:** It manages memory allocation at the **bank level** to prevent access conflicts and aggressively reuses memory addresses for tensors whose lifetimes do not overlap,.
+5.  **Compression:** It supports **Weight Entropy Encoding** (decompressed on-the-fly by hardware) and exploits **Sparsity** (pruning) to reduce the memory footprint and bandwidth requirements.
+
+### 44. Roofline Model and Transformer Execution
+
+**Phases of Execution:**
+
+1.  **Prompt Encoding (Prefill):** This phase involves Matrix-Matrix multiplication ($Q \times K^T \times V$) over the input sequence.
+    *   **Roofline Position:** High Arithmetic Intensity (AI). The AI is approximately $2t$, where $t$ is the token sequence length. For long prompts ($t \gg 1$), this phase is **compute-bound** (flat part of the roofline).
+    *   **Impact of Embedding Length:** As the sequence length ($t$) increases, the AI increases linearly, pushing the workload further to the right into the compute-bound region, maximizing hardware utilization.
+2.  **Token Generation (Decode):** This phase is auto-regressive (generating one token at a time), involving Matrix-Vector multiplication.
+    *   **Roofline Position:** Low Arithmetic Intensity. Since weights must be loaded for every single generated token, the AI is low, making this phase heavily **memory-bandwidth bound** (sloped part of the roofline).
+
+**Impact of Datatype:**
+
+*   **Memory-Bound (Decode):** Reducing precision (e.g., INT8 to INT4) is critical here. It linearly increases the effective throughput because it reduces the data volume fetched from memory, effectively "shifting the slope" of the roofline up or moving the workload to the right (higher Ops/Byte),.
+*   **Compute-Bound (Encoding):** Reducing precision improves performance only if the NPU has specific hardware support (e.g., 2x more parallel MACs for INT8 vs FP16) to raise the peak compute ceiling.

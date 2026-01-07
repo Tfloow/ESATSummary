@@ -693,6 +693,7 @@ Moreover, the stress and strain have a linear relationship. It is sensitive in o
 **Question 20:** Why do we need at least 2 temperature sensors for getting a high accuracy in a MoX sensor?
 
 **Answer:**
+
 1.  **Heater Control:** One sensor measures the heater temperature to maintain the precise high temperature required for the chemical reaction. We must precisely heat up MOx to 600 degree C.
 2.  **Compensation:** The second sensor measures the temperature of the sensing gas layer itself to compensate for the temperature dependence of the MOx material's resistivity.
 
@@ -713,9 +714,10 @@ Moreover, the stress and strain have a linear relationship. It is sensitive in o
 **Question 23:** Give 3 examples of capacitive sensors: one where we measure a difference in distance, one where we measure a difference in dielectric, one where we measure a difference in area.
 
 **Answer:**
+
 1.  **Distance:** Pressure sensor (diaphragm moves).
 2.  **Dielectric:** Humidity sensor (polymer absorbs water, changing $\epsilon_r$).
-3.  **Area:** Rotary encoder or liquid level sensor (overlap between electrodes changes).
+3.  **Area:** Capacitive touch screens.
 
 **Question 24:** Draw a typical piezo crystal readout. Explain the bode plot of a typical piezo crystal readout.
 
@@ -792,6 +794,7 @@ I think this is the answer but couldn't find anything precise in the course.
 **Question 35:** Give 3 examples of optical sensors : one where we measure a difference in source, one where we measure a difference in medium, one where we measure ToF
 
 **Answer:**
+
 1.  **Source:** NDIR gas analyzer (measures absorption of specific wavelengths by gas especially hydrocarbons).
 2.  **Medium:** Liquid level sensor using a prism (measures change in reflection coefficient/refractive index of the medium surrounding the prism).
 3.  **ToF:** LiDAR (Light Detection and Ranging) measures distance by time-of-flight of a laser pulse. Or the Interferometer.
@@ -807,6 +810,7 @@ I think this is the answer but couldn't find anything precise in the course.
 **Question 38:** Give 3 examples of a time-of-flight sensor.
 
 **Answer:**
+
 1.  Ultrasonic distance sensor (echography).
 2.  LiDAR.
 3.  Inferometer
@@ -814,6 +818,7 @@ I think this is the answer but couldn't find anything precise in the course.
 **Question 39:** Give 2 extensive and concrete examples of digital signal compensation used in a sensor.
 
 **Answer:**
+
 1.  **Hall Sensor Temperature Compensation:** A Hall sensor's sensitivity decreases with temperature. A DSP measures the temperature using an integrated sensor and digitally scales the Hall reading using a polynomial model (e.g., $1 + aT + bT^2$) to flatten the response.
 2.  **Image Sensor Corrections:** DSP corrects for "Dead Pixels" (interpolating from neighbors), "Dark Current" (subtracting a dark frame offset), and "Fixed Pattern Noise" (correcting pixel-to-pixel gain variations).
 

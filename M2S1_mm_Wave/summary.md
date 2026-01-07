@@ -655,6 +655,76 @@ In reality, close to $f_{SRF}$, the impedance goes up due to resonance. We must 
 
 \part{Exam questions}
 
+\newpage
+
+# List of questions
+
+## actives
+
+1. Explain Shannon
+2. Explain Friis and FSPL
+3. Why is an array needed at mm-wave frequencies?
+4. Why is beamforming needed?
+5. What are the main limitations of gain at mm-wave frequencies (above 20GHz)
+6. What are the main limitations of gain at RF frequencies (below 20GHz)
+7. How does the gate resistance scale with the number of fingers?
+8. Can we do complex conjugate matching at RF frequencies?
+9. How to solve stability problems at mm-wave and RF ?
+10. What are the drawbacks of neutralization?
+
+## passives
+
+1. Explain why Q-factor of inductors improve as we go to higher frequency
+2. Discuss the different ways to calculate Q of an inductor
+3. Which metal layers would you use to implement inductors? Which ones to
+implement capacitors?
+4. Explain why a 2-turn inductor behaves very differently in common-mode than a
+1-turn inductor
+5. Show on a smith chart how transformer-based matching works
+6. Explain the impact of coupling-cap (between primary and secondary) in a
+transformer
+7. Which transmission line structures perform the best in III/V and which ones in
+CMOS?
+8. Explain how a slow-wave transmission line works
+9. Is shielding useful in single-ended structure?
+
+## transformers
+
+1. Compare bipolar with CMOS. Which one is better?
+2. Very often, the magnetic coupling (k) of a transformer is reduced on purpose.
+Why?
+3. Explain the causes of imbalance in balanced transformers. Explain how to
+reduce this imbalance
+4. In some situations, isolating the ground between primary and secondary
+winding of a transformer, helps to improve performance. Explain this effect
+
+## PA system level
+
+1. Explain the difference between matching for gain and matching for output power
+2. Explain the difference between ratio gain and slope gain.
+3. What is PAPR and what is the problem when the PAPR is high?
+4. Is second-order distortion important or not?
+5. What is EVM
+6. What is AM-AM and what is AM-PM ?
+
+## Receivers
+
+
+1. What is the problem with the heterodyne mixing
+2. Explain the tradeoff between image rejection and channel selection
+3. What is homo-dyne mixing?
+4. Explain sliding IF
+5. Explain the basic concepts of image-rejection receivers
+6. Compare Low-IF and Zero-IF
+7. What is a polyphase filter?
+
+## Transmitters
+
+1. Discuss why we do baseband filtering and what is a Nyquist filter
+2. What is PA-VCO pulling and how can we solve it?
+
+\newpage
+
 You can find human answered questions at this [URL](https://docs.google.com/document/d/1lEV2Qdt3hnRr6ZiOJNV0eW85YG45oVbZDZI_VzP5jhY/edit?usp=sharing).
 
 Here is some Notebook LM based one
