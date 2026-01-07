@@ -831,3 +831,499 @@ I think this is the answer but couldn't find anything precise in the course.
 *   **Trade-off:** Accuracy costs power. The relationship $\frac{\text{Speed} \cdot (\text{Accuracy})^2}{\text{Power}} = C_T$ implies that increasing accuracy (SNR) requires a quadratic increase in power, while speed scales linearly.
  
 *   **Bonus:** Use a **ratiometric measurement**. If the Hall sensor is powered by $V_{drive}$ and the ADC uses $V_{drive}$ as its reference voltage ($V_{ref}$), the term $V_{drive}$ appears in the numerator (signal) and denominator (ADC scaling), cancelling out any fluctuations in the drive voltage.
+
+
+\newpage 
+
+Gemini Pro answer
+
+Based on the provided course material `cursus-1.pdf`, here are the in-depth and precise answers to the exam questions from `exam_questions.pdf`.
+
+### **1. Theory**
+
+**Question 1: Discuss resolution in measurement systems, give 2 examples. What is the influence on noise?**
+
+* 
+**Resolution:** Resolution is defined as the maximum variation at the input of a measurement system which does not trigger a change at the output. It represents the smallest detectable change in the physical quantity being measured. It is often expressed as a percentage of the input span or in bits.
+
+
+* **Examples:**
+1. **Wire-wound potentiometer:** The resolution is determined by the spacing of the wire windings. The wiper moves from one winding to the next, creating discrete steps in resistance rather than a continuous change.
+
+
+2. **Analog-to-Digital Converter (ADC):** The resolution is typically defined by the number of bits (). For an input range of , the smallest detectable step is .
+
+
+
+
+* **Influence on Noise:** Resolution is closely linked to quantization noise. A limited resolution introduces an error that can be modeled as noise (quantization noise). For an ideal quantizer, this noise power is . Higher resolution (smaller steps) reduces this quantization noise, thereby improving the signal-to-noise ratio (SNR).
+
+
+
+**Question 2: Describe hysteresis. Give one example. Explain how feedback can be used to reduce hysteresis.**
+
+* 
+**Hysteresis:** Hysteresis is a "memory" effect where the output of a sensor differs for the same input value depending on whether the input was increasing or decreasing. It is defined as the difference .
+
+
+* **Example:** A **gear system** converting linear to angular movement exhibits hysteresis due to backlash (gaps between gear teeth). When changing direction, the input must cross the gap before the output starts moving, causing a different path for forward and backward motions. Ferromagnetic materials also show hysteresis in their magnetization curves.
+
+
+* **Feedback:** High-gain feedback reduces errors in the forward path. If a sensor with hysteresis is placed in the forward path of a control loop with a high loop gain, the effect of hysteresis is divided by the loop gain, effectively linearizing the system. However, if the sensor is in the feedback path, its errors (including hysteresis) directly affect the output.
+
+
+
+**Question 3: Elaborate on non-linearity. Which measurement characteristics describe non-linearity. Explain how feedback can be used to reduce non-linearity.**
+
+* 
+**Non-linearity:** This is the deviation of a system's input-output relationship from an ideal straight line.
+
+
+* **Characteristics:**
+1. 
+**Maximum non-linearity error ():** The maximum deviation between the actual curve and the ideal line, often expressed as a percentage of the span.
+
+
+2. 
+**Integral Non-Linearity (INL):** In digital systems, this corresponds to the maximum deviation from the ideal transfer line.
+
+
+3. 
+**Differential Non-Linearity (DNL):** The variation in step size for adjacent digital codes; it measures the deviation of a single step from the ideal 1 LSB width.
+
+
+4. 
+**Harmonic Distortion (THD):** In the frequency domain, non-linearity creates harmonics () for a sine wave input.
+
+
+
+
+* **Feedback:** Similar to hysteresis, negative feedback reduces non-linearity. If a non-linear component is in the forward path and is surrounded by a high-gain feedback loop, the overall system transfer function approximates the inverse of the feedback network (). Thus, if the feedback network () is linear, the output () becomes a linear function of the input (), suppressing the non-linearity of the forward component ().
+
+
+
+**Question 4: Discuss the difference between rise time and settling time for a second order measurement system.**
+
+* 
+**Rise Time ():** The time it takes for the system's response to rise from a low value (usually 0% or 10%) to a high value (usually 90% or 100%) of the final step value for the first time. It indicates the speed of the system's initial reaction.
+
+
+* 
+**Settling Time ():** The time required for the response to enter and stay within a specified error band (e.g., ) of the final steady-state value. It accounts for both the initial rise and the decay of any oscillations (ringing).
+
+
+* 
+**Key Difference:** Rise time measures the *fastest edge*, while settling time measures how long it takes to actually *reach stability*. A system can be fast (short rise time) but take a long time to settle if it is underdamped and oscillates significantly.
+
+
+
+**Question 5: Discuss the importance of differential systems. Discuss non-linearity and environmental interferers.**
+
+* 
+**Importance:** Differential systems measure the difference between two inputs () rather than a single-ended value relative to ground.
+
+
+* **Non-linearity:** Differential systems inherently cancel out **even-order harmonics** (distortions). If the system is symmetric, the even terms in the Taylor series expansion of the two inputs cancel each other out (), leaving only odd harmonics. This reduces total harmonic distortion.
+
+
+* **Environmental Interferers:** Differential systems reject **common-mode interference**. Environmental noise (like electromagnetic interference from mains voltage) often affects both signal lines equally (). Since the output is the difference (), this common-mode noise is subtracted out, improving immunity to external errors.
+
+
+
+**Question 6: Explain aliasing. Couple this to kT/C noise. When having a resistive sensor of  MOhm filtered with a capacitor of 100pF, why would we need to take  when we sample at 1kHz?**
+
+* **Aliasing:** Aliasing occurs when a signal is sampled at a frequency () lower than twice its bandwidth (Nyquist rate). Frequencies above  "fold" back into the baseband, becoming indistinguishable from lower frequencies.
+
+
+* 
+**kT/C Noise:** This is the total integrated thermal noise power in a resistor-capacitor (RC) circuit, given by .
+
+
+* **Coupling:** In the example,  and . The bandwidth (corner frequency) of the RC filter is .
+
+
+* **Why take kT/C:** We sample at , which gives a Nyquist frequency of 500 Hz. The filter bandwidth (10 kHz) is much higher than the Nyquist frequency. This means noise between 500 Hz and 10 kHz is *not* filtered out before sampling; instead, it aliases (folds) back into the 0–500 Hz baseband. All the noise power from the wide bandwidth accumulates in the baseband. Therefore, the total noise variance seen by the sampler is the full integrated noise , not just the noise within the 500 Hz bandwidth.
+
+
+
+**Question 7: Long term drift. Explain why we can accelerate the drift measurements. Give 2 different drift tests.**
+
+* **Accelerating Drift:** Drift is often caused by chemical or physical aging processes (e.g., oxidation, diffusion) which follow the Arrhenius equation. These processes are temperature-dependent. By increasing the temperature, the reaction rates increase exponentially, allowing us to simulate long-term aging in a short time.
+
+
+* **Drift Tests:**
+1. **High Temperature Operating Life (HTOL):** The device is operated at an elevated temperature (e.g., ) for an extended period (e.g., 1000 hours) to simulate years of operation at room temperature.
+2. **Temperature Cycling Test (TCT):** The device is cycled between extreme temperatures (e.g.,  to ). This stresses the mechanical interfaces (like bond wires or packaging) due to thermal expansion mismatches, revealing drift caused by mechanical fatigue or delamination.
+
+
+
+
+
+**Question 8: Explain the difference between white noise and pink noise. Explain why we cannot filter 1/f noise.**
+
+* **White Noise:** Noise with a constant power spectral density across all frequencies (flat spectrum). It is caused by thermal motion of electrons (Johnson-Nyquist noise).
+
+
+* **Pink Noise (1/f Noise):** Noise where the power spectral density is inversely proportional to frequency (). It dominates at low frequencies.
+
+
+* **Filtering:** We generally cannot filter 1/f noise using standard linear filters (low-pass/high-pass) because it is present in the same low-frequency band as the measurement signal (DC or slow-varying signals). Filtering the noise would also filter out the signal of interest. Techniques like **chopping** or **auto-zeroing** (modulation) are required to move the signal to a higher frequency where white noise dominates, effectively separating it from the 1/f noise.
+
+
+
+**Question 9: Why can we represent resolution as quantization noise? Can we filter quantization noise? Elaborate.**
+
+* **Resolution as Noise:** Quantization maps a continuous input to discrete steps. The error between the actual input and the quantized output () behaves like a random variable uniformly distributed between  and . This error adds uncertainty to the measurement, statistically acting like an additive noise source with variance .
+
+
+* **Filtering:** Yes, quantization noise can be filtered *if* the signal is oversampled. Quantization noise is roughly white (spread over the Nyquist bandwidth). By sampling much faster than the signal bandwidth and then applying a digital low-pass filter (decimation), we remove the noise power outside the signal band, effectively increasing the resolution (ENOB).
+
+
+
+**Question 10: Give a block diagram of a generalized measurement chain. Discuss gain distribution. Why would we sometimes split up the gain in several amplifiers in series?**
+
+* 
+**Block Diagram:** Input (True Value)  **Sensing Element**  **Signal Conditioning** (Amplification, Filtering)  **ADC/Observation**  DSP  Output.
+
+
+* **Gain Distribution:** Gain should be distributed to optimize the **Signal-to-Noise Ratio (SNR)** and prevent **saturation**.
+* **Splitting Gain:**
+1. **Noise:** High gain in the first stage is desirable to suppress the noise contribution of subsequent stages (Friis formula for noise).
+2. **Saturation/Offset:** If the first stage has very high gain, it might amplify the sensor's DC offset causing the amplifier to saturate (hit the supply rails). Splitting gain allows us to filter out the offset (e.g., using a capacitor or DAC) between stages before applying the remaining gain.
+
+
+3. **Bandwidth:** Amplifiers have a Gain-Bandwidth Product (GBW). Splitting gain allows each stage to operate with lower gain, thereby maintaining a higher total bandwidth.
+
+
+
+**Question 11: Explain chopping. Why would we use this in measurement systems? What is the origin of chopping ripple?**
+
+* **Chopping:** Chopping is a modulation technique. The input DC (or low-frequency) signal is multiplied by a high-frequency square wave (chopper), moving the signal to the chopping frequency. After amplification, it is demodulated back to DC.
+
+
+* **Why use it:** It is used to eliminate **offset** and **1/f noise** from the amplifier. Since the amplifier's offset/noise remains at DC (or low frequency) while the signal is at the chopping frequency, the offset/noise can be filtered out after demodulation (or simply doesn't get demodulated back to DC in the same way).
+
+
+* **Chopping Ripple:** The origin is the limited bandwidth or delay of the amplifier. When the square wave is amplified, the edges might be rounded or phase-shifted. When demodulated, these imperfections do not perfectly cancel, leaving residual spikes or "ripple" at the chopping frequency.
+
+
+
+### **2. Measurement Chain & Errors**
+
+**Question 12: What is aliasing? How can we avoid this? What is the consequence for a measurement system?**
+
+* 
+**Aliasing:** As defined in Q6, it is the folding of high-frequency signals/noise into the baseband during sampling.
+
+
+* **Avoidance:** It is avoided by enforcing the **Nyquist-Shannon sampling theorem**: sample at a rate . In practice, an **anti-aliasing filter** (low-pass filter) is placed before the ADC to attenuate frequencies above .
+
+
+* **Consequence:** Aliasing causes **distortion** and **errors** that cannot be removed after sampling. High-frequency noise or interference appears as valid low-frequency data, corrupting the measurement accuracy.
+
+
+
+**Question 13: Discuss calibration what will limit the accuracy? why would we need to take a long calibration time into account? Give an example why knowledge on the sensor helps the calibration process.**
+
+* **Accuracy Limit:** Calibration accuracy is limited by the **reference standard's accuracy** and the **noise** during the calibration measurement. You cannot calibrate to an accuracy better than the noise floor at the time of calibration.
+
+
+* **Long Time:** To minimize the impact of noise during calibration, we need to average the measurement over a long time. Averaging  samples reduces the standard deviation of the noise by . Thus, high accuracy requires long measurement times.
+
+
+* **Sensor Knowledge:** Knowing the sensor's physics helps select the correct **model** (e.g., polynomial vs. exponential). For a thermistor, knowing it follows an exponential law () allows for accurate calibration with fewer points than blindly fitting a high-order polynomial, which might oscillate or fit noise.
+
+
+
+**Question 14: Explain the difference between compensation and calibration.**
+
+* **Calibration:** The process of determining the relationship between the sensor output and the true input value, often by comparing against a known standard. It involves calculating coefficients (gain, offset) to correct the static transfer function.
+
+
+* **Compensation:** The active correction of errors caused by *secondary* variables (modifying inputs) like temperature or supply voltage. For example, using a temperature sensor to adjust the reading of a pressure sensor to account for its temperature sensitivity. Compensation corrects for changing environmental conditions, whereas calibration corrects for manufacturing tolerances.
+
+
+
+**Question 15: Draw the schematic of an instrumentation amplifier. Elaborate on its most important properties.**
+
+* 
+**Schematic:** An instrumentation amplifier typically consists of 3 op-amps: two input buffers (non-inverting) creating a differential input stage with gain, followed by a difference amplifier. (Refer to Figure 8.3 in the text).
+
+
+* **Properties:**
+1. 
+**High Input Impedance:** The inputs go directly to the gates/bases of the input op-amps, not loading the sensor.
+
+
+2. 
+**High CMRR:** It strongly rejects common-mode signals (noise) while amplifying the differential signal.
+
+
+3. **Gain:** The gain is set by a single external resistor (), making it easy to adjust without affecting the matched resistors that determine CMRR.
+
+
+
+**Question 16: Explain the non-linearity of a Wheatstone bridge with only 1 sensing element. Discuss how to improve this. Give an example on how we could create a measurement system with 2 resistive sensors with inverted sensitivities.**
+
+* **Non-linearity:** A single-element bridge (quarter bridge) has an output . The  term in the denominator causes non-linearity.
+
+
+* **Improvement:** Use a **current drive** instead of voltage drive (), or use **feedback** to keep the bridge balanced.
+* **2 Sensors (Inverted):** Use two sensors with opposite sensitivities ( and ), e.g., strain gauges on opposite sides of a bending beam (one in tension, one in compression). Placing them in the same leg (half-bridge) or opposite legs effectively linearizes the output because the non-linear terms in the numerator and denominator cancel out or the sensitivity doubles while maintaining symmetry.
+
+
+
+**Question 17: Describe the design of an oscillator as a sensor readout interface for a reactive sensor element.**
+
+* 
+**Design:** A reactive sensor (capacitor or inductor) is placed in the feedback network of an active circuit (like an op-amp or comparator) to form an oscillator.
+
+
+* **Principle:** The oscillation frequency is determined by the resonance of the LC or RC network (). As the sensor value ( or ) changes, the frequency changes.
+
+
+* **Readout:** The output is a frequency, which can be digitized directly by a counter/timer. This eliminates the need for a conventional ADC, providing a direct "sensor-to-digital" interface.
+
+
+
+### **3. Sensors**
+
+**Question 18: Explain the working principle of a strain gauge.**
+
+* **Principle:** A strain gauge relies on the **piezoresistive effect** and geometry change. When a conductive material is stretched (strained), its length () increases and cross-sectional area () decreases (Poisson effect), increasing resistance ().
+
+
+* 
+**Gauge Factor:** The sensitivity is described by the Gauge Factor (), which combines geometric changes and the change in resistivity () due to stress.
+
+
+
+**Question 19: Explain the working principle of an Hall sensor. Bonus: explain spinning and why we can spin a Hall sensor and not another Wheatstone bridge.**
+
+* **Principle:** The Hall effect occurs when a current flows through a conductor in a magnetic field. The Lorentz force deflects charge carriers to one side, creating a voltage () perpendicular to both current and field.
+
+
+* **Spinning:** A technique to remove offset. The current terminals and voltage measurement terminals of the Hall plate are cyclically swapped (rotated 90 degrees). The magnetic signal polarity remains the same, but the resistive offset polarity flips. Averaging the phases cancels the offset.
+
+
+* **Why Hall:** A Hall plate is a symmetric 4-terminal device where input/output ports are geometrically identical and interchangeable. A standard Wheatstone bridge has distinct components for each leg; "spinning" it would physically rewire the resistors, which doesn't inherently cancel mismatch offsets in the same way (though chopping is similar).
+
+**Question 20: Why do we need at least 2 temperature sensors for getting a high accuracy in a MoX sensor?**
+
+* **Reason:** Metal Oxide (MoX) gas sensors use a heater to operate at high temperatures.
+1. One temperature sensor is needed to control the **heater temperature** precisely, as gas sensitivity is highly temperature-dependent.
+2. A second sensor measures the **ambient temperature** to compensate for environmental drifts and the temperature coefficient of the gas sensing layer itself. (Note: This is an inference based on general sensor fusion principles in section 2.4.2 and temperature compensation in 7.5. The text explicitly mentions temperature compensation for Hall sensors and general thermal dependencies).
+
+
+
+
+
+**Question 21: Explain a capacitive pressure sensor. Why do we need a CDAC?**
+
+* **Principle:** It consists of a diaphragm that acts as one plate of a capacitor. Pressure deforms the diaphragm, changing the distance () between plates, thus changing capacitance ().
+
+
+* **CDAC (Capacitive DAC):** The sensor has a large "rest" capacitance () and a small variation (). A CDAC is used in the readout circuit to subtract the large  (offset removal). This allows the amplifier to focus only on the small , preventing saturation and maximizing dynamic range.
+
+
+
+**Question 22: Explain how an accelerometer works. What is the difference between a capacitive accelerometer and a piezoresistive based accelerometer?**
+
+* **Principle:** An accelerometer is a mass-spring-damper system. Acceleration acts on the proof mass (), causing a displacement () against the spring (). Measuring  yields the acceleration.
+
+
+* 
+**Capacitive:** Measures displacement  by the change in capacitance between the moving mass and fixed electrodes. It is typically more sensitive and stable for low-g static acceleration (like tilt).
+
+
+* 
+**Piezoresistive:** Measures the stress in the spring (support beams) using piezoresistors. It is often simpler but can be temperature sensitive.
+
+
+
+**Question 23: Give 3 examples of capacitive sensors: one where we measure a difference in distance, one in dielectric, one in area.**
+
+* 
+**Distance ():** **Pressure sensor** (diaphragm moves) or **Microphone**.
+
+
+* **Dielectric ():** **Humidity sensor**. The polymer dielectric absorbs water from the air, changing its permittivity.
+
+
+* 
+**Area ():** **Level sensor** (liquid rising between plates changes effective area) or **Lateral accelerometer** (comb fingers sliding past each other).
+
+
+
+### **4. Advanced Sensors & Acoustics**
+
+**Question 24: Draw a typical piezo crystal readout. Explain the bode plot of a typical piezo crystal readout.**
+
+* **Readout:** A charge amplifier is typically used. The piezo is a capacitor () generating charge. The readout uses an op-amp with a feedback capacitor () to convert charge to voltage ().
+
+
+* **Bode Plot:** It behaves like a band-pass filter. At low frequencies, the leakage resistance dominates (high-pass behavior). At resonance, there is a sharp peak (determined by the mechanical Q-factor). Above resonance, the response flattens or rolls off depending on the damping.
+
+
+
+**Question 25: Elaborate on acoustic transmission. What is acoustic impedance? what is reflection / transmission.**
+
+* 
+**Impedance ():** Acoustic impedance is the resistance of a medium to sound flow, defined as  (density  speed of sound).
+
+
+* **Reflection/Transmission:** When sound hits an interface between two media (), part is reflected and part transmitted.
+* **Reflection Coefficient ():** . Large impedance mismatch causes high reflection.
+
+
+* **Transmission Coefficient ():** . To maximize transmission (e.g., from sensor to body), a matching layer is used.
+
+
+
+
+
+**Question 26: Explain echography. Give some applications. How can we measure depth and material at the same time?**
+
+* **Echography:** Uses the pulse-echo principle. A piezo transducer emits a high-frequency sound pulse. The pulse reflects off internal interfaces (impedance changes) and returns. The time of flight determines depth ().
+
+
+* 
+**Applications:** Medical imaging (fetus, organs), non-destructive testing (detecting cracks in metal).
+
+
+* **Depth & Material:**
+* **Depth:** From Time of Flight (ToF).
+* **Material:** From the **amplitude** of the reflection. A stronger reflection indicates a larger difference in acoustic impedance, characterizing the material interface.
+
+
+
+
+
+**Question 27: Why does a doctor use a gel in echography? Explain the properties of the gel. How would the gel change for measuring cracks in metal?**
+
+* **Why Gel:** Air has a very low impedance compared to body tissue (). Without gel, almost 100% of the ultrasound would reflect at the skin surface (impedance mismatch). Gel acts as a **coupling medium** or matching layer.
+
+
+* 
+**Properties:** The gel's acoustic impedance is designed to match that of human skin/tissue to maximize transmission.
+
+
+* **For Metal:** The coupling medium (gel/water) would need an impedance closer to that of the metal (or the transducer wedge) to facilitate energy transfer, although perfect matching to metal with a liquid is difficult. Water or oil is often used.
+
+
+
+**Question 28: Explain the use of the doppler effect in the case of a flowmeter.**
+
+* **Principle:** Ultrasonic waves are transmitted into a flowing fluid. Particles in the fluid reflect the sound. The frequency of the reflected sound is shifted due to the particle velocity (): . Measuring the frequency shift () gives the flow velocity.
+
+
+
+### **5. Optics & Systems**
+
+**Question 29: Use the theory of solid-state physics to explain absorption and transmission of light by specific molecules.**
+
+* **Theory:** Electrons in molecules occupy discrete energy levels (orbitals). Light consists of photons with energy .
+* **Absorption:** A molecule absorbs a photon only if the photon's energy exactly matches the energy gap between two electron states (). This excites the electron to a higher energy level. This creates a unique "fingerprint" absorption spectrum for each molecule.
+
+
+* **Transmission:** Wavelengths that do not match an energy gap pass through (are transmitted). .
+
+
+
+**Question 30: Explain the working principle of a LED.**
+
+* **Principle:** A Light Emitting Diode is a p-n junction. When forward biased, electrons from the n-side recombine with holes from the p-side in the depletion region. This recombination releases energy in the form of photons (spontaneous emission). The wavelength depends on the bandgap energy of the semiconductor material.
+
+
+
+**Question 31: Discuss the working principle of a photon detector.**
+
+* **Principle:** A photon detector (e.g., photodiode) works on the photoelectric effect. A photon with energy greater than the semiconductor bandgap strikes the material, generating an electron-hole pair. In a p-n junction (often reverse-biased), the electric field sweeps these carriers away, creating a measurable current (photocurrent) proportional to light intensity.
+
+
+
+**Question 32: What is the difference between a bolometer and a photon detector.**
+
+* **Photon Detector:** Quantum detector. Reacts to individual incident photons generating charge carriers. Fast, wavelength-dependent (bandgap).
+* **Bolometer:** Thermal detector. Absorbs radiation, which heats up the element. The temperature rise causes a change in resistance. It is generally slower (thermal mass) but has a broad, flat spectral response (wavelength independent).
+
+
+
+**Question 33: Draw the basic schematic of a readout of a photon detector.**
+
+* **Schematic:** A **Transimpedance Amplifier (TIA)** is typically used. The photodiode is connected to the inverting input of an op-amp. A feedback resistor () connects output to input.
+* **Operation:** The photodiode current () flows through , creating an output voltage . This converts current to voltage while keeping the diode bias constant (virtual ground).
+
+
+
+**Question 34: Discuss the imager matrix structure and the readout schematic.**
+
+* **Matrix:** Pixels are arranged in rows and columns.
+* **Readout:**
+* **Passive Pixel Sensor (PPS):** One transistor per pixel acting as a switch. Slow, high noise.
+* **Active Pixel Sensor (APS/CMOS):** Each pixel contains a photodiode and its own amplifier (3T or 4T structure). This allows charge-to-voltage conversion *inside* the pixel, reducing noise and allowing faster row-by-row readout.
+
+
+
+
+
+**Question 35: Give 3 examples of optical sensors: one where we measure a difference in source, one where we measure a difference in medium, one where we measure ToF.**
+
+* **Source:** **Pyrometer** (measures intensity/spectrum of the blackbody radiation source to determine temperature).
+* 
+**Medium:** **Gas absorption sensor** (measures light attenuation through a gas to determine concentration).
+
+
+* 
+**ToF:** **LiDAR** (measures time for a light pulse to reflect back).
+
+
+
+**Question 36: Give the difference between a Lidar and Radar system.**
+
+* **LiDAR:** Uses **Light** (Laser). Shorter wavelength (nm to m). Higher resolution, better for 3D mapping small details, but affected by weather (fog/rain).
+* **Radar:** Uses **Radio** waves (cm to mm). Longer wavelength. Lower resolution, but works well in poor weather/visibility conditions.
+
+
+
+**Question 37: Explain the working principle of an interferometer.**
+
+* **Principle:** (e.g., Michelson Interferometer). A light beam is split into two paths (reference and measurement). They reflect back and recombine.
+* **Effect:** The difference in path length causes a phase shift. When recombined, constructive or destructive interference occurs. The intensity changes cyclically with distance changes of , allowing for extremely precise distance measurements.
+
+
+
+**Question 38: Give 3 examples of a time-of-flight sensor.**
+
+* 1. **LiDAR** (Optical).
+
+
+* 2. **Ultrasonic Range Finder** (Acoustic).
+
+
+* 3. **Radar** (RF).
+
+
+
+**Question 39: Give 2 extensive and concrete examples of digital signal compensation used in a sensor.**
+
+* 1. **Temperature Compensation of a Hall Sensor:** A Hall sensor's sensitivity decreases with temperature. A DSP uses a separate temperature sensor reading. It applies a polynomial correction formula () to the Hall output to cancel the drift.
+
+
+
+
+* 2. **Non-linearity Linearization:** A sensor with a known non-linear transfer function (e.g., thermistor log response) is connected to a DSP. The DSP applies the inverse function (mathematically or via a Look-Up Table) to the digital data, outputting a linear temperature reading.
+
+
+
+
+
+**Question 40: Why do we want to fit the input range of the ADC? Elaborate on the speed-power-accuracy trade-off. Bonus: how can we use an ADC to remove the influence of the drive voltage of a Hall sensor.**
+
+* **Input Range:** To maximize **Signal-to-Noise Ratio (SNR)**. If the signal is too small, resolution is wasted. If too large, it clips (saturates). Matching the signal to the ADC full-scale range utilizes all available bits.
+
+
+* **Trade-off:**  (). To increase accuracy (SNR) by 1 bit (6dB, factor of 2 in voltage), we need 4x the signal power (or 4x averaging time, reducing speed). Higher speed requires more power to charge capacitors quickly.
+
+
+* **Bonus (Hall/ADC):** Use a **ratiometric measurement**. Power the Hall sensor and the ADC reference voltage () from the *same* supply source. The Hall voltage is proportional to the supply (). The ADC output is proportional to . The  term cancels out, removing the error caused by supply voltage drifts.

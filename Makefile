@@ -26,6 +26,9 @@ PANDOC_CMD = docker run --rm --volume "$(PWD)/$@:/data" $(PANDOC_IMAGE) \
 	--syntax-highlighting=idiomatic \
 	--number-sections
 
+# Take name and keep everyting before first underscore as year folder
+FOLDER_YEAR = $(firstword $(subst _, ,$@))
+
 
 YELLOW   = \033[1;33m
 BLUE     = \033[0;34m
@@ -35,6 +38,9 @@ NC       = \033[0m
 % : %/summary.md %/LICENSE.md
 	@printf "$(YELLOW)--> Compiling course: $(BLUE)%s$(NC)\n" "$@"
 	@cd $@; $(PANDOC_CMD)
+	@mkdir -p PDF 
+	@mkdir -p PDF/$(FOLDER_YEAR)
+	@cp $@/$@.pdf PDF/$(FOLDER_YEAR)/$@.pdf
 	@cp $@/$@.pdf PDF/
 	@rm -f $@/$@.pdf
 	@chmod 664 PDF/$@.pdf
