@@ -348,3 +348,273 @@ The $y^*$ is the simulated target, in the first equations with the $\min$ and $\
 ![Full MBTD3 architecture for circuit sizing](image-2.png){width=50%}
 
 This has been proven to produce better and faster results (less iteration) than state of the art GA algorithms.
+
+\newpage
+
+\part{Previous Exam Questions}
+
+# January 2026
+## TD3 project
+
+### How do you calculate phase margin? How do you deal with phase warp around?
+
+For phase margin, you need to find the UGBW, that is where you can evaluate the phase. To find the UGBW you need to run this function:
+
+```py
+def find_ugbw(...):
+    crossing, found = self._get_best_crossing(freq, np.abs(vout), 1)
+```
+
+It will interpolate the frequency and absolute value of vout to find the approximate crossing with 1. After this you can call phase margin:
+
+```py
+def find_phm(self, freq=None, vout=None):
+    UGBW = self.find_ugbw(freq, vout)
+
+    phase = np.angle(self.vout_complex)*180/np.pi
+    phase_interp = interp.interp1d(freq, phase, kind='quadratic', fill_value="extrapolate")
+    phase_at_ugbw = phase_interp(UGBW)
+    phm = 180 + phase_at_ugbw
+    return phm
+```
+
+We get the frequency where we have the UGBW then interpolate again frequency and phase this time based on the complex value of vout ($\angle$). Finally you add $180^\circ$ to have a positive value.
+
+![Phase warp around](image-3.png){width=50%}
+
+Phase warp around is the problem where the `np.angle` returns a value between $[-\pi, \pi]$. You can unroll this value using `np.unwrap`. We didn't use it as we didn't test for this edge case sadly, but even if the phase may be wrong due to unstable circuit, other metrics will also be strongly penalized avoiding keeping the current design.
+
+### How do you calculate slew rate?
+
+For slew rate you need a `tran` simulation with a signal centered around 0 and clock it between $[-V_{ss}, V_{ss}]$
+
+```py
+def find_slew_rate(self, time=None, signal=None, threshold_low=0.1, threshold_high=0.9, time_unit='us'):
+    # 1. Normalize the signal to find thresholds relative to min/max
+    v_min = np.min(signal[start_time_index:])
+    v_max = np.max(signal[start_time_index:])
+    v_swing = v_max - v_min
+
+    # Absolute voltage thresholds
+    v_low = v_min + threshold_low * v_swing
+    v_high = v_min + threshold_high * v_swing
+    
+    # Find indices where signal crosses V_low (going up)
+    low_crossings_idx = np.where(
+        (signal[:-1] < v_low) & (signal[1:] >= v_low)
+    )[0] + 1
+    
+    # Find indices where signal crosses V_high (going up)
+    high_crossings_idx = np.where(
+        (signal[:-1] < v_high) & (signal[1:] >= v_high)
+    )[0] + 1
+
+    slew_rates = []
+    edge_details = []
+
+    for t_low_idx in low_crossings_idx:
+        valid_t_high_indices = high_crossings_idx[high_crossings_idx > t_low_idx]
+        
+        if len(valid_t_high_indices) > 0:
+            t_high_idx = valid_t_high_indices[0]
+
+            t_low = time[t_low_idx]
+            t_high = time[t_high_idx]
+            
+            delta_t = t_high - t_low
+            delta_v = v_high - v_low 
+
+            if delta_t > 0:
+                slope = delta_v / delta_t
+                
+                slew_rates.append(slope)
+                edge_details.append((slope, t_low, t_high))
+    
+    avg_slew_rate = np.mean(slew_rates)
+
+    return avg_slew_rate
+```
+
+Basically, we highlight everywhere that crosses the $10\%$ and $90\%$ relative swing mark. We have a list of the crossing the lower and upper limit. We are only interested in the crossing up ! We do the delta of voltage over time: $SR = \frac{\Delta V}{\Delta T}$. We append it to a list and take the average. 
+
+This method is correct but resulted in a few discrepancies with the golden metrics. We tried to interpolate to have the exact time crossing the lower and upper limit but without gaining much better results. We also tried to take the slew rate going down without any improvements over the reference values.
+
+Overall, our method seems correct.
+ 
+### Which hyperparameters are there and how did you tune them?
+
+- **noise sigma**: fixed noise sigma added to the deterministic action: When evaluating each state we had some noise to not overfit around 1 state. It avoids to be deterministic and take the same actions over and over.
+- **gamma**: discount factor for reward: trade-off between current reward and possible future reward. It also tries to seek potential future gain.
+- **tau**: smoothing coefficient: It controls how slowly the target networks track the online networks to maintain stability.
+- **batch size**: It’s the number of experience transitions sampled from the Replay Buffer to calculate one gradient update.
+- **warmup steps**: How many steps we take without evaluating, we let the agent run to have a sense of inertia of the agent. Avoid early bias.
+- **Total training steps**: How many steps we take in the optimizer until we finish.
+- **lr**: Learning rate: based on gradient descent $w_{i+1} = w_i - \alpha \frac{\partial}{\partial w_i} \text{loss}(w)$. This is the $\alpha$ factor and determines how fast we descent. The higher the faster it converges but can oscillate around a minima or quickly move around.
+  - **pi_lr**: Agent RL: agent learns slower to converge to a better overall value.
+  - **q_lr**: critic RL: learn faster to correct the agent, more noise sensitive. Needs to provide a stable "surface" for the actor to climb. If it's too slow, the actor learns from outdated info.
+
+### Explain the TD3 algorithm. What are the basic components (actor, critic, environment)? What does each one do? How are they trained/updated? What are the cost functions? -> need to explain in detail. Why do we use target systems? How are they updated (Poliak averaging). Why are there 2 critics?
+
+Actor and critic are both RL, neural networks using hyperparameters defined above. The environment is the given action possible. The environment is the gymnasium environment herited class. We normalize the actions between $[-1, 1]$ and the environment can convert those into actual parameters. The model will select the action with the best reward with discount and added noise for non-deterministic actions.
+
+The cost function is made of 2 parts:
+
+1. hard constraints that must be met
+2. Soft constraints that are optimized if hard met
+
+$$h_{norm} = \frac{h-h^*}{h+h^*} \qquad   op_{norm} = \frac{op-op^*}{op+op^*} \qquad r_H = 
+- \sum_{\substack{h = \text{noise}}} 
+    \max(h_{\text{norm}}, 0)
+\;+\;
+\sum_{\substack{h \neq \text{noise}}} 
+    \min(h_{\text{norm}}, 0) $$  
+$$
+r_T = -\sum_{op} op_{\text{norm}} \qquad
+r = 
+\begin{cases}
+r_H + 0.05\,r_T, & \text{if } r_H < 0 \\[0.5em]
+0.3 + r_T, & \text{otherwise}
+\end{cases}
+$$
+
+We use targets as the AI doesn't know what is a good value and we should normalize it as GBW could grow drastically.
+
+The target networks are here to stabilize the search. 
+[https://spinningup.openai.com/en/latest/algorithms/td3.html](https://spinningup.openai.com/en/latest/algorithms/td3.html)
+
+
+DDPG (before TD3) limitations:
+
+- Overestimation of the error
+- Sensitive to hyperparameter
+- Too frequent parameter update --> Instability
+
+TD3 adds noise to the target action, to make it harder for the policy to exploit Q-function errors by smoothing out Q along changes in action.
+
+- TD3 is an off-policy algorithm.
+- TD3 can only be used for environments with continuous action spaces.
+- The Spinning Up implementation of TD3 does not support parallelization.
+
+
+In standard Reinforcement Learning, critics often overestimate the value of actions. Because the agent always picks the maximum Q-value, it tends to favor actions that have a noisy, high estimate rather than actions that are actually good. This solves the overestimation bias that can snowball in DDPG based workflow better estimation making for the critic. We also update less than in DDPG. Noise smooths out the search and avoid high Q peak.
+
+TD3 uses two critics to combat this:
+  
+  - Both critics estimate the value of the next state.
+  - The algorithm takes the minimum of the two estimates: $y=r+\gamma \cdot \min(Q_{target1},Q_{target2})$.
+  - By always using the more "pessimistic" estimate, TD3 prevents the actor from overexploiting high-value errors.
+
+### Why do we use episodes? What happens after each episode? Why do we use the done signal?
+
+Episodes is important so we don't just learn infinitely. We start from one point, explore and then stop. Then we restart from another point (new episode) and we can use what we have learn previously. This ensures we can explore more of the space we have (circuit parameters). After an episode, the state reset and so the agent selection will be based on a random state. 
+
+The done signal indicates when we finished an episode.
+
+### Explain you llm workflow. Do you use less simulations than in the normal RL?
+
+Yes, we used less simulations. We based ourself on only one design.
+
+![Our agent](image-4.png){width=70%}
+
+## Course
+
+- Spice: How do spice simulations work? What errors does it make? What error in discretization, nonlinear solver, linear solver. What other types of errors outside of this technique?
+
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+
+
+- Explain EM interference and noise coupling. Explain self healing chips (example with Ron).
+
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+
+- What types of defects can occur on an analog chip? How can a designer take these into account? How can we test chips for these errors/defects? What is the FoM of the tests? In practice, how can you determine how good your tests are?
+
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+
+- RF: Can you do RF simulations with spice? Why do you need small time steps? What is the problem? (SS) What methods can be used to calculate this? How does noise simulation work on RF signals? What happens with the noise? To which frequency will it be upconverted? What happens if we make the transistors smaller? (pink noise -> 1/WL). So pink noise becomes larger, but how much?
+
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+
+- Layout: How can we do this automatically? What is in the cost function? Which optimization technique could you use (simulated annealing or genetic algorithms). How would you integrate this place and route in the TD3 -> you can't just do the whole optimization each step.
+
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
+>
+> &nbsp;
+>
+> &nbsp;
+> 
+> &nbsp;
