@@ -19,9 +19,9 @@ A summary tool for quick and clean summaries
 
 #### Semester 1
 
-| Short Name         | Description                            |              Location               | Percentage complete |
-| :----------------- | :------------------------------------- | :---------------------------------: | ------------------: |
-| DDP                | Design of Digital Platform             |      [link](/PDF/M1S1_DDP.pdf)      |                   ✅ |
+| Short Name         | Description                            |                 Location                 | Percentage complete |
+| :----------------- | :------------------------------------- | :--------------------------------------: | ------------------: |
+| DDP                | Design of Digital Platform             |        [link](/PDF/M1S1_DDP.pdf)         |                   ✅ |
 | DSP_EXAM_August_AI | Gemini answer of DSP questions         | [link](/PDF/M1S1_DSP_EXAM_August_AI.pdf) |                   ✅ |
 | DSP_EXAM_BLANK     | Previous DSP questions with blank      |   [link](/PDF/M1S1_DSP_EXAM_BLANK.pdf)   |                   ✅ |
 | DSP_EXAM_TRAINING  | Exam I did for DSP                     | [link](/PDF/M1S1_DSP_EXAM_TRAINING.pdf)  |                   ✅ |
@@ -31,8 +31,8 @@ A summary tool for quick and clean summaries
 
 #### Semester 2
 
-| Short Name                          | Description                            |                       Location                       | Percentage complete |
-| :---------------------------------- | :------------------------------------- | :--------------------------------------------------: | ------------------: |
+| Short Name                          | Description                            |                         Location                          | Percentage complete |
+| :---------------------------------- | :------------------------------------- | :-------------------------------------------------------: | ------------------: |
 | Computer_Architecture               | Computer Architecture summary          |        [link](/PDF/M1S2_Computer_Architecture.pdf)        |                     |
 | DAMSIC_Questions                    | Gemini answer of DSP questions         |          [link](/PDF/M1S2_DAMSIC_Questions.pdf)           |                   ✅ |
 | DAMSIC                              | Previous DSP questions with blank      |               [link](/PDF/M1S2_DAMSIC.pdf)                |                     |
@@ -45,20 +45,22 @@ A summary tool for quick and clean summaries
 
 #### Semester 1
 
-| Short Name  | Description                    |              Location               | Percentage complete |
-| :---------- | :----------------------------- | :---------------------------------: | ------------------: |
-| AI_CPAEP    | AI summary of papers           |      [link](/PDF/M2S1_AI_CPAEP.pdf)      |                   ✅ |
-| CAD_IC      | Gemini answer of DSP questions | [link](/PDF/M2S1_CAD_IC.pdf) |                40%❌ |
-| ComputeAI   | Compute AI summary             |   [link](/PDF/M2S1_ComputeAI.pdf)   |                   ✅ |
-| EMI         | EMI summary                    | [link](/PDF/M2S1_EMI.pdf)  |                   ✅ |
-| Measurement | Measurement systems summary    |      [link](/PDF/M2S1_Measurement.pdf)      |                60%❌ |
-| mm_Wave     | mm-Wave summary                |     [link](/PDF/M2S1_mm_Wave.pdf)     |                70%❌ |
+| Short Name  | Description                    |             Location              | Percentage complete |
+| :---------- | :----------------------------- | :-------------------------------: | ------------------: |
+| AI_CPAEP    | AI summary of papers           |  [link](/PDF/M2S1_AI_CPAEP.pdf)   |                   ✅ |
+| CAD_IC      | Gemini answer of DSP questions |   [link](/PDF/M2S1_CAD_IC.pdf)    |                40%❌ |
+| ComputeAI   | Compute AI summary             |  [link](/PDF/M2S1_ComputeAI.pdf)  |                   ✅ |
+| EMI         | EMI summary                    |     [link](/PDF/M2S1_EMI.pdf)     |                   ✅ |
+| Measurement | Measurement systems summary    | [link](/PDF/M2S1_Measurement.pdf) |                60%❌ |
+| mm_Wave     | mm-Wave summary                |   [link](/PDF/M2S1_mm_Wave.pdf)   |                70%❌ |
 
 #### Semester 2
 
-| Short Name | Description | Location | Percentage complete |
-| :--------- | :---------- | :------: | ------------------: |
-
+| Short Name     | Description                            |               Location               | Percentage complete |
+| :------------- | :------------------------------------- | :----------------------------------: | ------------------: |
+| SW_RT          | Software for Real Time Control summary |     [link](/PDF/M2S2_SW_RT.pdf)      |                   ❌ |
+| Image_Analysis | Image Analysis summary                 | [link](/PDF/M2S2_Image_Analysis.pdf) |                   ❌ |
+| Religion       | Religion summary                       |    [link](/PDF/M2S2_Religion.pdf)    |                   ❌ |
 ## What is this ?
 
 It is a small collection of summaries I am making for my classes this semester. For classes that do not have a lot of equation, I prefer using markdown compiled in pdf with pandoc. It is faster than simply using $\LaTeX$ on overleaf.
