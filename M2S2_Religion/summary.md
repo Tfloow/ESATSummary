@@ -18,26 +18,8 @@ output: pdf_document
 
 \newpage
 
-# Welcome
+# Readings
 
-Please use { width=50% } in line with your image so Latex doesn't go crazy.
+## Class - 1
 
-![Logo of KULeuven](KULlogo.pdf){ width=50% }
-
-Listings are enabled to make some clean and pretty code snippets.
-
-```c
-int a = 0;
-for(int i = 0; i < 10; i++){
-    // Simple snippet of code
-    printf("i = %d", i);
-}
-```
-
-As usual, math mode is present.
-
-$$
-i\hbar \frac{d}{dt}|\Psi (t)\rangle =\hat {H}|\Psi (t)\rangle
-$$
-
-And there is many more things you can do just with a simple Markdown file!
+### Jensen 2014

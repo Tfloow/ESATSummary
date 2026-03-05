@@ -18,26 +18,44 @@ output: pdf_document
 
 \newpage
 
-# Welcome
+# Introduction
 
-Please use { width=50% } in line with your image so Latex doesn't go crazy.
+The key take away is that vision is subjective to the human being and themselves. It is the results of continuous evolution and survival of the fittest. We are more sensitive to light and certain colors, to motion, ... And this fact will be used for efficient image representation and analysis.
 
-![Logo of KULeuven](KULlogo.pdf){ width=50% }
+We can think of the classic illusion where our brain will interpret certain lengths of an arrow longer than others. Context also does matter, even in a blurry picture our brain will train to make up for what he sees.
 
-Listings are enabled to make some clean and pretty code snippets.
+## The basics
 
-```c
-int a = 0;
-for(int i = 0; i < 10; i++){
-    // Simple snippet of code
-    printf("i = %d", i);
-}
-```
+We first need light to have vision. Light is influenced by object and create perception. ADD image slide 51. The light source bounce on the object and some scattered ray will get trough the 2D Image plane, which will be casted on the sensor array thanks to the lens system.
 
-As usual, math mode is present.
+### Light
 
-$$
-i\hbar \frac{d}{dt}|\Psi (t)\rangle =\hat {H}|\Psi (t)\rangle
-$$
+We will look at it from a physical optic (not geometrical (constant speed and straight path) nor quantum). Light is an Electro-magnetic wave which we assume it to be planar. aka $\frac{|E|}{|H|} = \eta$ in simple term, light is perpendicular. This is a **self-sustaining process** that is characterized by:
 
-And there is many more things you can do just with a simple Markdown file!
+1. $\lambda$: wavelength
+2. Direction
+3. $E$: Amplitude
+4. $\varphi$: phase
+5. Direction of polarisation
+
+Violet: low frequency ($380 nm$); Red: high frequency ($760 nm$). Remember $\lambda = \frac{c}{f}$.
+
+### Perception
+
+We don't perceive light equally. Humans have 3 cones that are not evenly spread apart. But the human vision is trained to compensate for it so everything feels similar in intensity to us. Some animals can have more cones.
+
+### Interaction with matter
+
+| **Phenomenon** |           **Example** |
+| :------------- | --------------------: |
+| Absorption     | Blue water,green leaf |
+| Scattering     |  blue sky, red sunset |
+| Reflection     |          colored in k |
+| Refraction     | dispersion by a prism |
+:The four types of interaction
+
+
+- Absorption: Dissipation of $\lambda$ specific for the medium. Resonance in molecules.
+- Scattering: When light (radiation/particles) deviates from a straight trajectory by local non-uniformities. Type depends on the relative size of particles and 
+
+We ignored transmission and diffraction.
