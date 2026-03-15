@@ -18,26 +18,40 @@ output: pdf_document
 
 \newpage
 
-# Welcome
+# Introduction 
 
-Please use { width=50% } in line with your image so Latex doesn't go crazy.
+> **Definition:**
+>
+> A system wherein being correct depends upon giving the correct answer within a strict deadline
 
-![Logo of KULeuven](KULlogo.pdf){ width=50% }
+From this, we can differentiate 2 types of deadlines:
 
-Listings are enabled to make some clean and pretty code snippets.
+- Hard: If we miss the deadline = complete failure
+- Soft: If we miss the deadline = degrades performance aka expensive task to fix the error
 
-```c
-int a = 0;
-for(int i = 0; i < 10; i++){
-    // Simple snippet of code
-    printf("i = %d", i);
-}
-```
+Interfacing with real life is harder than a deterministic clocked circuits. Here, we are facing stochastic event and can be synchronous or asynchronous.
 
-As usual, math mode is present.
+## Design procedure
 
-$$
-i\hbar \frac{d}{dt}|\Psi (t)\rangle =\hat {H}|\Psi (t)\rangle
-$$
+![Modeling](image.png){ width=50% }
 
-And there is many more things you can do just with a simple Markdown file!
+We iterate over the design; we try to have those 3 boxes to overlap as much as possible to model and understand the environment we are in. It's an iterative process
+
+- **Modeling / What** are you measuring and controlling?
+- **Design / How** will your system achieve your cyber-physical goals?
+- **Analysis / Why** does your implementation exhibit this level of correctness, speed, power consumption, etc
+
+## Developing for embedded: Challenges
+
+The main bottleneck is energy:
+
+- Bringing it: cables can be more expensive and less flexible than wireless IC
+- Battery doesn't shrink as IC
+
+We also need to make sure our IoT devices can be manageable and avoid spending all the costs and labor on battery management and replacement. Batteries are also toxic and corrosive.
+
+The energy management problem:
+
+- Energy consumption: low power sub-routine
+- Energy Storage: aklaline or lipo battery ?
+- Energy Production: plug socket ?
