@@ -55,7 +55,43 @@ We don't perceive light equally. Humans have 3 cones that are not evenly spread 
 :The four types of interaction
 
 
-- Absorption: Dissipation of $\lambda$ specific for the medium. Resonance in molecules.
-- Scattering: When light (radiation/particles) deviates from a straight trajectory by local non-uniformities. Type depends on the relative size of particles and 
+#### Absorption
+
+Dissipation of $\lambda$ specific for the medium. Resonance in molecules.
+
+#### Scattering
+
+When light (radiation/particles) deviates from a straight trajectory by local non-uniformities. Type depends on the relative size of particles and wavelengths:
+
+1. **Rayleigh**: small ($\lambda$ dependent)
+2. **Mie**: comparable (weakly $\lambda$ dependent)
+3. **Non-selective**: large ($\lambda$ **in**dependent) 
 
 We ignored transmission and diffraction.
+
+![Wavelength dependence for scattering](image.png){width=50%}
+
+We need scatter to get the bluesky (Rayleigh with Tyndall effect) or it would be dark. Coloured cloud from volcanic eruption = Mie (particle all over the air). Grey cloud is due to non-selective.Less scatter for lower frequency light (infrared).
+
+#### Reflection
+
+![Mirror reflection](image-1.png){width=50%}
+
+With reflection, the notion of polarization is important. The polarization effect creates the fact that a reflected wave on certain surfaces can be reflected with all but one direction of the electric field. This effect is more prominent on **non-metallic** surfaces!
+
+![Non-metallic reflection - strong reflectors](image-2.png){width=50%}
+
+![Metallic reflection - Red dot: Brewster angle (polarizer) - Blue zone: Grazing angles](image-3.png){width=50%}
+
+Rough surfaces will lead to **diffuse** reflection as the reflection angles will be all over the place. On the other hand, smooth surfaces give **specular** reflection. Both **diffuse** and **specular** can also happen all together.
+
+Reflectance varies through $\lambda$ and different side of vegetation can typically give various reflection[^1]
+
+[^1]: This fact can be used for spectral reflectance of vegetation since it forms a signature
+
+#### Refraction
+
+Typically, refraction which is the bending of the light and dispersion which is a frequency dependency.
+
+![Refraction - governed by Snell's law property of the medium **and** material](image-4.png){width=50%}
+
