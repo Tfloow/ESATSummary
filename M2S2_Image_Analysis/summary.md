@@ -95,3 +95,36 @@ Typically, refraction which is the bending of the light and dispersion which is 
 
 ![Refraction - governed by Snell's law property of the medium **and** material](image-4.png){width=50%}
 
+# Acquisition of images
+
+![Image acquisition model](image-5.png){width=50%}
+
+Controlling the lights is essential for acquisition as it is the main vector to acquire images. Severals techniques exist
+
+| Type                                      | Description                                                                                                                                       |                                                Examples |
+| :---------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------: |
+| Back-lighting                             | Light source behind object (better with a diffuser plate)                                                                                         | High contrast silhouette. **Binary vision**, inspection |
+| Directional                               | Tilt lights to generate sharp shadow of specular reflection (rough surfaces)                                                                      |                                     Detection of cracks |
+| Diffuse                                   | Uniform lighting, all directions contribute to the diffusion reflection but specular spike due to spike                                           |                                     Detection of cracks |
+| Polarized: Contrast diffuse and specular  | diffuse makes light non-polarized while specular keeps polarized. Put polarizer/analyzer orthogonal, better for glare (high dynamic range) issue. |                                     Detection of cracks |
+| Polarized: Contrast dielectrics and metal |            Dielectric at Brewster angle can be used as a polarizer which is not possible for metallic surface (see previous chapter).                                                                                                                                 |      So use a polarizer to suppress specular reflection from dielectric **OR** distinguish between specular and dielectric surfaces                                                       |
+| Coloured                                  |      Highlight region of similar colour. Use laser (monochromatic light), differentiation between specular and diffuse. Comparing colours. Spectral sensitivity of a sensor.                                                                                                                                            |                                                         |
+| Structured                                |    Spatially or temporally modulated light pattern. Projection on a 3D object will distort the projection pattern                                                                                                                                             |  3D reconstruction                                                       |
+| Stroboscopic                              |    High intensity light flash. Eliminate motion blur.                                                                                                                                               |  For high speed inspection                                                       |
+
+Note about the dar and bright field. Mostly relevant for the Directional/Diffuse lighting. *Dark field*, when the camera is placed outside the specular reflection area of the normal area, only specular reflection (different orientation from normal) will show up. On the other hand, *Bright field*, we place camera inside this specular reflection light area and the non-normal area will appear dark.
+
+## Image formation
+
+We use the pinhole model in this class:
+
+![Pinhole model](image-6.png){width=60%}
+
+From this we can use the thin-lens equation which assumes:
+
+- Spherical lens surfaces
+- Incoming light $\pm \parallel$ to axis
+- Thickness << radii
+- Same refractive index on both sides
+
+![Thin-lens equation](image-7.png){width=50%}
