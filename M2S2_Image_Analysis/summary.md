@@ -95,3 +95,27 @@ Typically, refraction which is the bending of the light and dispersion which is 
 
 ![Refraction - governed by Snell's law property of the medium **and** material](image-4.png){width=50%}
 
+# Sampling and Quantisation
+
+We live in an analog world but our computers and digital world is finite. So we have to sample (Discretize points) and quantize (attribute them a finite value).
+
+From what we have seen and learned before, we can trick the human eye to see a higher quality image than it is actually. For example the display on a phone has a RGB pixel ratio as 2:1:1 because the human is less sensible to green. We call this grid the **bayer filter**. Other representation exist which can be more exotic, e.g.: hexagonal (more isotropic, similar structure as in the retina, no connectivity ambiguities). 
+
+We have quantization where we usually talk about levels. Typically a n bits representation has $2^n$ levels. We can also apply fancier quantization scheme instead of simple linear one. The most classic representation is the RGB888 (1 byte per pixel for each color).
+
+![Various quantization scheme](capture_temp.jpg){width=50%}
+
+#### HDR
+
+High Dynamic Range (HDR) is a technology where we have various luminance on the screen giving really good contrast in dark and bright area. Usually, we combine multiple photos with various gains and then recombine it all together with the various exposure.
+
+## Sampling
+
+### Integrate brightness over the cell window
+
+![Integrating over a pixel cell](capture_temp-1.jpg){width=50%}
+
+This forms a convolution. Convolution are **linear**, $f_1 \rightarrow g_1 \quad f_2 \rightarrow g_2 \Rightarrow af_1 + bf_2 \rightarrow ag_1+bg_2$ , and **shift-invariant**, $f(x,y) \rightarrow g(x,y) \Rightarrow f(x-a, y-b) \rightarrow g(x-a, y-b)$.
+
+### Read out values only at the pixel centers
+
