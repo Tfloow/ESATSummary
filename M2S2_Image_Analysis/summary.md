@@ -18,6 +18,8 @@ output: pdf_document
 
 \newpage
 
+\section{Classic Image Analysis}
+
 # Introduction
 
 The key take away is that vision is subjective to the human being and themselves. It is the results of continuous evolution and survival of the fittest. We are more sensitive to light and certain colors, to motion, ... And this fact will be used for efficient image representation and analysis.
@@ -354,9 +356,43 @@ If those are not respected, we have **aberrations**! Aberrations acan be **geome
 
 ![Geometrical aberrations](image-15.png){width=50%}
 
-They all cause issues on the focus point of the image plane. Spherical appears when the bending of light is not uniform throughoutt the lens. Coma is a bit like spherical but this time with a tiled ray. Astigmatism is problems between the *tangential* and *sagittal* ($90^\circ$ rotation from tangential) focus point which are not equal.
+They all cause issues on the focus point of the image plane. Spherical appears when the bending of light is not uniform throughout the lens, typically outer ray converges sooner (small focal length) then inner one. They do not converge all together. Coma is a bit like spherical but this time with a tiled ray. Astigmatism is problems between the *tangential* and *sagittal* ($90^\circ$ rotation from tangential) focus point which are not equal.
 
+### Radial distortion
 
+By far the most important type of distortion which causes "fish-eye" look or pincushion. It creates various *magnification* for different angles of inclination. The pixel either sinks towards the center or slides outside along the line connection the center and the original pixel.
+
+![Radial Distortion](image-16.png){width=50%}
+
+We can model this sliding distance $d$ with the following equation and thus can be corrected. Some algorithm looks at human made structure (straight lines) to establish the effect.
+
+$$
+d = (1+ \kappa_1 r^2 + \kappa_2 r^4 + ...)
+$$
+
+### Chromatic aberration
+
+Rays of different $\lambda$ will focus in different planes. This creates various colours especially along sharp edges. This **can't** be removed completely but *achromatization* can be achieved by selecting the right type of glasses.
+
+![Achromatization](image-17.png){width=50%}
+
+### Photometric camera model
+
+We want to convert the object radiance into a pixel grey level. This is a 2-step process with our idea of the image plane. We first project the radiance of the object to the image, then this image irradiance projects to a pixel in a grey level. The **cos4** law governs the radiance. The more an object is of-axis from the center by an angle $\theta$ the more it reduces its irradiance in the pixel. This materializes with **natural vignetting**[^3] (like the old instagram filter).
+
+$$
+I = R \frac{A_l}{f^2} \cos^4 \theta
+$$
+
+This will get converted in a grey pixel with:
+
+$$
+pix = g I^\gamma + d
+$$
+
+With the $g$ of the camera, $d$ the dark reference of the camera. The gamma $\gamma$ is a non-linear relationship which changes the mid-tone without really changing the pure black or white. A value lower than 1 makes the image lighter and vice-versa. Nowadays, cameras have become quite linear meaning that $\gamma = 1$.
+
+[^3]: optical vignetting appears due to an obstruction of the lens by an element
 
 
 # Sampling and Quantisation
@@ -383,3 +419,5 @@ This forms a convolution. Convolution are **linear**, $f_1 \rightarrow g_1 \quad
 
 ### Read out values only at the pixel centers
 
+
+\section{Modern Image Analysis}
