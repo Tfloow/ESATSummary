@@ -1,15 +1,14 @@
-name: Build PDF and Push to Repository
+name: Build PDF and Upload Artifact
 
 on:
   push:
     branches:
-      - main  # Runs when code is pushed to the main branch
-  workflow_dispatch:  # Allows manual triggering
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    #container: pandoc/extra # Use a container with Pandoc pre-installed
 
     steps:
       - name: Checkout Repository
@@ -17,28 +16,16 @@ jobs:
 
       - name: Install Dependencies
         run: docker pull pandoc/extra@sha256:7e9724ee58edfa9b01af8ff4e99738f5f19a1d421e21247a23439898506d86d5
-        # It seems like newer versions of the container have issues with certain LaTeX packages
 
       - name: Run Make Command
         run: |
           echo $(pwd)
           make
 
-      - name: Commit and Push PDFs
-        run: |
-          git config --global --add safe.directory /__w/ESATSummary/ESATSummary  # Mark repo as safe
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions@github.com"
-          git add PDF/*.pdf
-          # Get the last commit message
-          LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          # LAST_COMMIT_MESSAGE=$(filter-out $(GITHUB_TOKEN), $(LAST_COMMIT_MESSAGE))
-
-          # Construct the new commit message
-          NEW_COMMIT_MESSAGE="[Compiled]: ${LAST_COMMIT_MESSAGE}"
-
-          git commit -m "${NEW_COMMIT_MESSAGE}" || echo "No changes to commit"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+      - name: Upload PDF Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-pdfs
+          path: PDF/*.pdf
+          if-no-files-found: error # Helpful for debugging if the build fails to produce files
+          retention-days: 90       # Optional: how long to keep the files (default is 90)

@@ -1,0 +1,55 @@
+name: Build and Weekly Release
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.set-name.outputs.name }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: docker pull pandoc/extra@sha256:7e9724ee58edfa9b01af8ff4e99738f5f19a1d421e21247a23439898506d86d5
+
+      - name: Run Make Command
+        run: make
+
+      - id: set-name
+        run: echo "name=pdfs-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.set-name.outputs.name }}
+          path: PDF/*.pdf
+
+  release:
+    # Only run this job if triggered by the schedule or manual dispatch
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to create releases
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact-name }}
+          path: ./release-files
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: weekly-build-${{ github.run_id }}
+          name: Weekly PDF Export (${{ github.run_id }})
+          body: "Automated weekly build of documentation PDFs."
+          files: ./release-files/*.pdf
