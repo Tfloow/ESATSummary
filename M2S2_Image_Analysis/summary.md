@@ -417,7 +417,104 @@ High Dynamic Range (HDR) is a technology where we have various luminance on the 
 
 This forms a convolution. Convolution are **linear**, $f_1 \rightarrow g_1 \quad f_2 \rightarrow g_2 \Rightarrow af_1 + bf_2 \rightarrow ag_1+bg_2$ , and **shift-invariant**, $f(x,y) \rightarrow g(x,y) \Rightarrow f(x-a, y-b) \rightarrow g(x-a, y-b)$.
 
-### Read out values only at the pixel centers
+Convolutions are also commutative and associative as proven in the Fourier domain.
+
+$$
+\mathfrak{F}(u) = \int_{-\infty}^{\infty} f(t) e^{-2i\pi x u}dx
+$$
+
+For the 2D case, we have $e^{-2i\pi (ux + vy)}$ which has for Euler form $\cos(2\pi (ux+vy)) +  i\sin(2\pi (ux+vy))$. Now, the $u$ and $v$ represents the frequency along the x and y dimensions. To obtain the $\lambda$ of  the signal we need to take the norm of the frequency for both axis inverted:
+
+$$
+\lambda = \frac{1}{\sqrt{u^2+v^2}}
+$$
+
+As in 1D, we can do Fourier transform to decomposition the image in a bunch of frequencies. As in 1D, we have a complex results where the magnitude is $|\mathfrak{F}(u,v)| = \sqrt{\mathbb{R}(\mathfrak{F}(u,v))^2 + \mathbb{I}(\mathfrak{F}(u,v))^2}$ and the phase angle $\angle\mathfrak{F}(u,v) = \arctan(\mathbb{I}(\mathfrak{F}(u,v))/\mathbb{R}(\mathfrak{F}(u,v)))$.
+
+$$
+\mathfrak{F}(u,v) = \int_{-\infty}^{\infty}  \int_{-\infty}^{\infty} f(x,y) e^{-2i\pi (xu + yv)}dxdy
+$$
+
+![Fourier decomposition of images](image-18.png){width=50%}
+
+![Repetitive patterns in an image creates repetitions in frequency domain](image-19.png){width=50%}
+
+Removing patterns peak in frequency allows to remove periodic background.
+
+![Mixmatch of phase and magnitude](image-20.png){width=50%}
+
+#### Properties of spatial-frequency domain
+
+| Spatial domain |                                               Frequency domain |
+| :------------- | -------------------------------------------------------------: |
+| Real           | Real part $\rightarrow$ even; Imaginary part $\rightarrow$ odd |
+| Real,even      |                                            Real, even (cosine) |
+| Real,odd       |                                          Imaginary, odd (sine) |
+
+Important to remember that a convolution in spatial domain is a multiplication in the frequency domain and vice versa.
+
+![](image-21.png){width=50%}
+
+We have the base image (the dot) and the the transfer function, MTF R, which contains the amplification and phase shift information to every frequency in the input image I.
+
+#### Integrating with the convolution
+
+Re-using the integration over a cell window:
+
+$$
+o(x',y') = \int\int i(x,y)p(x-x', y-y') dxdy \leftrightarrow i(x,y) \ast p(-x,-y)
+$$
+
+We can then transform this $p(x,y)$ round-point (as seen in the previous figure) in a $P(u,v)$
+
+
+\begin{align}
+    P(u,v) &= \int_{-\infty}^{\infty} e^{-i 2 \pi (ux+vy)} p(x,y) dxdy\\
+    &= wh \left( \frac{\sin(\pi wu)}{\pi wu} \right) \underbrace{\left( \frac{\sin (\pi h v)}{\pi hv} \right)}_{\text{sinc}}
+\end{align}
+
+
+The sinc function is predominantly low-pass **and** non-causal (no phase shift) and it has phase reversal.
+
+## Aliasing
+
+This corresponds to a 2D Dirac train convolution on the grid like:
+
+$$
+f(a,b) = \int\int f(x,y) \delta(x-a, y-b) dxdy
+$$
+
+The multiplication with the 2D pulse train with a spacing of distance w and h:
+
+
+\begin{align}
+    &\sum_{k=-\infty}^\infty\sum_{l=-\infty}^\infty \delta(x-kw, y-lh)\\
+    &\longleftrightarrow \frac{1}{wh}\sum_{k=-\infty}^\infty\sum_{l=-\infty}^\infty \delta(x-k\frac{1}{w}, y-l\frac{1}{h})
+\end{align}
+
+
+![Basic sampling theorem](image-22.png){width=50%}
+
+Also, we need to do a Discrete Fourier Transform, DFT, to discretize the space and frequency. We can also use FFT to bring the complexity of the algorithm from $N^2$ to $N\log_2 N$.
+
+
+\begin{align}
+    &\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} F(k,l) e^{2\pi i \left( \frac{km}{M} + \frac{ln}{N} \right)}\\
+    &\longleftrightarrow F(k,l)= \frac{1}{MN} \sum_{m=0}^{M-1}\sum_{n=0}^{N-1} f(m,n) e^{-2\pi i \left( \frac{km}{M} + \frac{ln}{N} \right)}
+\end{align}
+
+
+![Periodicity assumed in both domains, might introduce false high frequencies at image boundaries](image-23.png){width=50%}
+
+![We can have false high frequencies due to sampling](image-24.png){width=50%}
+
+![Solution on periodicity](image-25.png){width=50%}
+
+Again, the Shannon theorem is important in 2D as well such that the sampling distance $w,h$ along the $x,y$ axis must follow:
+
+$$
+w \leqslant \frac{1}{2 u_b} \qquad h \leqslant \frac{1}{2v_b}
+$$
 
 
 \section{Modern Image Analysis}
