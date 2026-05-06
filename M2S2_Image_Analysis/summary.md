@@ -517,4 +517,145 @@ w \leqslant \frac{1}{2 u_b} \qquad h \leqslant \frac{1}{2v_b}
 $$
 
 
+
+
+
+
+**ABOVE SHOULD BE THE START OF CHAPTER ABOUT ENHANCEMENT AND EDGES**
+
+P.41
+
+#### Convolution filters
+
+It is based on the insight that noise affects high frequencies the most due to their low SNR. To build a low-pass filter, we will use an averaging kernel such:
+
+$$
+\begin{pmatrix}
+    1 & 1 & 1\\
+    1 & 1 & 1\\
+    1 & 1 & 1
+\end{pmatrix} = \underbrace{\begin{pmatrix}
+    1 & 1 & 1
+\end{pmatrix} \ast \begin{pmatrix}
+    1\\
+    1\\
+    1\\
+\end{pmatrix}}_{\text{separable filter}}
+$$
+
+The two $(1,1,1)$ vectors can be seen in the *frequency* domain as $1 + 2\cos(2\pi u)$ for the horizontal domain or $1 + 2\cos(2\pi v)$ in the vertical one. The intuition for this is to look at the vector as a 1D image centered around the middle value. Finally, the convolution can be simplified in the frequency domain as:
+
+$$
+(1 + 2\cos(2\pi u))(1 + 2\cos(2\pi v))
+$$
+
+![Representation in 3D of the function](image-26.png){width=50%}
+
+The function is purely real and low-pass with some phase reversal! We can again derivate something similar for a 5x5 kernel:
+
+$$
+(1 + 2\cos(2\pi u) + 2\cos(4\pi u))(1 + 2\cos(2\pi v) + 2\cos(4\pi v))
+$$
+
+With this one, the phase reversal is even more significant, the higher the frequency the more it looks like a sinc function. This creates more ripples and disturbing effects. Hard to get no ripple and a real low-pass for higher order functions.
+
+From all those experiments we can draw 3 conclusions:
+
+1. Separable filters can be implement more efficiently
+2. Better to go in the frequency domain for large kernel
+3. Keep it simple, mask of boolean or power of 2 are cheap!
+
+### Binomial filters
+
+They are here to solve the ripple and low-pass issue of the convolution filters presented before. This guarantees no phase reversal.
+
+$$
+\begin{pmatrix}
+    1 & 2 & 1\\
+    2 & 4 & 2\\
+    1 & 2 & 1
+\end{pmatrix} = \begin{pmatrix}
+    1 & 2 & 1
+\end{pmatrix} \ast \begin{pmatrix}
+    1\\
+    2\\
+    1\\
+\end{pmatrix} \longleftrightarrow (2 + 2\cos(2\pi u))(2 + 2\cos(2\pi v))
+$$
+
+![Gaussian filters are limit case of binomial filters](image-27.png){width=50%}{width=50%}
+
+Note that noise removal linear filters will exhibit blurring due the fact they cannot difference noise and actual information.
+
+### Median
+
+Instead of averaging over using a kernel of ones, we take the median - the middle point of neighborhood of pixel. We don't create a new grey level, we take the one in the middle.
+
+![Median filters principle - credits: southampton.ac.uk](image-28.png){width=50%}
+
+One advantage of a median filter is the fact it is robust against outliers and it will preserve the contrast instead of smooching out all the values and making the image more blurry.
+
+- Discard outliers
+- Preserve discontinuities
+
+But, it will loose in details (especially small areas). Moreover, give a patchy effect instead of a smooth uniform color.
+
+### Anisotropic filters - all-in-on of filtering
+
+This filter does:
+
+1. Binomial smoothing between edges
+2. Unsharp masking at edges
+
+For this, we need to cover edge detection
+
+
+| Operation name         |                                    Description                                    | Linear ? |
+| :--------------------- | :-------------------------------------------------------------------------------: | :------: |
+| Histogram equalisation |     Re-sort histogram to create a more linear Cumulative Probability Density      |    V     |
+| Unsharp mask           |                                                                                   |    V     |
+| Inverse Filtering      | Realize the opposite operation. Need to carefully handle low SNR with a constant. |    V     |
+| Low pass               |        Removes noise since it affects more high-frequencies due to low SNR        |    V     |
+| Binomial               |                      Like low-pass but avoids phase reversal                      |    V     |
+| Median                 |                     Take the middle point instead of the mean                     |    X     |
+| Anisotropic            |                     Binomial between edges - Unsharp at edge                      |    X     |
+:Summary table of the enhancement procedures
+
+## Enhancement and Feature Detection
+
+### Edges
+
+> **Definition:**
+>
+> Edge correspond to image locations with strong intensity changes due to:
+> 
+> 1. Reflectance
+> 2. Orientation of shape normals (its surface) - the object's edge
+> 3. Illuminations (shadow) 
+>
+> The hardest challenge in edge detection is linking up all the pixels into a good line drawing.
+
+The methods cover here will be based on the gradient which gives the direction of the steepest change along as its magnitude being the rate of change:
+
+$$
+\text{gradient } = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right) \qquad \text{magnitude } = \sqrt{\left( \frac{\partial f}{\partial x}\right)^2 + \left( \frac{\partial f}{\partial y} \right)^2}
+$$
+
+2 methods will be covered using **isotropic** operators[^4]:
+
+1. Locating high intensity gradient magnitude
+2. Locating inflection points in the intensity profiles
+
+[^4]: there exists other (and better) operators but too complex for this class
+
+![With curvature being a sort of second order derivative](image-29.png){width=50%}
+
+### Gradient
+
+The idea is to:
+
+1. measure the gradient **magnitude** of all the steep slopes in the image. This operator is isotropic since there are equal contribution of the x and y direction.
+2. Measure the angle $\theta$ that maximizes $\frac{\partial f}{\partial x'} = \frac{\partial f}{\partial x} \cos (\theta) + \frac{\partial f}{\partial y} \sin(\theta)$ this yields $\theta_{xtr} = \tan^{-1}\left( \frac{\partial f}{\partial y} / \frac{\partial f}{\partial x} \right)$
+
+
 \section{Modern Image Analysis}
