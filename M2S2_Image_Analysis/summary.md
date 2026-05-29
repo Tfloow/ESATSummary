@@ -701,7 +701,96 @@ The idea is to:
 1. measure the gradient **magnitude** of all the steep slopes in the image. This operator is isotropic since there are equal contribution of the x and y direction.
 2. Measure the angle $\theta$ that maximizes $\frac{\partial f}{\partial x'} = \frac{\partial f}{\partial x} \cos (\theta) + \frac{\partial f}{\partial y} \sin(\theta)$ this yields $\theta_{xtr} = \tan^{-1}\left( \frac{\partial f}{\partial y} / \frac{\partial f}{\partial x} \right)$
 
+The gradient is a non-linear operator of $\partial / \partial x$ which are linear, shift-invariant ! So this can be implemented using a convolution, the **Sobel masks** which are separable and cheap to implement. The Sobel masks are a bit like a binomial filter but with a derivative in the middle. The idea is to have a strong response for high frequencies (edges) and low response for low frequencies (flat areas).:
 
+$$
+\frac{\partial}{\partial x} = (-1,0,1) \ast (1,2,1)^\top = \begin{pmatrix}
+    -1 & 0 & 1\\
+    -2 & 0 & 2\\
+    -1 & 0 & 1
+\end{pmatrix} \qquad \frac{\partial}{\partial y} = \begin{pmatrix}
+    -1 & -2 & -1\\
+    0 & 0 & 0\\
+    1 & 2 & 1
+\end{pmatrix}
+$$
+
+From their outputs, we take the square root of the sum of their squares, take the arctan which will give us the orientation of the edge! 
+
+Again we can move to the frequency domain where we remember we can see the vector as a 1D image centered around the middle value. The Fourier transform of the Sobel mask is:
+
+$$
+(-1,0,1) \longleftrightarrow 2i \sin(2\pi u) \qquad (1,2,1) \longleftrightarrow 2 + 2\cos(2\pi u)
+$$
+
+We see that it is pass band along the u-dir (red on the graph) and low-pass along the v-dir (green on the graph).
+
+![Function in 3D](image-30.png){width=50%}
+
+![Combining the two (top left: x-dir, top right: y-dir)](image-31.png){width=50%}
+
+It is a great technique to map individual pixel edges, but cannot be perfect to edge detection. There can be gap, several pixels thick, weak or salient edges, and so on. But Sobel masks are the optimal 3 x 3 convolution filters with integer coefficients for step edge detection.
+
+### Zero-crossing
+
+First, we want to do edge thinning, to reduce a several pixel thick edge to only one continguous line. Once we found the gradient, we want to look at the direction giving the maximum gradient and interpolate to get these values. We can also apply the hysteresis thresholding to link up the edges. The idea is to have a high threshold for strong edges and a low threshold for weak edges. We then link the weak edges to the strong ones if they are connected.
+
+![Canny edges](image-32.png){width=50%}
+
+To do zero-crossing detection, we need to use second order derivative and make it equal to 0 to find inflexion points. This is linear + shift invariant (convolution) and isotropic (equal contribution of x and y). The Laplacian is sensitive to noise, so we often add a smoothing step (Gaussian) before applying the Laplacian. This is called the Laplacian of Gaussian (LoG) operator.
+
+$$
+\nabla^2 f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} = 0
+$$
+
+
+We can also use the Difference of Gaussian (DoG) which is a good approximation of the LoG and is much faster to compute. The idea is to take the difference between two Gaussian blurred images with different standard deviations.
+
+$$
+G_1 = \begin{pmatrix}
+    0 & 1 &0 \\
+    1 & -4 & 1\\
+    0 & 1 & 0
+\end{pmatrix} \qquad G_2 = \begin{pmatrix}
+    1 & 2 & 1\\
+    2 & -12 & 2\\
+    1 & 2 & 1
+\end{pmatrix}
+$$
+
+This DoG method will give us a closed-contour as it is based on the second order derivative. The zero-crossing will give us the edge location. The main issue is that it is not very good at linking up edges and can be quite sensitive to noise.
+
+### Harris corner detection
+
+This method will distinguish between homogeneous areas, edges and corners. The idea is to look at the eigenvalues of the second moment matrix of the gradient. If both eigenvalues are small, we have a homogeneous area. If one eigenvalue is large and the other is small, we have an edge. If both eigenvalues are large, we have a corner. The second order moment matrix is given by:
+
+$$
+\begin{pmatrix}
+    \left(\frac{\partial f}{\partial x}\right)^2 & \frac{\partial f}{\partial x} \frac{\partial f}{\partial y}\\
+    \frac{\partial f}{\partial x} \frac{\partial f}{\partial y} & \left(\frac{\partial f}{\partial y}\right)^2
+\end{pmatrix}
+$$
+
+![Principle of Harris](image-33.png){width=50%}
+
+The idea is to find the directions of minimal and maximal change in the image. We move the kernel by a small amount (u,v) where our $w$ window function can be either a box or a Gaussian. We then look at the change in intensity which is given by:
+
+$$
+E(u,v) = \sum_{x,y} w(x,y) [f(x+u, y+v) - f(x,y)]^2
+$$
+
+$$
+E(u,v) \approx [u,v] M \begin{bmatrix}
+    u\\ v
+    \end{bmatrix} \qquad \text{with } M = \sum_{x,y} w(x,y) \begin{pmatrix}
+    \left(\frac{\partial f}{\partial x}\right)^2 & \frac{\partial f}{\partial x} \frac{\partial f}{\partial y}\\
+    \frac{\partial f}{\partial x} \frac{\partial f}{\partial y} & \left(\frac{\partial f}{\partial y}\right)^2
+\end{pmatrix}
+$$
+
+To analyze the harris detector, we use the iso-lines $= det -k trace^2 = \lambda_1 \lambda_2-k(\lambda_1 + \lambda_2)^2$. Where $\lambda_1$ and $\lambda_2$ are the eigenvalues of the matrix $M$ and represent a change in one or the other direction. If the iso-line is positive, we have a corner. If it is negative, we have an edge. If it is zero, we have a homogeneous area. The main issue with this method is that it is not very good at distinguishing between edges and corners in the presence of noise.
+
+![Iso-lines for Harris](image-34.png){width=50%}
 
 \newpage
 \part{Modern Image Analysis}
