@@ -771,7 +771,7 @@ $$
 \end{pmatrix}
 $$
 
-![Principle of Harris](image-33.png){width=50%}
+![Principle of Harris](image-33.png){width=70%}
 
 The idea is to find the directions of minimal and maximal change in the image. We move the kernel by a small amount (u,v) where our $w$ window function can be either a box or a Gaussian. We then look at the change in intensity which is given by:
 
@@ -791,6 +791,87 @@ $$
 To analyze the harris detector, we use the iso-lines $= det -k trace^2 = \lambda_1 \lambda_2-k(\lambda_1 + \lambda_2)^2$. Where $\lambda_1$ and $\lambda_2$ are the eigenvalues of the matrix $M$ and represent a change in one or the other direction. If the iso-line is positive, we have a corner. If it is negative, we have an edge. If it is zero, we have a homogeneous area. The main issue with this method is that it is not very good at distinguishing between edges and corners in the presence of noise.
 
 ![Iso-lines for Harris](image-34.png){width=50%}
+
+# Image decomposition
+
+Images can be projected in various orthogonal basis, (pixels, fourier domain, ...). We can also do a rotation for example, but the most important thing is that we use **unitary transformations**$\rightarrow U^\ast U = I$.
+
+## PCA
+
+We want to reduce the dimensionality of the data while preserving as much variance as possible. We can do this by projecting the data onto the eigenvectors of the covariance matrix. The eigenvectors with the largest eigenvalues will be the principal components. This is a linear transformation that preserves the distances between points in the original space. It is an **unitary transformation** but **data dependent**. We want to reduce the dimension of the data while keeping as much information as possible.
+
+![Central idea of PCA](image-35.png){width=50%}
+
+The Shannon entropy $H(x)$ quantifies the amount of entropy in a data set with a distribution P. This fact is interesting, because most pictures only span a sub-set of the total possible images. For example, natural images have a lot of structure and regularity, which means that they have a low entropy compared to random noise. This is why we can use PCA to reduce the dimensionality of the data while preserving most of the information. 
+
+$$
+H(x) = -\sum_{i} P(x_i) \log P(x_i)
+$$
+
+This issue with the lack of spanning in high-dimensional space is often referred to as the **curse of dimensionality**. PCA is a solution to this problem. Some intuitive explanation: 1D: $(r+\delta)/r \approx 1 + \delta/r$; 2D: $(r+\delta)^2/r^2 \approx 1 + 2\delta/r$; D: $(r+\delta)^D/r^D \approx 1 + D\delta/r$. So the volume of the space grows exponentially with the dimension, which means that we need an exponentially large number of samples to cover the space. PCA helps us to reduce the dimensionality of the data while preserving most of the information. 
+
+For the PCA, we use the Pearson correlation coefficient. We need to be careful with it as it only indicates linear correlation between two variables!
+
+$$
+p_{ij} = \frac{cov(x,y)}{\sigma_i \sigma_j} = \frac{\sum_{i=1}^N (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^N (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^N (y_i - \bar{y})^2}}
+$$
+
+We first find the highest component with the maximum of correlation, then we find the second one with the lowest correlation. We can then apply a rotation in a high dimensional space.
+
+By working around the mean, we benefit from parserval-equality which indicates the variances in $x_i$ will be the same in $z_j$. This indicates a redistribution of the energy.
+
+$$
+\sum_{i=1}^p \sigma_i^2 = \sum_{j=1}^p \tilde{\sigma}_j^2
+$$
+
+### Method
+
+With $x$ a vector of $p$ variables. We first look for a linear combination $c_1^\top x$ which has the maximum variance. We then look for a second linear combination $c_2^\top x$ which has the maximum variance and is uncorrelated with the first one. We repeat this process until we have $p$ linear combinations. The first few linear combinations will capture most of the variance in the data, which is why we can reduce the dimensionality of the data by keeping only the first few principal components.
+
+By relying on the Gaussian distribution postulat, we can derive a covariance matrix. Note, we need to center the data around the mean first. We need to maximize so $var(c_1^\top x) = \sum c_1^\top x (c_1^\top x)^\top =c_1^\top \sum (xx^T) c_1 = c_1^\top C c_1$ with $C$ the covariance matrix. And we make sure that $c_1^\top c_1 =1$ to avoid trivial solution.
+
+![Covariance matrix](image-36.png){width=50%}
+
+We can then use the Lagrange multiplier with the constrained mentioned ealier:
+
+$$
+\mathcal{L}(c_1, \lambda) = c_1^\top C c_1 - \lambda (c_1^\top c_1 - 1)
+$$
+
+$$
+\frac{\partial \mathcal{L}(c_1, \lambda)}{\partial c_1} = 2C c_1 - 2\lambda c_1 =  2c_1 \underbrace{(C- \lambda I)}_{\text{eingevalue problem}} = 0 \qquad \frac{\partial \mathcal{L}(c_1,\lambda)}{\partial \lambda} = c_1^\top c_1 - 1 = 0
+$$
+
+So $c_1^\top C c_i = c_1^\top \lambda c_1 = \lambda c_1^\top c_1 = \lambda$ with $\lambda$ as large as possible. Decorrelation and orthogonality are the same thing in this case since we are in a Euclidean space. So $c_2^\top C c_1 = c_2^\top \lambda c_1 = \lambda c_2^\top c_1 = 0$.
+
+![Proof of orthogonality between $c_1$ and $c_2$](image-37.png){width=50%}
+
+We can again use a Lagrange multiplier to ensure decorrelation:
+
+![Decorrelation](image-38.png){width=50%}
+
+![Important remark](image-39.png){width=50%}
+
+### Usage
+
+- Classification of crops: using Near-infrared, Red, Green data. We see some correlation between red and green + near-infrared. We can compress the data to roughly 60% while retaining similar performance.
+- Culture and heritage: reveal details that wasn't visible before. Quickly find the most important features in the data.
+- Image compression: same density in neihboring pixels. Issue is that image of N pixels =$N^2$ base. So $N^2*N^2$ for the covariance matrix. PCA allows us to reduce the dimensionality of the data while preserving most of the information. We can then use a lossy compression algorithm to further reduce the size of the data.
+  - We can use the **eingenfaces** of the covariance matrix as a basis for the image. We can then project the image onto this basis and keep only the first few components to reduce the size of the data. This is called **eigenface** method. We form a human face base using a base of already existing faces. (do not forget to substract the mean !)
+
+### Limitations
+
+As described before, the Pearson correlation coefficient is only for linear correlation. Moreover, the PCA is based on the assumption of a Gaussian distribution.
+
+A solution is the Interesting Component analysis where we find multiple "interesting" components. Or we can use the Linear Discriminant Analysis (LDA) which is a supervised method that finds the linear combination of features that best separates two or more classes of objects or events. It is based on the idea of maximizing the between-class variance while minimizing the within-class variance. This approach is better for non Gaussian distribution.
+
+There is also the support vector machine which look at an hyper plane to find the best separation between classes. 
+
+PCA looks like the Harris corner detector but a few things chenge:
+
+- No substraction by mean in Harris
+- No normalization in Harris
+
 
 \newpage
 \part{Modern Image Analysis}
