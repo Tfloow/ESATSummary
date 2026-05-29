@@ -18,7 +18,7 @@ output: pdf_document
 
 \newpage
 
-\section{Classic Image Analysis}
+\part{Classic Image Analysis}
 
 # Introduction
 
@@ -453,7 +453,7 @@ Removing patterns peak in frequency allows to remove periodic background.
 
 Important to remember that a convolution in spatial domain is a multiplication in the frequency domain and vice versa.
 
-![](image-21.png){width=50%}
+![FFT approach](image-21.png){width=50%}
 
 We have the base image (the dot) and the the transfer function, MTF R, which contains the amplification and phase shift information to every frequency in the input image I.
 
@@ -516,7 +516,51 @@ $$
 w \leqslant \frac{1}{2 u_b} \qquad h \leqslant \frac{1}{2v_b}
 $$
 
+# Enhancement and feature detection
 
+Strong from the knowledge of the previous section, we can do some spectral filtering. For example, if we have some white noise in an image we could apply a low pass filter on it to already remove a big part of the noise while losing a marginal part of the actual picture information. Usually, this will sorts of blur the image because sharp edges are like high-frequency information.
+
+## Enhancement - better look of image
+
+Typically, HDR is a form of enhancement for better contrast. A cheaper way of doing HDR is doing histogram equalisation which allows for better usage of the full dynamic range available (a bit like gamma correction I think).
+
+### Histogram Equalisation
+
+This will makes the image more vibrant if we exploit more of the dynamic range, we **redistribute** the intensities through a **mapping that keeps their relative order**. Ideally, we make the histogram **flat**.
+
+![We tune the Cumulative Intensity Probability - or CPD to a flat line](image-27.png){width=50%}
+
+We will compress the flat parts of the CPD, and expand the steepest one. But the main issue, since we move bins, we want have a flat histogram, we will just spread the bins more equally due to the **discrete nature** of the input. On top, neigboring pixels won't always have the same difference of intensities after the remapping (less problematic though).
+
+### Deblurring or Unsharp masking
+
+If we deblur we actually increase the image sharpness. It's *simple, linear, image independent and effective*.
+
+![Imagine a vertical cut of image where x-axis is the pixel number and y-axis the grey-level](image-28.png){width=50%}
+
+We see that we, indeed, make the edge steeper. Moreover, the difference between the original-smooth makes a good fit for second order derivative. This is a bit like running a diffusion process backwards.
+
+The little over and under-shoots at the edge even magnifies the contrast (Mach band effect).
+
+### Inverse Filtering
+
+Now, we shift gears and go into the frequency. We have the frequency function that blurs the image with $B(u,v)$. To undo it we apply $B'(u,v)$ such that $B'(u,v)B(u,v) = 1$. Two danger here:
+
+1. What happens for $B(u,v) = 0$
+    - Use a constant at the denominator --> Spurious high-frequencies :'(
+    - $B'(u,v)=B(u,v)/(B(u,v)^2 + C)$ --> Much better ! Wiener-like reduces C for larger SNR and vice versa.
+2. For low $B(u,v)$ after noise was applied --> may over-fit the noise...
+
+### Noise Suppression
+
+#### Low pass
+
+As introduced, we can use a low-pass filter for noise suppression. The main problem with applying this rectangular (actually a circle) window is the rippling due to the sinc function as seen here
+
+![Rippling effect](image-29.png){width=50%}
+
+
+## Features - edge and corner detections
 
 
 
@@ -658,4 +702,6 @@ The idea is to:
 2. Measure the angle $\theta$ that maximizes $\frac{\partial f}{\partial x'} = \frac{\partial f}{\partial x} \cos (\theta) + \frac{\partial f}{\partial y} \sin(\theta)$ this yields $\theta_{xtr} = \tan^{-1}\left( \frac{\partial f}{\partial y} / \frac{\partial f}{\partial x} \right)$
 
 
-\section{Modern Image Analysis}
+
+\newpage
+\part{Modern Image Analysis}
