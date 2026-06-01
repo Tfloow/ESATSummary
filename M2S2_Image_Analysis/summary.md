@@ -1030,15 +1030,189 @@ We often need large but sparse filters for good efficacy. Can be great for damag
 
 We often need to use multiple eigenfilters to capture different aspects of the texture. A great technique to compile multiple eingefilters together and quickly locate error or irregularities in the texture is the **Manhalanobis distance of the energies**:
 
-$$
+
 \begin{align}
     D_M(x,y) = \sqrt{(r(x,y)-\mu)^\top \Sigma^{-1}(r(x,y) - \mu)}\\
     \mu = \frac{1}{N} \sum_{i=1}^N r(x_i,y_i)\qquad \Sigma = diag(\lambda_1, \lambda_2, ..., \lambda_K)
 \end{align}
-$$
+
 
 Mahalanobis distance DM measures how unusual this combination of responses is compared to normal texture. A response along a very stable direction (small eigenvalue) counts more. A response along a highly variable direction (large eigenvalue) is less
 surprising.
+
+# Motion Extraction
+
+Many animals are dependent on motion detection to outperform camouflage. Only with a few dots in motion can infer many informations.
+
+## Definition 
+
+### Optical flow
+
+> Optical flow
+>
+> Apparent motion of brightness patterns in the image. Ideally it is the the projection of the 3D motion vectors of the image
+
+
+> Motion Field
+>
+> 3D motion of the scene as seen through the camera. It is the projection of the 3D motion vectors of the scene onto the image plane.
+
+We can use 2D vectors to depict the translation of the pixels forming the optical flow. Motion field != optical flow (e.g., the barbershop pole turning around horizontally but it looks like it's sliding vertically, same for a perfect sphere with an uniform texture, it will look stable even if it starts spinning)
+
+The goal with optical flow is to measure for each pixel between two frames where each went. It is a non-trivial task and requires a few assumptions to be achievable:
+
+1. Same brightness
+2. Minimal motion
+
+#### Mathematics
+
+With $I(x,y,t)$ the intensity of the pixel at position (x,y) at time t, we can measure the difference with:
+
+$$
+I(x,y,t) = I(x+\delta x, y+\delta y, t+\delta t)\qquad \frac{dI}{dt} = \underbrace{\frac{\partial I}{\partial x}}_{I_x} \underbrace{\frac{dx}{dt}}_{u} + \underbrace{\frac{\partial I}{\partial y}}_{I_y} \underbrace{\frac{dy}{dt}}_{vD} + \underbrace{\frac{\partial I}{\partial t}}_{I_t} = 0
+$$
+
+This equation states that if one were to track the image projections of a scene point through the video, it would not change its intensity. This tends to be true over short lapses of time.
+
+Note that $dI/dt$ represents the change of intensity when following a physical point through the images; but $\partial I/\partial t$ is the change of intensity at a fixed location in the image. The difference between these two is the motion of the point in the image.
+
+![Optical flow in 1D](image-48.png){width=50%}
+
+The issue with this equation is that $I_x$,$I_y$, and $I_t$ can be measured. However, $u$ and $v$ are unknwon, 1 equation 2 unknowns = **Aperture Problem**.
+
+![Aperture problem](image-49.png){width=50%}
+
+We only zoom in one tiny part of the frame and thus we miss the overall motion by only looking at such details. The problem can be solved with:
+
+1. Higher derivative of intensity --> expensive + noisy
+2. For planar intensity profile, problem cannot be solved (higher order derivative are zero)
+
+
+## Horn & Schunk
+
+Additional smoothness constraint is added to the equation to solve the aperture problem. The idea is to minimize the following energy function:
+
+$$
+e_S = \int \int ((u_x^2 + u_y^2 + v_x^2 + v_y^2) dx dy) \qquad e_C = \int \int (I_x u + I_y v + I_t)^2 dx dy \qquad \text{minimize } e = e_S + \lambda e_C
+$$
+
+We need to find a function that extremize the functionals (functions that takes vector in and scalar out)
+
+![1D example of our functional](image-50.png){width=50%}
+
+![Calculus of variation](image-51.png){width=50%}
+
+This allows to reformulate an optimization over a function into an optimization over a scalar. We can use $dI/d\varepsilon|_{\varepsilon=0} =0$. We can use Euler-Lagrange equation to find the function that extremize the functional. 
+
+**TODO: PAGES 49 - 62** --> Take time to understand
+
+1. We use regularization, need sometimes to pose extra constraints
+2. Errors at object boundaries, smoothness constraint no longer valid
+
+## Lucas & Kanade
+
+It uses the same optical flow equation but used an area based regression. We assume that the flow is constant in a small neighborhood of the pixel under consideration (local optimization). We can then solve for the flow vector using least squares. The idea is to minimize the following energy function:
+
+
+\begin{align}
+    A &= \begin{bmatrix}
+        I_x(q_1) & I_y(q_1)\\
+        I_x(q_2) & I_y(q_2)\\
+        \vdots & \vdots\\
+        I_x(q_n) & I_y(q_n)
+    \end{bmatrix} & v&= \begin{bmatrix}
+        V_x\\ V_y
+    \end{bmatrix} & b&=\begin{bmatrix}
+        -I_t(q_1)\\
+        -I_t(q_2)\\
+        \vdots\\
+        -I_t(q_n)
+    \end{bmatrix}
+\end{align}
+
+$$
+A^\top A v = A^\top b \qquad v = (A^\top A)^{-1} A^\top b
+$$
+
+$$
+\begin{bmatrix}
+    V_x\\
+    V_y
+\end{bmatrix} = \begin{bmatrix}
+    \sum_{i=1}^n I_x(q_i)^2 & \sum_{i=1}^n I_x(q_i) I_y(q_i)\\
+    \sum_{i=1}^n I_x(q_i) I_y(q_i) & \sum_{i=1}^n I_y(q_i)^2
+\end{bmatrix}^{-1} \begin{bmatrix}
+    -\sum_{i=1}^n I_x(q_i) I_t(q_i)\\
+    -\sum_{i=1}^n I_y(q_i) I_t(q_i)
+\end{bmatrix}
+$$
+
+It cannot always reliably calculate the flow, apperture problem, it requires a lot of texture in all direction to be reliable. So, to detect interesting points, we often use the Harris-detector to find interesting spots and apply area based flow around each key point. This is called the **feature tracking**. However, it does not respect Taylor expansion.
+
+Another technique is to use a form of coarse to fine to estimate the flow even better with various size.
+
+## Active contours
+
+The idea is to track a contour from one key frame to another one. It is like an elastic band we adjust frame by frame. It is a good and robust approach for noise especially whan we know what object we are tracking (e.g., lips).
+
+![Active contours](image-52.png){width=50%}
+
+We use some discrete representation of the contour which is a list of 2D points (vertices). We define an energy function that we want to minimize. The energy function is a combination of an internal energy that depends on the shape of the contour (known shape, ...) and an external energy that depends on the image  (edges present in the image, attracts the contour to the edges of the image). The internal energy is given by:
+
+$$
+E_{total} = E_{internal} + E_{external} 
+$$
+
+#### External 
+
+Energy for a point of a curve and the whole curve:
+
+$$
+E_{external}(v) = -(|G_x(v)|^2 + |G_y(v)|^2) \qquad E_{external} = -\sum_{i=0}^{n-1} (|G_x(x_i,y_i)|^2 + |G_y(x_i,y_i)|^2)
+$$
+
+#### Internal
+
+We use the elasticity and the bending energy to define the internal energy. The elasticity energy is given by:
+
+$$
+E_{internal}(v(s)) = \underbrace{\alpha \left| \frac{dv}{ds} \right|^2}_{\text{elasticity}} + \underbrace{\beta \left| \frac{d^2 v}{ds^2} \right|^2}_{\text{bending}}
+$$
+
+For our discrete representation, we can use finite differences to approximate the derivatives:
+
+$$
+\frac{dv}{ds} \approx v_{i+1} - v_i \qquad \frac{d^2 v}{ds^2} \approx (v_{i+1} - v_i) - (v_i - v_{i-1}) = v_{i+1} - 2v_i + v_{i-1}
+$$
+
+Internal energy for the whole curve
+
+$$
+E_{internal} = \sum_{i=0}^{n-1} \left( \alpha |v_{i+1} - v_i|^2 + \beta |v_{i+1} - 2v_i + v_{i-1}|^2 \right)
+$$
+
+For the elastic energy, we often a term $d$ to avoid that the energy collapse on itself and so we take the initial distance $d$.
+
+We can also use a term to penalize the length of the curve to avoid that it grows indefinitely. This is called the balloon energy.
+
+![Active contours](image-53.png){width=50%}
+
+### Energy minimization
+
+#### Greedy
+
+For each point we simply look where we can move them to minimize the energy. Usually small window (5x5) around the point. It is simple but can get stuck in local minima and requires decent initialization.
+
+#### Dynamic programming
+
+Use a form of the viterbi algorithm to propagate down the energy and find the optimal path. It is more robust to local minima but can be computationally expensive.
+
+#### Gradient Vector flow (GVF)
+
+![GVF (Informational only)](image-54.png){width=50%}
+
+![Other approaches](image-55.png){width=50%}
+
 
 
 \newpage
