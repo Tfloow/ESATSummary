@@ -872,6 +872,174 @@ PCA looks like the Harris corner detector but a few things chenge:
 - No substraction by mean in Harris
 - No normalization in Harris
 
+# Surface features color and texture
+
+## Color
+
+It is important to distinguish between two important spectre of the color:
+
+1. Radiometry: physical measurement of the light (radiance, irradiance, reflectance, ...)
+2. Photometry: how the human eye perceives the light (brightness, colour, ...)
+
+A light $l$ with a spectral composition $c(\lambda)$ and the human that perceives it with a sensitivity $h(\lambda)$, with the constant $k = 683$ lm/W. Ofc, we can span only the human visible spectrum which is roughly between 400 and 700 nm. The perceived brightness is then given by the following equation:
+
+$$
+l = k \int_{\lambda=0}^\infty c(\lambda) h(\lambda) d\lambda
+$$
+
+Human perception of color can be summarized with Brightness, Huhe, and saturation.
+
+![Retinal cones of a human; occupancy S:5-10, M:30, L:60](image-41.png){width=50%}
+
+So the human has 3 sensitivity curves and not just one from the equation aforementioned. We have 3 responses for the full spectrum. So if 2 sources are observed with the same response for the 3 cones, they will be perceived as the same color. This is called **metamerism**. 
+
+### Commission Internationale de l'Éclairage (CIE)
+
+They standartized the color space with 3 primaries:
+
+1. Red: 700 nm
+2. Green: 546.1 nm
+3. Blue: 435.8 nm
+
+With this, we can match $m_j$ a source $C(\lambda)$ with a combination of the 3 primaries $P_j(\lambda)$ such that:
+
+$$
+C(\lambda) = \sum_{j=1}^3 m_j P_j(\lambda)
+$$
+
+We can derive the following:
+
+$$
+    R_i(C) = \int \sum_{j=1}^3 m_j P_j(\lambda) H_i(\lambda) d\lambda = \sum_{j=1}^3  m_j \underbrace{\int  P_j(\lambda) H_i(\lambda)}_{l_{i,j}\text{ Sensitivity of a primary can be determined offline}} d\lambda
+$$
+
+This makes a really simple system of 3 linear equations for the human eye. If we use different primaries $L'$, we can find a new set of coefficients $m'$ such that:
+
+$$
+\sum_{j=1}^3 m_j l_{i,j} = Ri\qquad LM = R \qquad L'M' = R \quad m' = L'^{-1}Lm
+$$
+
+#### Tristimulus value
+
+As white is the combination of all the colors, we can use the white point as a reference for the color. We can then define the tristimulus value as:
+
+$$
+T_j = \frac{m_j}{w_j} \qquad T_1 = T_1= T_3 = 1 \quad \text{for white}
+$$
+
+![Spectral matching curves](image-42.png){width=50%}
+
+We notice negative colors which cannot be produced by a combination of the primaries. This is a problem for the display of colors. Moreover, for some colors, a triple of primaries cannot represent it! However the tristimulus values still contain brightness information, we can normalize to only get chromatic information:
+
+$$
+t_j = \frac{T_j}{\sum_{j=1}^3 T_j} \qquad t_1 + t_2 + t_3 = 1
+$$
+
+So now, 2 chromaticity coordinates are enough to represent the color (saturation and hue). This forms the XYZ coordinates of the CIE, with X being a mix of red/green cones, the Y the luminance and Z blue light primarly. The mapping matrix is
+
+$$
+\begin{pmatrix}
+    X\\
+    Y\\
+    Z
+\end{pmatrix} = \begin{pmatrix}
+    0.490 & 0.310 & 0.200\\
+    0.177 & 0.813 & 0.011\\
+    0.000 & 0.010 & 0.990
+\end{pmatrix}\begin{pmatrix}
+    R\\
+    G\\
+    B
+\end{pmatrix}
+$$
+
+![CIE color triangle](image-43.png){width=50%}
+
+Inside this triangle, the mix of two colors in some quantities lie on the straight line between those two colors.
+
+Screen standard tries to span as much as this CIE triangle to have the highest fidelity possible. Such color coordinates need 3 primaries on the CIE triangle + the central white point --> 4 points. Also the projection is skewed on the triangle, much more information lie in the bottom blue corner and red corner than in the top green one.
+
+The CIE u-v is a solution which represents area more faithfully.
+
+$$
+u = \frac{4x}{-2x+12y+3} \qquad v = \frac{6y}{-2x+12y+3}
+$$
+
+### Constancy
+
+Many optical illusions exists where our brain is tricked and interprets colors when there are none or the context can influences our perception. We often interpret the ambient light to infer the result of the dot product on our human cones. This is called the **color constancy**. The brain is trying to infer the color of the object by taking into account the ambient light. This is why we can see a white paper as white even if it is under a red light.
+
+## Texture
+
+Many textures exist such as oriented vs isotropic, stochastic vs regular, coarse vs fine, ...
+
+### Fourier features
+
+We analyze the texture based on the power spectrum of the Fourier transform. A peak in the power spectrum indicates a strong periodicity in the image. The orientation of the peak indicates the orientation of the texture. The width of the peak indicates the coarseness of the texture. The more spread out the peak is, the more stochastic the texture is.
+
+One problem with this method is the fact that is captures the global periodicity of the image but not the local one. Moreover, it is not very good at capturing the orientation of the texture. Finally, it is not very good at capturing the coarseness of the texture.
+
+$$
+\int \int |F(u,v)|^2 du dv
+$$
+
+![Periodicity](image-44.png){width=50%}
+
+### Cooccurrence matrices
+
+It is inspired by the histogram idea, but this time we will take a chosen offset between two points and count how many i,j pair exists in a double entry matrix. This will give us a measure of the texture based on the co-occurrence of pixel values. We can then derive some statistics from this matrix such as contrast, homogeneity, energy, ...
+
+![Cooccurrence matrix](image-45.png){width=50%}
+
+
+| Feature          | Expression                                           |
+| ---------------- | ---------------------------------------------------- |
+| Contrast         | $\sum_{i,j} (i-j)^2 C(i,j)$                          |
+| Homogeneity      | $\sum_{i,j} \frac{1}{1+          \| i-j \| } C(i,j)$ |
+| Energy           | $\sum_{i,j} C(i,j)^2$                                |
+| Entropy          | $-\sum_{i,j} C(i,j) \log C(i,j)$                     |
+| Max. Probability | $\max_{i,j} C(i,j)$                                  |
+:Summary table of the features derived from the cooccurrence matrix
+
+### Filter banks
+
+#### Laws
+
+![Laws filter](image-46.png){width=50%}
+
+We can start from 1D laws filter to form more advanced decomposed 2D filters. L=Level, E=Edge, S=Spot, W=Wave, R=Ripple. The idea is to have a set of filters that can capture different types of textures. For example, the L5E5 filter will capture edges, while the E5L5 filter will capture spots. We can then apply these filters to the image and analyze the response to get a measure of the texture. It is simle but really effective. Detection or classification nby assigning features / statistical metrics to the outputs.
+
+#### Gabor
+
+It is a gaussian envelope modulated by a sinusoidal plane wave. It is a band-pass filter that can capture both the frequency and orientation of the texture. We can tweak the sensitivity and directionality of the filter. The Gabor filter is defined as:
+
+$$
+g(x,y) = \exp\left( -\frac{x^2 + \gamma^2 y^2}{4\Delta_{x,y}^2} \right) \cos\left( 2\pi u^\ast x + \phi \right) \longleftrightarrow G(u,v) = \frac{1}{4\pi\Delta_{u,v}^2}\exp\left( -\frac{(u-u^\ast)^2 +  v^2}{4\Delta_{u,v}^2} \right) + \exp\left( -\frac{(u+u^\ast)^2 +  v^2}{4\Delta_{u,v}^2} \right)
+$$
+
+![Gabor filters](image-47.png){width=50%}
+
+#### Eigenfilters
+
+1. Create a mask to be shifted over a training image
+2. Within the mask, collect intensity statistics
+3. PCA --> eigenvectors --> eigenfilters
+4. Determine energies of eigenfilters of eigenfilter outputs
+
+We often need large but sparse filters for good efficacy. Can be great for damage inspection or QA in industry.
+
+We often need to use multiple eigenfilters to capture different aspects of the texture. A great technique to compile multiple eingefilters together and quickly locate error or irregularities in the texture is the **Manhalanobis distance of the energies**:
+
+$$
+\begin{align}
+    D_M(x,y) = \sqrt{(r(x,y)-\mu)^\top \Sigma^{-1}(r(x,y) - \mu)}\\
+    \mu = \frac{1}{N} \sum_{i=1}^N r(x_i,y_i)\qquad \Sigma = diag(\lambda_1, \lambda_2, ..., \lambda_K)
+\end{align}
+$$
+
+Mahalanobis distance DM measures how unusual this combination of responses is compared to normal texture. A response along a very stable direction (small eigenvalue) counts more. A response along a highly variable direction (large eigenvalue) is less
+surprising.
+
 
 \newpage
 \part{Modern Image Analysis}
