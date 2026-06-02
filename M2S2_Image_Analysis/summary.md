@@ -1214,6 +1214,133 @@ Use a form of the viterbi algorithm to propagate down the energy and find the op
 ![Other approaches](image-55.png){width=50%}
 
 
+# Local features & Feature matching
+
+The goal is to recognize landmarks accross pictures, or faces, ... It is based on previous knowledge heavily inspired from Sobel, Harris  Laplacians, Lucas Kanade (for feature tracking), ... All of this wil help us build SIFT.
+
+We want to find local features but it is not trivial as scales will be problematic in this task. But achieving it will enable 3D reconstruction, recognition of objects, image matching, image retrieval, ... For this we rely on 3 main components:
+
+1. Detection: of the important landmark and interest points
+2. Description: of the local features around the interest points (feature vector)
+3. Matching: of the features between different images
+
+We want our detector to be:
+
+- repeatable: be consistent
+- distinctive: highlight good interest points. Moreover it should precisely match each interest point
+- invariant: no matter the scale or the rotation, we should be able to find the same interest points (geomtric or photometric changes). Keep deriving the same feature points trhoughout the images (otherwise impossible to match them)
+- compact / efficient: realtime applications, embedded systems, ... with limited compute power, use binary feature descriptors
+- find local interest points: the smaller, the less likely it will be affected by occlusion, deformation, ... we can approximate local surfaces using local planes
+
+Everything will be a tradeoff between these different properties. For example, we can have a very distinctive feature that is not very repeatable, or a very repeatable feature that is not very distinctive. We need to find the right balance between these properties for our specific application.
+
+## Detection
+
+### Rotation invariant detectors
+
+#### Harris corner points
+
+We can use the harris detector to detect interesting feature points such as corners. When selecting the point, the window encapsulating it should make it recognizable and if we slide around we should witness a large change in intensity. M is symmetric since we have change in both direction (corner) and we have
+
+$$
+M = \Sigma \begin{bmatrix}
+    I_x^2 & I_xI_y\\
+    I_xI_y & I_y^2
+\end{bmatrix} = \begin{bmatrix}
+    \lambda_1 & 0\\
+    0 & \lambda_2
+\end{bmatrix} \qquad Mx_i = \lambda_i x_i \qquad R(x,y) = det(M) - \alpha tr(M)^2 = \lambda_1 \lambda_2 - \alpha(\lambda_1 + \lambda_2)^2
+$$
+
+We get the R scores for each image window, find points where surrounding window gave high R, finally take the points of local maxima of R.
+
+![Harris detector in practice](image-56.png){width=50%}
+
+We develop a "cornerness" function where both eigenvalues are large (high det).
+
+$$
+har = \det[\mu(\sigma_I,\sigma_D)] - \alpha \cdot \text{trace}[\mu(\sigma_I,\sigma_D)] = g(I^2_x) g(I^2_y) - g(I_x I_y)^2 - \alpha (g(I^2_x) + g(I^2_y))^2
+$$
+
+It is rotation invariant $M =X\Sigma X^{-1}$ with $X$ the rotation matrix. However, it is not scale invariant as the size of the window will change with the scale. Moreover, it is not very good at detecting corners in low contrast images.
+
+#### Laplacian of Gaussians
+
+Laplacian of Gaussians (LoG) is a second order derivative operator that is used to detect edges and corners in images. It is defined as the convolution of the image with a Gaussian kernel followed by the Laplacian operator. The idea is to find the zero-crossings of the LoG response, which correspond to edges and corners in the image. It is rotation invariant but not scale invariant as the size of the Gaussian kernel will change with the scale.
+
+Important to match the size of the kernel to have an optimum detection.
+
+### Scale invariant detectors
+
+#### Multi-scale approach
+
+We can use the Harris or LoG where we will try multiple size of kernel. We can then look for local maxima in the scale space. This is called the **scale-space representation**. The idea is to create a pyramid of images with different scales and look for local maxima in this pyramid. This is a simple but effective way to achieve scale invariance.
+
+It is important to use a scale-normalized derivatives to achieve scale invariance. This is done by multiplying the derivatives by a factor of $\sigma^n$ where $n$ is the order of the derivative and $\sigma$ is the scale. This way, the response of the detector will be the same regardless of the scale.
+
+#### Local extrema in scale space
+
+We find the two highest response and then try to match them together. We can then look for local maxima in the scale space to find the interest points. This is called the **scale-space extrema**. The idea is to find the points that are local maxima in both space and scale. This is a more robust way to find interest points as it takes into account the scale of the features.
+
+![Visual explanation](image-57.png){width=50%}
+
+### Affine invariant detectors
+
+The idea is to take advantage of regular human-made plane structure to inverse the affine transformation through projective transformation: **homography**. We can then apply the Harris or LoG detector on the rectified image to find the interest points. This is called the **affine-invariant detectors**. The idea is to find the points that are invariant to affine transformations. This is a more robust way to find interest points as it takes into account the affine transformations that can occur in the image. For local features, this behavior is less important.
+
+#### MSER
+
+![Maximally Stable Extremal Regions](image-58.png){width=50%}
+
+We "flood" the area until the change in area is too large. We can then look for local maxima in the scale space to find the interest points. This is called the **maximally stable extremal regions (MSER)**. The idea is to find the points that are local maxima in both space and scale.
+
+Another improvement, we can use ellipsoid instead of weird grainy boundaries, this makes matching easier.
+
+## Description
+
+### Scale Invariant Feature Transform (SIFT)
+
+Handle changes in viewpoint up to about 60 degree out of plane rotation. Can also handle changes in illumination, partial occlusion, ... We want to find a descriptor that is invariant to these changes. We can use the local image patch around the interest point to create a descriptor. The idea is to create a histogram of oriented gradients (HOG) around the interest point. This is called the **SIFT descriptor**. It has two steps: rotation normalization and then descriptor computation.
+
+#### 1. Rotation normalization
+
+- take window around detected interest point ($3\sigma$)
+- Compute edge orientation (gradient angle - 90) for each pixel
+- Histogram of edge orientation with 36 bins (10 degree each)
+    - Weight by grad magnitude, bilinear interpolation, distance to center, ...
+      - bilinear interpolation: to find an unkonw point in a 2D space located inside a square. We take the 4 points of the square and we weight them by the area covered between the point and the unknown. The closer the point is, the more weight it has. This allows us to have a smooth transition between the bins of the histogram.
+- Find the dominant rotation and rotate the patch to make it horizontal pointing to the right.
+
+![Bilinear interpolation (wikipedia)](image-59.png){width=50%}
+
+#### 2. Descriptor computation
+
+- Divide the square patch into 4x4 sub-regions
+- For each sub-region, compute a histogram of edge orientation with 8 bins (45 degree each)
+    - 16*8 = 128 dimensions for the descriptor
+- Normalize the descriptor to have unit length to achieve invariance to changes in illumination.
+
+It is a robust descriptor because of the use of histograms, bilinear weighting, smoothing with gaussian kernel. However it is not invairant to affine transformations, it is not very good at handling changes in scale, and it is not very good at handling changes in viewpoint. It is good for small geometric transformations and robust for photometric changes.
+
+We often combine the SIFT descriptor with other method or even CNN.
+
+## Matching
+
+As the name implies, the goal is to determine correspondences between features in different images. We can use the Euclidean distance between the descriptors to find the closest match. Another approach is the **Sum of Squared Differences (SSD)**.
+
+However, this can lead to many false matches. To avoid this, we can use a ratio test where we compare the distance of the closest match to the distance of the second closest match. If the ratio is below a certain threshold, we consider it a good match. This is called the **Lowe's ratio test**.
+
+In general we take one feature in an image and use a defined distance function to test all the features in the second and find the minimum distance.
+
+
+
+# 3D Acquisition
+
+## Shape from texture
+## Shape from contour
+## Shape from silhouette
+## Shape from defocus
+## Shape from shading
 
 \newpage
 \part{Modern Image Analysis}
