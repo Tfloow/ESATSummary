@@ -227,12 +227,12 @@ The perspective projection model is incomplete. What about world coordinate ? Wh
 
 We can see a matrix of pixel instead of the (u,v) projection. We just need 3 informations: 1. Center of matrix $x_0$ and $y_o$, 2. Width of array $k_x$ and 3. Height of array $k_y$ giving us:
 
-$$
+\begin{equation}
 \begin{cases}
     x&= k_x u + x_0 + sv\\
     y&= ky_v +y_0
 \end{cases}
-$$
+\end{equation}
 
 Note: the $s$ is for skew, we have the aspect ratio $k_y/k_x$[^2]
 
@@ -1311,7 +1311,7 @@ Handle changes in viewpoint up to about 60 degree out of plane rotation. Can als
       - bilinear interpolation: to find an unkonw point in a 2D space located inside a square. We take the 4 points of the square and we weight them by the area covered between the point and the unknown. The closer the point is, the more weight it has. This allows us to have a smooth transition between the bins of the histogram.
 - Find the dominant rotation and rotate the patch to make it horizontal pointing to the right.
 
-![Bilinear interpolation (wikipedia)](image-59.png){width=50%}
+![Bilinear interpolation (wikipedia)](image-59.png){width=25%}
 
 #### 2. Descriptor computation
 
@@ -1336,11 +1336,193 @@ In general we take one feature in an image and use a defined distance function t
 
 # 3D Acquisition
 
-## Shape from texture
-## Shape from contour
-## Shape from silhouette
-## Shape from defocus
-## Shape from shading
+![Map of the chapter](image-65.png){width=50%}
+
+## Passive: no interaction with the scene
+
+### Uni-directional
+
+#### Shape from texture
+
+By using a repetitive pattern (e.g. checkerboard) it is possible to infer the 3D structure of the scene by looking at the orientation of the surface. If an isotropic pattern creates an anisotropic image statistics, we can invert this operation.
+
+#### Shape from contour
+
+We make assumption about the contour shape, we can use the symmetry of an object to infer its 3D structure. For example, if we see a circle in the image, we can infer that it is a sphere in 3D. If we see an ellipse, we can infer that it is an ellipsoid in 3D. We can also use the compactness to infer the 3D structure.
+
+#### Shape from silhouette
+
+By using multiple points of view, we can create a voxel in 3D to reconstruct in 3D the object.
+
+#### Shape from defocus
+
+To infer depth in a picture, we look at the sharpness of the image at various zoom focus to reconstruct the 3D scene. We can create alpha map with this technique.
+
+#### Shape from shading
+
+We can use directional lightning (often known direction) to evaluate the depth of the image. By using the Lambertian assumption (reflection depend on an angle; a surface scatters incoming light uniformly in all directions, equally bright in all direction, ideal matte material), we can find correspondance using reflectance maps.
+
+![Shape from shading](image-60.png){width=50%}
+
+### Multi-directional
+
+#### Basic Stereo vision
+
+The idea is to use triangulation like we do with our eyes. By using two cameras with a known baseline, we can find the depth of the scene by looking at the disparity between the two images. The disparity is the difference in the position of the same point in the two images
+
+![Passive stereo](image-61.png){width=50%}
+
+With this basic setup, the object will lie on the saame scanline in both images but the vertical line will be somewhat different. Remember the camera projection with the $K$ camera calbration matrix, $R$ the rotation matrix, $P$ the 3D point and $C$ the camera center:
+
+$$
+\rho p = K R^\top (P-C)
+$$
+
+If we "attach" the world coordinate to the left camera, we can remove $R$ since $=I$ and $C=0$. With a distance $b$ separating the two cameras and by normalizing the focal length to 1, we can find the depth $Z$ of the point in the scene with:
+
+$$
+\rho \begin{pmatrix}
+    x\\
+    y\\
+    1
+\end{pmatrix} = K \begin{pmatrix}
+    X\\
+    Y\\
+    Z
+\end{pmatrix} \qquad \rho \begin{pmatrix}
+    x'\\
+    y'\\
+    1
+\end{pmatrix} = K \begin{pmatrix}
+    X-b\\
+    Y\\
+    Z
+\end{pmatrix} \qquad K = \begin{matrix}
+    fk_x & 0 & 0\\
+    0 & fk_y & 0\\
+    0 & 0 & 1
+\end{matrix} \qquad Z = \frac{fbk_x}{x-x'}
+$$
+
+\begin{equation}
+\begin{cases}
+    x = \frac{fk_x X}{Z}\\
+    y = \frac{fk_y Y}{Z}
+    
+\end{cases} \qquad \begin{cases}
+    x' = \frac{fk_x (X-b)}{Z}\\
+    y' = \frac{fk_y Y}{Z}
+\end{cases}
+\end{equation}
+
+$k_x$ is required for non-square pixels which is 1/horizontal pixel size and $k_y$ is 1/vertical pixel size. $k_x=k_y=1$ for square pixels. The depth is inversely proportional to the disparity $x-x'$. The larger the disparity, the closer the object is to the camera. The smaller the disparity, the farther the object is from the camera.
+
+When observing the same points in two view, using the **disparity** $(x-x')$, imprecise for far away objects (increase b or f to improve accuracy, but it reduces the simultaneous visibility) we have:
+
+$$
+X = b \frac{x}{(x-x')} \qquad Y = b \frac{k_x}{k_y} \frac{y}{(x-x')} \qquad Z = b k_x \frac{f}{(x-x')}
+$$
+
+Huan stereo vision is good only up to $\pm10$ meters, the human brain will use experience to infer distance for the rest. The real issue is finding the two right correspondances (almoss impossible for untextured objects).
+
+#### General Stereo vision
+
+![General setup](image-63.png){width=50%}
+
+Now, the planes are not necessarily parallel and the cameras are not necessarily on the same plane. We can use the epipolar geometry to find the correspondance between the two images. The idea is to find the epipolar lines in both images and then look for correspondance along these lines. This is called the **epipolar constraint**. The epipolar constraint states that the point in one image must lie on the epipolar line in the other image. We can then use the disparity along the epipolar line to find the depth of the scene. This method requires both camera to be properly calibrated and the relative position, orientation, and setting of the cameras to be known.
+
+$$
+\mu p = KR^\top (P-C) \qquad \rho' p' = KR'^\top (P-C') \qquad \text{the Ray: } P = C+\mu RK^{-1}p \quad \mu \in \mathbb{R}
+$$
+
+Not be studied but good for understanding. The point $P$ must lie on the ray defined by the camera center and the point in the image. We can then find the epipolar line by finding the intersection of the ray with the image plane of the other camera using the equation $\rho' p' = KR'^\top (P-C')$. This is given by:
+
+$$
+\rho' p' = KR'^\top (C+\mu RK^{-1}p - C') \qquad \rho' p' = \underbrace{KR'^\top (C-C')}_{\text{Epipole}} + \underbrace{\mu KR'^\top RK^{-1}p}_{\text{Vanishing point}}
+$$
+
+The epipole is the point where the line connecting the two camera centers intersects the image plane. The vanishing point is the point where the ray defined by the camera center and the point in the image intersects the image plane of the other camera. The epipolar line is then given by the line connecting the epipole and the vanishing point.
+
+We can then use the simplified notation with $A$ the infinite homography and $e$ the epipole:
+
+$$
+A = \frac{1}{\rho'_e}K'R'^\top RK^{-1} \qquad e = \frac{1}{\rho'_e}KR'^\top (C-C') \qquad \rho' p' = \rho'_e (\mu A p + e')
+$$
+
+We can write the epipolar constraint as:
+
+$$
+|p'e'Ap| = p'^\top (e'\times Ap) = 0 \rightarrow |p'e'Ap| = p'^\top [e']_\times A p = 0 \quad \underbrace{F = [e']_\times A}_{\text{Fundamental matrix}} \quad [e']_\times = \begin{bmatrix}
+    0 & -e'_z & e'_y\\
+    e'_z & 0 & -e'_x\\
+    -e'_y & e'_x & 0
+\end{bmatrix}
+$$
+
+The fundamental matrix $F$ encapsulates the epipolar geometry of the two views. It is a 3x3 matrix which has rank 2. ( $p'^\top F$ ) is a triple ($a',b',c'$) giving the coefficients of the epipolar line for point p with coordinates ($x,y,1$): $a'\cdot x + b'\cdot y +c' = 0$. And vice versa for $Fp$.
+
+![Epipolar lines are in mutual correspondance == allows to separate the matching problem](image-64.png){width=50%}
+
+How to find the Fundamental matrix:
+
+- One point yields one equation $p'^\top F p = 0$ , that is linear in the entries of the fundamental matrix F so, we can actually obtain F without any prio knowledge about camera settings if we have sufficient pairs of corresponding points !!
+- F can be computed linearly from 8 pairs of corresponding points; not 9, as this is a homogeneous system of equations. 
+- F being rank 2 yileds an additional, but non-linear constraint ( det(F)=0 ), thus 7 correspondences suffice to non-linearly solve for F
+
+In practice,
+
+- Detect interest points (using detector) that are good candidates to serve as initial correspondence sand match features (e.g. SIFT/ORB/etc.)
+- Solve the 8-point algorithm using e.g. least squares and find the point pairs that fit the model using RANSAC (this is to avoid false positives, RANSAC randomly selects initial pairs, and adds pairs gradually while the F-equation remains between bounds)
+- Estimate final F (this might not have rank 2, because of noise, imperfect matches, measurement errors rank will almost always by full=3)
+- Enforce rank 2 using SVD: decompose $F=U\Sigma VT$, singular values are in $\Sigma=diag(\sigma_1,\sigma_2,\sigma_3)$, and force $\sigma_3=0$.
+
+Epipolar lines are in mutual correspondence. Separate 2D correspondence search problem to 1D search problem by using two view geometry
+
+We can also reduce the search space by only picking points on the epipolar line, min and max depth for line segmaet, smoothness of the disparity field, ...
+
+Again this is for reference and the math derivation presented here is not required for the exam, but it is good to understand the underlying principles of stereo vision and epipolar geometry. By re-using the ray equation and epipolar constraint we have 6equations and 5 unknowns (over determined set of equations). Siometimes the ray may not interesect due to noise so we take the middle.
+
+$$
+P = C+\mu RK^{-1}p \quad \mu \in \mathbb{R} \qquad P = C'+\mu' R'K'^{-1}p' \quad \mu' \in \mathbb{R}
+$$
+
+#### Multiview stereo
+
+We can expand this idea to multi-view stereo where we have a moving camera and we want to reconstruct the 3D scene from multiple images. We can use the same principles as stereo vision but we need to take into account the motion of the camera. We can use structure from motion (SfM) to find the camera motion and then use multi-view stereo to reconstruct the 3D scene.
+
+We must do feature tracking, estimate pairwise geometry, and then do multi-view stereo to reconstruct the 3D scene. This is a complex process but it allows us to reconstruct the 3D scene from multiple images. We must also self-calibrate to understand the intrinsic parameters of the camera $K$ and the relative position and orientation of the cameras. Convert it to another base $E=K^\top FK$.
+
+## Active: interere with the scene to get information
+
+### Uni-directional
+
+#### Time-of-flight
+
+This is the idea behind radar or lidar, we measure the time-of-flight of a pulse or we analyze the phase shift of a continuous wave to find the distance of the object. It is a direct way to measure depth but it can be affected by noise, multipath interference, and other factors. We can cast multiple ray to get a point cloud of the scene. The distance is given by:
+
+$$
+d = \frac{c \cdot t}{2} \qquad d = \frac{c \cdot \phi}{4\pi f}
+$$
+
+### Multi-directional
+
+#### Line scanning
+
+The idea is to simplify the stereo vision by projecting a line on the scene and then looking at the deformation of the line to infer the 3D structure of the scene. This is a simple but effective way to reconstruct the 3D scene. It is often used in industrial applications for quality control and inspection. We can cast a cloud of points and capture the deformation of the line to reconstruct the 3D scene. It is a direct way to measure depth but it can be affected by noise, occlusion, and other factors and find no interesection points !.
+
+![Active triangulation](image-66.png){width=50%}
+
+![Active triangluation: with a plane, noise has less influence](image-67.png){width=50%}
+
+#### Structured light
+
+The idea is to project a pattern of light on the scene and then look at the deformation of the pattern to infer the 3D structure of the scene. The goal is to have minimum number of pattern projection while keeping a good resolution. For example, we can use serial binary patterns with incresingly fine subdivisions $2^n$. Or we can use colors $3^n$. Finally we can use a checkerboard pattern with a column code giving one shot implementation. The kinect uses $9\times 9$ with unique code.
+
+![Serial binary patterns](image-68.png){width=50%}
+
+#### Photometric stereo
+
+Again based on the lambertian assumption, we will change the light actively to observe the object under various lighting conditions. Can give really high contrast and depth for small objects with little texture.
 
 \newpage
 \part{Modern Image Analysis}
