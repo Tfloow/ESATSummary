@@ -1526,3 +1526,92 @@ Again based on the lambertian assumption, we will change the light actively to o
 
 \newpage
 \part{Modern Image Analysis}
+
+| Network name | Type of network | Characteristics                                                                                                                                                                                                       |
+| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Alexnet      | CNN             | 8 layers, 60 million parameters, 1.2 million images, 1000 classes; handcrafted sizes                                                                                                                                  |
+| VGGNet       | CNN             | 19 layers, 138 million parameters, 1.2 million images, 1000 classes; use 3x3 CNN, when pooling double depth if we divide height and width by 2, more mature. Declined in model sizes VGG-XX with XX layers.           |
+| ResNet       | CNN             | 152 layers, 25 million parameters, 1.2 million images, 1000 classes; use residual connections to avoid vanishing gradient problem, more mature. Declined in model sizes ResNet-XX with XX layers. Use average pooling |
+:Summary of notorious DeepLearning network
+
+![Type of normalization; N is the batch size, C are the channels, HxW are the spatial dimensions](image-69.png){width=70%}
+
+![Resnet interpretation](image-70.png){width=70%}
+
+![Size estimation for a CNN and its head](image-72.png){width=30%}
+
+![Typical CNN and its nomenclature](image-71.png){width=70%}
+
+
+| Type of loss                        | Usecase                       | Math                                                                                                                                                                                   |
+| ----------------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| softmax + Cross-entropy loss        | Classification (1 class)      | $L = -\sum_{i=1}^N y_i \log(\hat{y}_i)$                                                                                                                                                |
+| Sigmoid + Binary Cross-entropy loss | Classification (multi-label)  | $L = -\sum_{i=1}^N [y_i \log(\hat{y}_i) + (1-y_i) \log(1-\hat{y}_i)]$                                                                                                                  |
+| L1,L2,Huber loss                    | Regression (continuous value) | $L = \sum_{i=1}^N\| y_i - \hat{y}_i \|$ (L1), $L = \sum_{i=1}^N (y_i - \hat{y}_i)^2$ (L2, gradient can explode bad), $L = L2 \text{ if } L1 \leqslant \delta \text{ else } L1$ (Huber) |
+: Loss function and use case
+
+
+| Name of NNetwork | Type of model | Characteristics                                                                                                                                                                                                                                                                              |
+| ---------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| R-CNN            | 2-stage       | Region-based CNN, uses selective search to find region proposals and then applies a CNN to each proposal to classify it. Use SVM classification --> no end-to-end training. Simpler wrapper over AlexNet.                                                                                    |
+| Fast R-CNN       | 2-stage       | An improvement over R-CNN, it uses a single CNN to extract features from the entire image and then applies a region of interest (RoI) pooling layer to classify each proposal. Use a linear classifier (Cross-entropy for label classification and Huber Loss for regression (bounding box)) |
+| Faster R-CNN     | 2-stage       | An improvement over Fast R-CNN, it uses a region proposal network (RPN) to generate region proposals instead of selective search, making it faster and more efficient. Use anchors; 2 NN 1 for classification 1 for region proposal based on fixed anchors (regression network)              |
+| Mask R-CNN       | 2-stage       | An improvement over Faster R-CNN, it adds a branch for predicting segmentation masks on each region of interest, in addition to the existing branches for classification and bounding box regression.                                                                                        |
+| YOLO             | 1-stage       | You Only Look Once, it divides the image into a grid and predicts bounding boxes and class probabilities for each grid cell, making it faster but less accurate than 2-stage methods.                                                                                                        |
+| SSD              | 1-stage       | Single Shot MultiBox Detector, it performs object detection in a single forward pass of the network, making it faster than 2-stage methods. Use anchor boxes that are learned. 300x300 inputs.                                                                                               |
+| RetinaNet        | 1-stage       | A single-stage detector that addresses the issue of class imbalance in object detection. It uses a focal loss function to focus on hard-to-classify examples.                                                                                                                                |
+: Object detection NN
+
+![R-CNN](image-73.png){width=50%}
+
+![Fast R-CNN](image-74.png){width=50%}
+
+![In-depth Fast R-CNN](image-75.png){width=50%}
+
+![Faster R-CNN](image-76.png){width=50%}
+
+![In-depth Faster R-CNN](image-77.png){width=50%}
+
+![Mask R-CNN](image-78.png){width=50%}
+
+![Summary of top-down detection](image-79.png){width=50%}
+
+![Comparison of Image detectors](image-80.png){width=80%}
+
+![YOLO v1](image-81.png){width=50%}
+
+![SSD - Single Stage Multibox Detector](image-82.png){width=50%}
+
+![RetinaNet](image-83.png){width=50%}
+
+![Overview of object detection](image-84.png){width=50%}
+
+![Knowledge distillation](image-85.png){width=50%}
+
+![Encoder-Decoder; with the cross-attention layers](image-86.png){width=30%}
+
+![DETR](image-87.png){width=60%}
+
+![DETR + panotpic segmentation](image-88.png){width=60%}
+
+![Transformers for multimodal tasks](image-89.png){width=60%}
+
+![All together; vision transformer + decoder = MaskFormer](image-90.png){width=70%}
+
+
+| Name                                | Type of Models | Characteristics                                                                                                                                                                                                |
+| ----------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Autoencoder                         | AE             | Learns a latent representation of the data and can generate new samples from this representation. Explicit model.                                                                                              |
+| Variational Autoencoder             | VAE            | Like AE, but use the Kullback Leiber norm to regularize the latent space distribution to fit a gaussian distribution.                                                                                          |
+| Generative Adversarial Network      | GAN            | Consists of a generator and a discriminator that compete against each other to generate realistic samples. Implicit, force input to be gaussian distribution, game-theory based training.                      |
+| Conditional GAN                     | GAN            | Like GAN, but allows for conditioning the generation process on additional information, such as class labels or text descriptions.                                                                             |
+| Cycle GANG                          | GAN            | We use real input image, translated into another domain, and then back to the original domain. The other domain is used against the original domain to enforce cycle consistency. Allows to do style transfer. |
+| Diffusion Models                    | Diffusion      | Models the data generation process as a diffusion process, where noise is added to the data and then removed to generate new samples.                                                                          |
+| Stable Diffusion (latent diffusion) | Diffusion      | Use an encoder-decoder architecture to generate images from text prompts. Sort of VAE + diffusion. We apply the diffusion procedure on the latent space.                                                       |
+:Generative Models overview
+
+![Diffusion models: Training](image-91.png){width=60%}
+
+![Diffusion models: Generation](image-92.png){width=60%}
+
+![Latent diffusion](image-93.png){width=60%}
