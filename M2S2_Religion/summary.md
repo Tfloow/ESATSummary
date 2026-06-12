@@ -525,3 +525,339 @@ The authors note that despite the wide variety of ethical tools available, there
 **Future Challenges**
 
 The authors conclude with future challenges for ethical tools. They suggest that the rise of "ethics apps" and autonomous technological systems might alter or even diminish the traditional role of professional ethicists. Furthermore, they highlight a major limitation of most ethical tools: they generally only work if the users belong to the same **moral community**, meaning they must share a significant baseline of ethical values to deliberate effectively.
+
+
+
+\newpage
+
+# AI summary of classes
+
+
+## Defining Religion
+
+Class 2 of the "Religions" course focuses on the complexities of **defining religion**. Drawing heavily from the mandatory readings by Jeppe Sinding Jensen and Craig Martin, the lecture emphasizes that "religion" is not a naturally occurring, objective fact, but rather an analytic term and a theory-dependent concept—it is a "map" of human behavior rather than the "territory" itself.
+
+**The Politics of Definition**
+
+The lecture and readings highlight that how we define religion depends on who is asking, when they are asking, and what their interests are. Craig Martin argues that definitions are often shaped by political and social agendas, much like how the legal definition of "wetlands" fluctuates depending on whether conservationists or land developers are writing the rules. For example, the definition of yoga shifts depending on context: practitioners might argue it is "spiritual" but not "religious" to avoid violating the separation of church and state in public schools, while state governments might argue it is secular to justify taxing yoga studios.
+
+**Historical Context: It Depends on When!**
+
+The lecture stresses that the modern understanding of "religion" as a private matter separated from politics is a relatively recent invention:
+
+*   **Pre-Modernity:** Prior to the Protestant Reformation, there was no concept of religion as a distinct cultural tradition separated from other social spheres. The ancient Latin term *religio* referred to devotion, reverence, and the meticulous observation of rules, rather than a private belief system.
+*   **Early Modernity:** The modern separation of Church and State emerged during the violence of the Protestant Reformation. Thinkers like John Locke argued for distinct boundaries between the commonwealth and the church to promote tolerance, creating a "useful fiction" that relegated religion to the private sphere.
+
+**Colonialism and the Christian Ideal**
+
+The lecture warns that defining "religion" carries significant normative baggage and has historically been used as a tool for European colonialism. European scholars traditionally set up **Christianity as the universal standard or "ideal type"** for what constitutes a religion. Other cultural traditions were judged based on whether they had a founder (like Jesus), central doctrines, sacred texts, rituals, and communal buildings (like a church). 
+
+This framework justified imperialist agendas by labeling non-Western traditions as "primitive," "savage," or "irrational" compared to advanced European religions. Furthermore, relying on this Christian model has historically disadvantaged groups like Native Americans in modern religious freedom legal cases, as their practices did not fit the traditional European mold of what a "religion" should look like.
+
+**Five Intellectual "Turns" in Studying Religion**
+
+Because defining religion depends heavily on the scholar's perspective, the lecture outlines five major intellectual "turns" in the academic study of religion:
+
+1.  **The Functional Turn (Émile Durkheim):** Defines religion socially as a unified system of beliefs and practices that unite adherents into a single moral community or Church.
+2.  **The Psychoanalytic Turn (Sigmund Freud):** Views religion critically as a "universal obsessional neurosis of humanity," rooted in illusions and psychological complexes.
+3.  **The Existentialist Turn (Paul Tillich):** Defines religion functionally as a state of being grasped by an "ultimate concern" that addresses the meaning of life and helps humans cope existentially.
+4.  **The Linguistic/Cultural Turn (Clifford Geertz):** Sees religion as a cultural system of symbols that establishes powerful moods and motivations by formulating conceptions of a general order of existence.
+5.  **The Cognitive Turn (Pascal Boyer):** Understands religion from an evolutionary perspective as a by-product (or "spandrel") of normal human cognitive operations and biology.
+
+**A Tentative Definition**
+
+Ultimately, the lecture asks if we can find a lowest common denominator for everything we colloquially call a religion, from Christianity to indigenous practices, or even to phenomena like Marxism and American nationalism. Because strict definitions fail to encompass all these disparate groups, the class proposes viewing religion as a **"family resemblance" concept** (drawing on the philosopher Ludwig Wittgenstein). This means religions share a network of overlapping traits without needing a single universal feature. 
+
+The lecture concludes with a tentative, practical definition provided by Jensen: religion consists of "semantic and cognitive networks comprising ideas, behaviours and institutions in relation to counter-intuitive superhuman agents, objects and posits".
+
+## Secularism
+
+Class 3 of the "Religions" course delves into the concept of **secularization** and the extensive academic debate surrounding the idea that the world is becoming increasingly secular and less religious.
+
+**Defining the Terms**
+
+The lecture begins by distinguishing between closely related terms:
+
+*   **Secular:** Pertaining to the worldly or civil affairs, as opposed to the ecclesiastical or sacred.
+*   **Secularization:** The process—typically taking place in the public arena—whereby ecclesiastical institutions, properties, or directions of study are converted to secular use or character.
+*   **Secularism:** A doctrine or private view that morality and education should be based solely on human well-being in the present life, excluding considerations of God or the afterlife. 
+
+**Foundational Sociological Views**
+
+The lecture contrasts two foundational perspectives stemming from the Enlightenment's emphasis on rationality:
+
+*   **Max Weber** viewed secularization as an unavoidable process of "disenchantment" driven by societal rationalization. He believed Protestantism planted the seeds for this by encouraging rational organization, ultimately leading to a world where religion loses its unquestioned public authority.
+*   **Émile Durkheim** had a more optimistic view, arguing that the decline of religion is only apparent. Because religion provides essential social cohesion and solidarity, he believed that while old gods might die, society will inevitably create "new ideals" and formulas to guide humanity.
+
+**The Secularization Thesis and Its Critics**
+
+The core of the class focuses on the "secularization debate," spearheaded by **Bryan R. Wilson**. Wilson defined secularization as the process whereby "religious thinking, practice and institutions lose social significance". He argued that increased rationality and cause-and-effect thinking have marginalized religion. He even dismissed high church attendance in the United States as a "superficial" social identity rather than true religious depth.
+
+Wilson's classic thesis faced several major responses and critiques:
+
+*   **David Martin:** Argued the thesis is an ideological tool based on the false premise of a historical "Golden Age" of religion that never actually existed. He also noted that modern society remains full of superstition.
+*   **Andrew Greeley:** Countered that declining church membership statistics do not necessarily mean a decline in personal religiosity, and argued that America is not becoming increasingly secular.
+*   **Rodney Stark, William Bainbridge, & Laurence Iannaccone:** Proposed a "religious economies" or supply-side model. They argued that science cannot solve existential human problems, so the demand for religion is constant. They view religious change as cyclic. Furthermore, they argued that a "free market" with competing religious organizations (like in the US) generates religious enthusiasm, whereas state monopolies on religion breed complacency and lack of interest.
+
+**Secularization and Confusion**
+
+The lecture concludes by highlighting the chaotic nature of the debate. Drawing on the mandatory reading by **Sharon Hanson**, the class notes that scholars are often "talking at cross-purposes" because they use entirely different definitions of "religion" and "secularization". Furthermore, Hanson criticizes the debate for its uncritical use of historical data and its heavy "Christo-centric" bias. 
+
+Ultimately, the rise of religious pluralism, diversity, and new religious movements forces modern scholars, like Peter Berger, to question whether true secularization is actually taking place or if religion is simply transforming.
+
+## Guest Lecture
+
+Class 4 of the "Religions" course shifts to a guest lecture format that tackles two deeply intertwined themes: the **ethics of war and peace**, particularly in light of Russia's war against Ukraine, and the **theological principles of reconciliation**.
+
+**The Ethics of War: Pacifism and Its Limits**
+
+The lecture first examines the appeal of **pacifism**, which is rooted in Jesus's teachings on forgiveness and His refusal to use violence. Historically supported by some Early Church figures, pacifism was revitalized in the 20th century by the nuclear threat and leaders like Martin Luther King Jr. and Mahatma Gandhi. During the Second Vatican Council, the Catholic Church officially recognized non-violent resistance and pacifism as a legitimate personal moral choice alongside "just war" theory. 
+
+However, the lecture heavily outlines the practical and theological limits of strict pacifism:
+
+*   **Personal Offense vs. Violence:** Jesus's command to "turn the other cheek" refers to accepting personal insults without retaliation, not to allowing lethal violence to go unopposed. Jesus Himself used force when cleansing the Temple.
+*   **Person vs. State:** The lecture draws a crucial distinction between individual morality and state responsibility. While individuals are called to forgive, the state has a God-appointed duty to protect the innocent, preserve peace, and punish wrongdoers. The New Testament, such as in Romans 13, affirms this state authority (the "sword") and does not demand that soldiers leave the military.
+*   **Historical Realities:** A pacifist approach relies on the conscience of the opponent and would not succeed against totalitarian regimes. Military force has historically been necessary to end massive evils like Nazism, fascism, and slavery. The lecture explicitly frames **Russia's war against Ukraine** as unprovoked aggression meant to destroy Ukrainian identity, statehood, and economy, making armed self-defense a moral necessity to protect the vulnerable.
+
+**Just War and Just Peacemaking**
+
+To ensure that self-defense does not devolve into unbridled violence, the lecture details **Just War Theory**, which requires seven criteria: a just cause (such as self-defense), just intent (seeking peace, not revenge), lawful declaration by a government, using war only as an absolute last resort, immunity for civilian noncombatants, limited objectives, and proportionate means. Ultimately, fighting a just war is framed as an act of love for the victim.
+
+The class also introduces **Just Peacemaking Theory**, a newer paradigm focusing on proactive practices to reduce threats, advance human rights, and promote cooperative conflict resolution before violence ever breaks out.
+
+**The Process of Reconciliation**
+
+The second half of the class explores how societies heal after a conflict ends. Reconciliation is defined theologically as a gift and work of God, but humans are called to be "co-workers" in the ongoing process of reconstructing the moral order of society. Key scholarly perspectives on this process include:
+
+*   **Miroslav Volf on Memory:** Remembering the past is necessary, but memory is ambivalent and can easily fuel hatred and revenge. To heal, memory must "serve reconciliation" by aiming for repentance and transformation rather than simply listing injustices.
+*   **Robert Schreiter on Freedom:** Forgiveness is not about forgetting the past, but transforming how we remember it. It restores the dignity of the victim and is a powerful expression of personal freedom, demonstrating that the victim refuses to be controlled by past trauma.
+*   **Daniel Philpott on Restorative Justice:** Reconciliation should not be viewed merely as punishing wrongdoing (retributive justice). Instead, it is a restorative form of justice aimed at rebuilding political community through truth-telling, reparations, and apologies.
+*   **Pope Francis on Dignity:** Forgiveness does not mean allowing oppressors to continue their wrongdoing or trample on human dignity; victims must strenuously defend their rights and the rights of their families.
+
+The lecture concludes by emphasizing that **reconciliation is not weakness, tolerance of evil, or simple forgetfulness**. It is a structural, political, and moral process that requires the end of active conflict, an examination of conscience, and a deep transformation of memory to achieve lasting peace.
+
+## Secularism
+
+Class 5 of the "Religions" course explores the concept of **secularism**, contrasting its historical applications in France and the United States, and analyzing the concept through the theoretical frameworks of Charles Taylor, Elizabeth Shakman Hurd, and José Casanova.
+
+**Defining Secularism: France vs. the United States**
+
+At a baseline, secularism is a worldview advocating for the separation of religious and state institutions, guaranteeing freedom of thought and religion, and ensuring equal treatment regardless of religious views. However, the lecture contrasts two vastly different historical models:
+
+*   **France (*laïcité*)**: French secularism emerged historically from an atheistic campaign of de-Christianization. Solidified by the 1905 law on the separation of church and state, the state abolished compulsory prayers in parliament, removed religious symbols from public buildings, and fully secularized health and education services. 
+*   **United States**: Grounded in the First Amendment's "no establishment" and "free exercise" clauses, US secularism was designed primarily as a mechanism to guarantee religious freedom rather than an ideological fight against religion itself.
+
+**Varieties of Secularisms**
+
+Drawing on assigned literature, the lecture emphasizes that secularism is not a single, monolithic concept:
+
+*   **Elizabeth Shakman Hurd** contrasts *laicism* (where religion is viewed as an adversary to modernity that must be exiled from politics, as seen in France and China) with *Judeo-Christian secularism* (where religion acts as the moral guarantor of a secular society, as seen in the US).
+*   **José Casanova** distinguishes secularism as a practical "statecraft principle" from secularism as an "ideology." As an ideology, secularism negatively assumes religion is irrational or merely a primitive stage of history to be superseded.
+*   **Charles Taylor** identifies historical "Common Ground" and "Independent" approaches to secularism, ultimately advocating for an "Overlapping Consensus." In this approach, a diverse society converges on shared political principles, but citizens agree to them for entirely different foundational or religious reasons.
+
+**The European vs. American Paradox**
+
+Casanova highlights a fascinating sociological discrepancy: Americans and Europeans both lie to pollsters about their faith, but in opposite directions. Americans tend to exaggerate their religious attendance because they equate being modern and American with being legitimately religious. Conversely, Europeans (such as Spaniards) drastically under-report their religiosity. This is because European secularist ideology widely assumes that to be modern, autonomous, and rational means one must emancipate oneself from religion. 
+
+Despite this strong secular self-image, Casanova points out that European states are far from strictly neutral. Outside of France's strict *laïcité*, most European countries maintain highly "unsecular entanglements," such as established state churches (e.g., in the UK and Nordic countries) or heavy state funding for private Catholic schools (even in France).
+
+**Charles Taylor’s *A Secular Age***
+
+The lecture concludes by examining Charles Taylor's question of how it became possible for modern people to experience "moral fullness" and inspiration using purely human powers, without reference to God. Taylor rejects "subtraction theories"—the idea that modern science simply stripped away religious superstition to reveal a natural, secular foundation. 
+
+Instead, he defines the current era ("Secularity 3") as a time where belief and unbelief uneasily coexist, marking a continuous destabilization and "recomposition" of religious forms rather than their complete disappearance. Ultimately, Taylor suggests that the secular age is imbued with a sense of "malaise" and emptiness, arguing that purely human values are inadequate to provide a true sense of fulfillment without some connection to transcendence.
+
+## Freedom of Speech
+
+Class 6 of the "Religions" course centers on the highly politicized **headscarf debate in France**, using this controversy to explore broader questions about freedom of speech, secularism, and gender equality. The lecture heavily relies on the work of historian Joan Wallach Scott, specifically her books *The Politics of the Veil* and *Sex and Secularism*. 
+
+**The Timeline of the French Headscarf Controversies**
+
+The lecture outlines how the French state's approach to the Islamic headscarf (and later the burqa) hardened from tolerance to strict prohibition over a few decades:
+
+*   **1989 (Creil):** Three Muslim girls were expelled from a middle school for refusing to remove their headscarves. Initially, the French Council of State ruled that wearing religious signs was not incompatible with *laïcité* (French secularism) as long as it did not constitute pressure, provocation, or proselytism, leaving decisions up to individual schools. 
+*   **1994:** François Bayrou, the minister of education, decreed that "ostentatious" signs of religious affiliation were strictly prohibited because they were deemed inherently proselytizing. This led to the expulsion of 69 girls, though courts often overturned these expulsions.
+*   **2003–2004:** The controversy peaked when two sisters, Alma and Lila Lévy, were expelled. Following recommendations from the Stasi Commission, the French government passed a law in March 2004 banning all "conspicuous" religious symbols in public schools.
+*   **2009:** President Nicolas Sarkozy declared that the burqa would not be tolerated in France, framing it not as a religious issue, but as an intolerable enslavement and a violation of women's dignity.
+
+Scott argues that the timing of these laws was not a reaction to an objective increase in headscarf-wearing students. Instead, it was driven by domestic political anxieties: an increase in immigration, fears of terrorism, and the rising popularity of Jean-Marie Le Pen’s far-right National Front party. Mainstream politicians used the headscarf ban to co-opt the far-right's anti-immigrant messaging and project an image of a unified, secular France.
+
+**The Underlying Clash: Sexuality and Gender Systems**
+
+While politicians often framed the debate around "security" or a defense against Islamic fundamentalism, the lecture emphasizes that the core of the controversy is actually about **sexuality and a clash of gender systems**. 
+
+For French republicans, the veil was deeply disturbing because it represented a fundamentally different way of managing relations between the sexes. The lecture contrasts two frameworks:
+
+*   **The French "Open" System:** France celebrates a sexualized public sphere characterized by *mixité* (the mixing of the sexes). In this system, feminine identity is heavily tied to visual stimulation, male desire, and the accessibility of the female body. To French observers, the veil was seen as an aggressive denial of this system—it was an "aggression" because it deprived men of their assumed right to look at and desire women. 
+*   **The Islamic "Covered" System:** In contrast, Islamic modesty rules view sexuality as a potentially disruptive force to social order that must be managed and kept private. Scott describes this as a **"psychology of recognition"**—it explicitly recognizes the volatile power of sexual differences. Conversely, French republicanism operates on a **"psychology of denial"**; it relies on "abstract individualism" to claim all citizens are perfectly equal, actively suppressing the uncomfortable reality that natural sexual differences complicate this perfect equality. 
+
+**Deconstructing "Sex and Secularism"**
+
+In the final part of the lecture, Scott's book *Sex and Secularism* is used to deconstruct the modern Western assumption that secularism intrinsically guarantees gender equality, while Islam is synonymous with patriarchal oppression. 
+
+Scott makes a threefold argument:
+
+1.  **A False History:** Gender equality has *not* always been a core feature of secularism. In fact, 19th-century European secularism heavily relied on gender *inequality*. It created a modern division where the public, rational, and political spheres were strictly male, while women were confined to the private, familial, and religious spheres.
+2.  **A Tool of Supremacy:** The sudden, late-20th-century association of secularism with gender equality ("New Secularism") emerged primarily as a way to prove the cultural superiority of the Christian West over Islam.
+3.  **Conflating Emancipation with Equality:** The West often confuses "sexual emancipation" with true gender equality. Emancipation historically means the lifting of restraints or a freedom to act on consumerist and sexual desires. Today, the West points to the visible, uncovered, and sexually available female body as proof of liberation. However, Scott argues that this merely replaces religious constraints with the demands of the capitalist market, where women are encouraged to present themselves as commodities. 
+
+Ultimately, the lecture argues that banning the headscarf in the name of "freedom" actually distracts from the persistent gender inequalities (like wage gaps and domestic violence) that still heavily plague Western, secular societies.
+
+## Religion and Science
+
+Class 7 of the "Religions" course examines the complex relationship between **Religion and Science**. The lecture first traces the historical shifts in this debate before using the work of philosopher William Sweet to conceptually analyze how scientific hypotheses and religious beliefs interact, using the Evolution versus Intelligent Design (ID) debate as a primary case study.
+
+**Historical Context and Three Models of Interaction**
+
+The lecture outlines three historical phases in the science vs. religion debate:
+
+*   **Phase I (15th-16th century):** Centered on astronomy (Copernicus and Galileo), taking place largely within a religious sphere.
+*   **Phase II (18th-19th century):** Centered on biology (Evolution vs. Creationism), taking place in the public and legal spheres.
+*   **Phase III (20th-21st century):** Centered on cosmology, biology, and epistemology, taking place largely within scientific discourse.
+
+Historically, scholars propose three ways to view the relationship between science and religion:
+
+1.  **Conflict:** Either science opposes religion (demonstrating the falsity of religious beliefs) or religion opposes science (restricting autonomous scientific research).
+2.  **Fundamentally Compatible:** Seen historically through the Islamic support of mathematics/astronomy (9th-15th century) or the Catholic Church funding Renaissance science, implying that God's creation is rational, ordered, and open to investigation.
+3.  **Independent/Non-Overlapping:** Thinkers like Stephen Jay Gould argue they are "non-overlapping magisteria." As Galileo noted, religion tells us how to go to heaven, not how the heavens go. Conflict only occurs when one oversteps its boundaries into the other's realm.
+
+**William Sweet’s Conceptual Analysis: Evolution vs. Intelligent Design**
+
+To better understand how science and religion relate today, the lecture heavily draws on William Sweet’s four-step analysis of the Intelligent Design (ID) debate. 
+
+While evolutionary accounts argue that biological development is an undirected, reactive process, proponents of ID argue that intelligent causes for complex biology are necessary and empirically detectable. Sweet clarifies this debate by deconstructing the terms involved:
+
+*   **Theory vs. Hypothesis:** Critics often dismiss ID as unscientific. Sweet notes that while ID may not be a fully elaborated, predictive scientific *theory*, it can still function as a scientific *hypothesis* (a conditional explanation capable of being tested).
+*   **The Genetic Fallacy:** ID is often attacked simply because religious people champion it. Sweet argues this is a genetic fallacy: even if ID aligns with religious ideas, ID itself is a hypothesis about nature, not a religious belief.
+
+**Defining Religious Beliefs vs. Scientific Hypotheses**
+
+Sweet argues that to understand their relationship, we must define how religious and scientific propositions differ, while recognizing they are not completely separate:
+
+*   **Scientific Hypotheses:** These are neutral, publicly testable propositions designed to describe matters of fact or how those facts exist, independent of the personal values of the scientist.
+*   **Religious Beliefs:** These are not just about "another world" but are responses to this world. They are highly personal, expressing a function in a person's life and indicating a disposition to act in a certain way. However, they also have a *descriptive* element—they make truth claims about reality that must be logically consistent and cohere with other known facts.
+*   **The Overlap:** Because both science and religion operate in the same world, respond to experiences in the world, and commend humans to act in certain ways, they are distinct but **not radically distinct**. 
+
+**The Mutual Relationship: A Two-Way Street**
+
+Ultimately, the lecture concludes that the relationship between science and religion is interactive and two-sided. Sweet rejects both fideism (which radically separates the two) and strict empiricism (which reduces religion to science).
+
+1.  **How Science Bears on Religion:** Science cannot *prove* a religious belief. However, because religious beliefs make descriptive claims about the world, science can indirectly challenge them. For example, if science proved a historical figure never existed, it would force believers to reassess or abandon the religious beliefs tied to that figure. Science forces religion to ensure its beliefs "fit" with empirical reality.
+2.  **How Religion Bears on Science:** Religion cannot directly disprove a scientific proposition. However, religion can serve as a vital moral guide for science, directing researchers toward socially responsible fields that preserve human dignity. Furthermore, religion can challenge the philosophical or ideological assumptions that sometimes masquerade as pure science (such as the assumption that the mind is merely a material byproduct).
+
+## Ethics of Technology
+
+Class 8 of the "Religions" course transitions into the realm of **Ethics and the Ethics of Technology**. Drawing heavily from the readings by Sven Ove Hansson and Peter-Paul Verbeek, the lecture explores how we define technology, how we approach applied ethics, and how technologies actively mediate our moral decisions. 
+
+**Defining Technology and Ethics**
+
+The lecture begins by establishing that "technology" refers not only to material objects like tools, machines, and computers, but also encompasses the **social practices**, skills, and rules associated with these objects. When evaluating technology ethically, the academic discourse typically shifts from foundational moral philosophy (searching for comprehensive basic principles) to applied ethics, where professional and area-specific practical issues are addressed. 
+
+**From Phenomenology to Post-phenomenology**
+
+The core theoretical framework of the lecture relies on a shift from traditional phenomenology to post-phenomenology:
+
+*   **Phenomenology:** Traditionally analyzes how human beings direct their attention toward a world of objects (intentionality). This framework assumes an active, autonomous human subject acting upon a passive, mute object.
+*   **Post-phenomenology:** Building on the work of Don Ihde, this approach rejects the strict separation of subject and object, arguing instead that they mutually constitute each other through **technological mediation**. In our modern world, human perceptions, interpretations, and moral decisions are almost always mediated by technologies. Therefore, moral agency is not solely a human affair; it is distributed across both humans and technological artifacts.
+
+**Case Study: A Post-phenomenology of Obstetric Ultrasound**
+
+To demonstrate how technology mediates morality, the lecture uses Verbeek's analysis of the obstetric ultrasound. While often viewed simply as a neutral, non-invasive technology that makes the unborn visible, a post-phenomenological lens reveals that it is highly "invasive" in a moral sense because it actively constitutes the unborn and the parents in specific ways:
+
+*   **The Fetus as a Person:** The ultrasound visually isolates the fetus from the mother's body, presenting it floating freely. Even an 11-week-old fetus (which is only 8.5 cm) appears on screen to have the size and characteristics of a newborn baby, contributing to a sense of "fetal personhood". 
+*   **The Fetus as a Patient:** The ultrasound translates pregnancy into a highly medicalized process of risk assessment and monitoring. This fundamentally shifts the experience from "expecting a child" to "choosing a child," as parents must decide whether to undergo further testing or terminate the pregnancy if defects are found. 
+*   **Shifting Relationships:** The mother loses her exclusive, "special relationship" with the unborn, often being reframed as the "environment" the fetus lives in, which can lead to surveillance of her lifestyle. Conversely, the father often gains an enhanced relationship via visual contact. Ultimately, the technology thrusts the parents into the difficult role of active decision-makers regarding the life of the unborn.
+
+**Foucault: Technology and Moral Subjectivity**
+
+Because technologies actively shape our moral decisions (as seen with the ultrasound), the lecture rejects simple instrumentalism (the idea that tech is just a neutral tool) and precautionary approaches (which just try to avoid tech as a threat). 
+
+Instead, the lecture draws on **Michel Foucault’s concept of ethics as moral self-constitution**. Foucault argued that ethics is not primarily about following a set of rules, but about how human beings actively shape themselves as "subjects" of a moral code. Applying Foucault's four aspects of moral self-constitution to technology, the lecture outlines how we should approach the ethics of technology:
+
+1.  **The Ethical Substance:** The "material" of our ethical work is the human subject itself, which takes shape in a complex interplay with mediating technologies.
+2.  **The Mode of Subjection:** Technological artifacts themselves invite us to recognize specific moral obligations and shape what we even perceive as a moral issue (e.g., the ultrasound forcing the choice to test for Down's syndrome).
+3.  **Self Practices (Ascesis):** Rather than blindly following or completely rejecting technology, we must practice *ascesis*—taking a deliberate step back to explicitly reflect on how technologies impact our lives, and choosing to use them in a responsible, stylized way.
+4.  **Teleology:** We must constantly ask ourselves what kind of beings we aspire to be as our human domain interacts with the technological domain. 
+
+Ultimately, the class concludes that we cannot separate morality from technology; ethics must actively address how technologies help constitute us as moral subjects.
+
+## Approaches to Ethics of Technology
+
+Class 9 of the "Religions" course focuses on **Approaches to the Ethics of Technology**, specifically unpacking the complex concept of "responsibility." The lecture draws primarily from two key readings: Jessica N. Fahlquist’s "Responsibility Analysis" and Hans Jonas’s "Technology and Responsibility." 
+
+**Deconstructing Responsibility**
+
+The concept of responsibility in a moral context emerged relatively recently (around the 15th-17th centuries) and fundamentally refers to the capacity to be held accountable, encompassing both negative (blameworthiness) and positive (praiseworthiness) forms. The prototype for all responsibility is parental care, as responsibility intrinsically correlates with power. 
+
+For an agent to be held morally blameworthy, five distinct conditions must generally be met:
+
+1.  **Capacity:** The person must be a moral agent capable of rational thinking.
+2.  **Causality:** The agent must be causally linked to the action or consequence.
+3.  **Knowledge:** The agent must have known what they were doing.
+4.  **Freedom:** The agent must have acted freely, without being forced.
+5.  **Wrongdoing:** The action must inherently involve some kind of moral wrong.
+
+**Backward-Looking vs. Forward-Looking Responsibility**
+
+Drawing on Fahlquist, the lecture emphasizes a crucial distinction between two temporal directions of responsibility:
+
+*   **Backward-Looking Responsibility:** This is retrospective. It asks, "Who caused the situation?" and "Who is to blame?". It is primarily concerned with **fairness**. 
+*   **Forward-Looking Responsibility:** This is prospective. It asks, "Who should do something to prevent this from happening again?". It is primarily concerned with **efficacy** (solving the problem). 
+
+Forward-looking responsibility can be further understood in two ways: as a **task** (an obligation or duty to see that a specific result is achieved) or as a **virtue** (a cultivated character trait or disposition to care for others beyond one's strict job description). Fahlquist points out that technologies themselves can mediate how much responsibility we take; for instance, alcohol interlocks in cars or GPS trackers on children can actively steer behavior and potentially alter a user's disposition to take personal responsibility.
+
+**The Problem of Many Hands**
+
+In modern technological development, innovation takes place in large, collective projects. This creates the **"problem of many hands"**: when a negative outcome occurs (like an oil spill or a space shuttle disaster), it is incredibly difficult to identify a single causally responsible individual to blame, even though the collective entity is morally responsible. 
+
+**Hans Jonas and the Obsolescence of Traditional Ethics**
+
+The second half of the lecture relies on Hans Jonas to argue that modern technology requires an entirely new ethical framework. Jonas argues that all previous, traditional ethics shared several limitations:
+
+*   They were **anthropocentric**, focusing solely on human-to-human interactions.
+*   They assumed the non-human natural world was invincible and ethically neutral, as human tech was too weak to permanently harm the cosmic order.
+*   They assumed the human condition and human nature were constant and unchangeable.
+*   They were **"neighbor" ethics**, focused entirely on short-term consequences in the immediate, local present.
+
+**The New Imperative and the Heuristics of Fear**
+
+Modern technology has obliterated these boundaries. Through its sheer scale, cumulative effects, and irreversibility, technology has made the entire global biosphere an object of human responsibility. Furthermore, humanity itself has become an object of technological reshaping through innovations like life extension, genetic engineering, and electronic behavior control, forcing us to ask what kind of humans we *ought* to be. 
+
+Because modern technology propels us toward unpredictable, "utopian" extremes, Jonas formulates a new ethical imperative. Unlike Kant's categorical imperative, which focuses on the logical consistency of an individual's present action, Jonas's imperative is collective and future-oriented: **"Act so that the effects of your action are compatible with the permanence of genuine human life"**.
+
+Ultimately, Jonas argues that our technological power to act has vastly outpaced our power to foresee the long-term consequences. Therefore, ethics must be guided by a **"heuristics of fear"** and a new humility. Recognizing our own ignorance about the ultimate outcomes of our technologies is now a prime ethical duty, compelling us to exercise restraint so that future generations simply have the chance to exist.
+
+## Defining Religion
+
+Class 10 of the "Religions" course transitions from theoretical ethics to the practical application of technology ethics, specifically examining **Ethical Tools**. Drawing primarily from the work of Payam Moula and Per Sandin, the lecture addresses how individuals can systematically navigate complex moral decisions regarding new technologies.
+
+**Defining Ethical Tools**
+
+While moral philosophers and experts are trained to perform deep ethical analyses, professionals like engineers, medical doctors, and lawyers often need practical assistance to make ethically informed judgments. **Ethical tools** are practical methods or conceptual frameworks designed to help these non-experts improve their ethical deliberations. 
+
+Most ethical tools function as more or less sophisticated checklists to ensure that users consider the right aspects, in the right order, and sometimes offer guidelines for weighing those aspects against one another. A basic example is Rotary’s "Four-Way Test," which asks the user to evaluate an action by asking if it is the truth, fair, goodwill-building, and beneficial to all.
+
+**Four Tools in Technology Assessment (TA)**
+
+The lecture details four specific ethical tools used to assess the impact of technologies:
+
+1.  **The Ethical Matrix (Ben Mepham, 1990s):** This tool creates a grid by tabulating major ethical principles (typically well-being, justice, and autonomy) against relevant stakeholder groups. 
+    *   *Pros:* It is user-friendly and highly effective at helping users map out how different groups are affected by a technology across major ethical theories. 
+    *   *Cons:* It does not help users weigh conflicting considerations to actually reach a final decision, and its "top-down" approach means facilitators might accidentally exclude marginalized stakeholders from the matrix at the outset. To fix the decision-making issue, users can sometimes add a numerical scoring system (from -2 to +2) to the grid.
+2.  **The Ethical Delphi (Inspired by RAND, 1950s):** This tool facilitates structured, anonymous debate among experts via a virtual committee. Experts exchange views in a series of rounds, with an administrator summarizing the arguments between each round until the subject is thoroughly discussed. 
+    *   *Pros:* It highlights both consensus and disagreement without forcing a unified conclusion. The anonymity neutralizes peer domination and distance.
+    *   *Cons:* It lacks public transparency (acting like a "black box"), risks bias in how the experts are selected, and might miss considerations if no expert happens to raise them.
+3.  **The Consensus Conference (Danish Board of Technology, 1980s):** Unlike the Delphi, this tool focuses heavily on public participation. Over several days, a panel of laypeople learns about a technology, selects questions, questions a panel of experts, and then drafts a consensus document outlining their conclusions. 
+    *   *Pros:* It is highly democratic, educates the public, and ensures the public's views are heard.
+    *   *Cons:* It risks self-selection bias (as only certain types of people volunteer for such conferences), low attendance, and the danger that minority views are silenced to impose a consensus.
+4.  **The Convergence Seminar:** A newer tool designed to evaluate emerging technologies and their future uncertainties (such as nanobiotechnology). It relies on **"hypothetical retrospection"**—operating on the logic of "Don't do that, you may come to regret it!". Participants break into groups and discuss various continuations of future scenarios across three phases. 
+    *   *Pros:* It is user-friendly and can be completed in just a few hours. 
+    *   *Cons:* Participants are heavily steered toward specific conclusions based on how the pre-written scenarios are framed.
+
+**Evaluating Ethical Tools**
+
+With so many tools available, the lecture concludes by asking how we evaluate what makes a "good" ethical tool. Three theoretical frameworks are presented:
+
+*   **Forsberg's Stability:** Forsberg argues that a good tool must have *intramethodological stability*—meaning the same user in similar situations should reach the same conclusion, ensuring the tool isn't just relying on random chance. However, *intermethodological stability* (where different users all reach the exact same conclusion) is actually problematic, as it indicates the tool is overly biased and eliminates the users' own diverse moral reasoning.
+*   **Kaiser et al.'s Ethical Soundness:** This framework proposes a strict, binary view where a tool is either ethically sound or unsound. Soundness is judged on criteria like the inclusion of relevant values, transparency, and the exposition of factual and ethical arguments. 
+*   **Moula and Sandin's Purposiveness:** Rejecting the binary view, Moula and Sandin argue tools should simply be evaluated on **purposiveness**—how well they achieve their specific main and added goals. For instance, a tool meant for public engagement must be evaluated heavily on procedural fairness, whereas a tool strictly meant for decision-making must be evaluated on its ability to logically guide a user to a conclusion.
