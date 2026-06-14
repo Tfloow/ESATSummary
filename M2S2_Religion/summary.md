@@ -146,31 +146,26 @@ Ultimately, Casanova argues that strict secular separation of church and state i
 
 ## Shakman Hurd 2008
 
-In *The Politics of Secularism in International Relations*, Elizabeth Shakman Hurd argues that secularism is not merely the natural absence of religion from public life, but is itself a socially constructed form of political authority that profoundly shapes international relations theory and practice. She challenges the common "Westphalian presumption" in international relations, which falsely assumes that religion was successfully privatized in 1648 and remains irrelevant to modern state behavior. 
+This chapter from *Varieties of Secularism* challenges the conventional assumption in international relations that secularism is merely the natural, neutral separation of religion and politics. Instead, the author argues that **secularism is a socially constructed organizing principle of modern politics that exercises significant power by defining the boundaries between the sacred and the secular**. 
 
-Hurd's argument is structured around several core themes:
+The text identifies two primary trajectories of secularism that prestructure discourse in international relations, both of which share philosophical roots in Immanuel Kant’s attempt to replace religious sectarianism with a universal, "rational religion". 
 
-**1. Two Varieties of Secularism**
+**Laicism**
 
-Hurd identifies two distinct trajectories of secularism that dominate Western political thought and international relations:
+The first trajectory, laicism, views religion as an irrational adversary to modern politics and seeks to force it entirely out of the public sphere. Rooted in Enlightenment critiques, laicism operates on the assumption that religious traditions are obsolete and that a singular, rational moral order should guide public life. 
 
-*   **Laicism:** Rooted in the Jacobin and French traditions, laicism seeks to forcefully expel religion from the spheres of power and authority. It views the mixing of religion and politics as inherently irrational, dangerous, and an impediment to modernization and democratization.
-*   **Judeo-Christian Secularism:** Rather than expelling religion, this accommodationist tradition views the separation of church and state as a unique achievement that grew out of a shared Judeo-Christian heritage. In this view, Judeo-Christian values are the very foundation and "common ground" upon which Western secular democracy rests. 
+*   **Impact on International Relations:** Laicism profoundly influences realist, liberal, and materialist theories of international relations, which operate on the "Westphalian presumption" that religion was successfully privatized following the creation of the modern state. It also underpins modernization theory, which treats the exclusion of religion from governance as a universally applicable science. 
+*   **Theological Nature of Laicism:** The author argues that laicism is not actually neutral; it enacts its own form of theological discourse by aggressively defining what constitutes "religion"—often characterizing it as violent or undemocratic—in order to legitimize the secular public sphere as the exclusive domain of reason and justice.
 
-**2. The Construction of the Secular West Against an "Islamic Other"**
+**Judeo-Christian Secularism**
 
-Hurd argues that these Euro-American secular traditions—and the national identities they inform—were consolidated historically through a performative opposition to Islam. In both laicism and Judeo-Christian secularism, Islam has consistently been represented as the antimodern, anti-Christian, and theocratic "Other". By defining Islam as backward and despotic, countries like France and the United States were able to define their own national identities as inherently modern, rational, and democratic. 
+The second trajectory, Judeo-Christian secularism, positions religion differently. It views the Judeo-Christian tradition not as an adversary, but as the foundational source of unity, identity, and democratic values in Western civilization. Rather than banishing religion, it celebrates the Christian origins of the secular state, asserting that a shared adherence to this religious tradition provides the ethical consensus necessary for popular government.
 
-**3. Secularism's Impact on International Relations (Turkey and Iran)**
+*   **Impact on International Relations:** This form of secularism frequently fuels the "clash of civilizations" narrative popularized by thinkers like Samuel Huntington. It frames the separation of church and state as a uniquely Western achievement and divides the world into those who share this Judeo-Christian common ground and those who do not, often leading to aggressive foreign policies designed to defend Western uniqueness against external threats, particularly Islam.
 
-Hurd demonstrates how these entrenched secularist mindsets dictate Western foreign policy and international interactions, using Turkey and Iran as primary examples:
+**Conclusion**
 
-*   **Turkey and the EU:** European resistance to Turkey's accession to the European Union goes beyond economics or human rights; it represents a profound cultural sticking point over secularism. Turkey's alternative trajectory of secularism threatens both the French-style laicist insistence on privatizing religion and the Judeo-Christian secularist belief that Europe is inherently a Christian civilization. 
-*   **The United States and Iran:** The 1979 Iranian Revolution was utterly "unthinkable" to American policymakers because it defied their fundamental secularist assumption that modernization equates to secularization. Because the revolutionaries successfully overthrew an authoritarian, US-backed secular regime (the Shah) and brought religion into the public sphere, the US viewed the revolution not just as a geopolitical threat, but as a direct affront to American national identity, which is anchored in the belief that secularization and democratization are inseparable.
-
-**4. Rethinking Political Islam and Religious Resurgence**
-
-Ultimately, Hurd argues that international relations theory fails to understand "political Islam" and the global "religious resurgence" because it relies on biased, Western secularist categories. Rather than viewing these movements simply as irrational backlashes against modernity or regressions into premodern theocracy, Hurd suggests they are active, modern contestations of how the secular and the religious are defined and divided. She urges scholars and policymakers to move beyond the rigid "secular vs. theocratic" binary and recognize that there are multiple, legitimate ways to negotiate the boundaries between religion and politics globally.
+Ultimately, the author concludes that **neither form of secularism is universally applicable; both are historically contingent constructs carved out of the specific theopolitical history of Latin Christendom**. By attempting to permanently fix the definition of religion and dictate its proper relationship to the state, both laicism and Judeo-Christian secularism marginalize non-Western perspectives and prematurely shut down political contestation over how societies can structure themselves.
 
 ## Taylor 1998
 
