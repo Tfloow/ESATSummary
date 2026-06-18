@@ -234,9 +234,7 @@ We can see a matrix of pixel instead of the (u,v) projection. We just need 3 inf
 \end{cases}
 \end{equation}
 
-Note: the $s$ is for skew, we have the aspect ratio $k_y/k_x$[^2]
-
-[^2]: I thought it was the opposite...
+Note: the $s$ is for skew, we have the aspect ratio $k_y/k_x$
 
 #### The global world coordinate problem
 
